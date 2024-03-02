@@ -1,0 +1,31 @@
+DATABASE
+----------
+1. What is Database
+  - A database is refered to the oraganised collection of struched data stored in electronically in a device like server 
+  - it will allow and access and manage and find relevant information frequently.
+  - The flat file strucher was extensively used to store data before the database system was invented 
+  - the relational database approach becomes popular in comarison to the flat file model Because it eliminate redundant data.
+
+2. DDMS Models or Database Models
+  - Few set of rules and standards that will define how the database organizes or stores data is called a Database models 
+  - It is also defines how users view the organization of data 
+
+  There are three types of data models:
+    - Hierarchical Database Management system (HDBMS)
+    - Network Database Management system (NDBMS)
+    - Relational Database Management System (RDBMS) or Object-Relational DBMS (ORDBMS) (Object-Oriented Relational DBMS (OORDBMS))
+
+  RDBMS (Relational Database Management System) or Relational Model:
+    - In HDBMS and NDBMS data is oraganized in the form of a tree strucher That looks complex to Manage and Understand 
+    - To Overcome this problem in 1970 Mr E.F.Codd from IBM came with new concept for storing data in a table strucher that is Rows and Columns format.
+    - E.F.Codd with all these ideas for the new model called "relational model" has published an article with little "a relational model of data for large shared data bank"
+    - Based on this article many companys came forward like IBM relational sofware INC (present is is in racle) etc.. Has started the design for the new database model thatv is RDBMS.
+    - RDBMS is mainly based on two mathematical principals are "Relational algebra" and "Calcutions" in the year 1970 IBM has given the prototype for RDBMS known as "system r"
+    - In the Year 1974 IBM has Launched a Language for communication with RDBMS know as "sequel" and later changed it to "SQL"
+
+3. Features of RDBMS
+  - Data can be Organized in the 
+
+
+
+

@@ -1,0 +1,284 @@
+ALTER
+-------
+ - In Oracle SQL ALTER statement used to modify the existing strucher of database object
+ - ALTER statement can be used with various clauses to modify tables, indexes, views, and other database objects 
+ - ALTER statment will update tables strucher like add columns and remove columns and rename columns 
+ - ALTER statement only work for changing table strucher 
+ - ALTER statment will rename table name also 
+
+ 	
+ 	Basic ALTER Activities
+
+	 	1. To Alerting tables of Basic statement or commands 
+	 		
+	 		syntax:
+
+	 			ALTER TABLE table_name
+				ADD column_name data_type;
+
+			Example:
+
+				ALTER TABLE employees
+				ADD birthdate DATE;
+
+		2. How to Add a column into the tables How to add multiple columns into the table [ALTER table emp ADD (address VARCHAR2(30));]
+
+			===========output============
+
+			SQL> desc emp;
+			 Name                                      Null?    Type
+			 ----------------------------------------- -------- ----------------------------
+			 ENO                                                NUMBER(3)
+			 ENAME                                              VARCHAR2(20)
+			 JOB                                                VARCHAR2(15)
+			 SAL                                                NUMBER(8,2)
+			 DOJ                                                DATE
+
+			SQL> ALTER table emp ADD (address VARCHAR2(30));
+
+			Table altered.
+
+			SQL> desc emp;
+			 Name                                      Null?    Type
+			 ----------------------------------------- -------- ----------------------------
+			 ENO                                                NUMBER(3)
+			 ENAME                                              VARCHAR2(20)
+			 JOB                                                VARCHAR2(15)
+			 SAL                                                NUMBER(8,2)
+			 DOJ                                                DATE
+			 ADDRESS                                            VARCHAR2(30)
+
+			SQL>
+			==================================
+
+			 - Below are to add multiple columns
+
+			 ===========output===================	
+			 SQL> ALTER table emp ADD (city VARCHAR2(15),pin number(6));
+
+			Table altered.
+
+			SQL> desc emp;
+			 Name                                      Null?    Type
+			 ----------------------------------------- -------- ----------------------------
+			 ENO                                                NUMBER(3)
+			 ENAME                                              VARCHAR2(20)
+			 JOB                                                VARCHAR2(15)
+			 SAL                                                NUMBER(8,2)
+			 DOJ                                                DATE
+			 ADDRESS                                            VARCHAR2(30)
+			 CITY                                               VARCHAR2(15)
+			 PIN                                                NUMBER(6)
+
+			SQL>
+			=======================================
+
+
+
+		3. How to modify existing column in table [ALTER table emp modify (address varchar2(50));]
+
+			====================OUTPUT===============================
+			SQL> desc emp;
+			 Name                                      Null?    Type
+			 ----------------------------------------- -------- ----------------------------
+			 ENO                                                NUMBER(3)
+			 ENAME                                              VARCHAR2(20)
+			 JOB                                                VARCHAR2(15)
+			 SAL                                                NUMBER(8,2)
+			 DOJ                                                DATE
+			 ADDRESS                                            VARCHAR2(30)
+			 CITY                                               VARCHAR2(15)
+			 PIN                                                NUMBER(6)
+
+			SQL> ALTER table emp modify (address varchar2(50));
+
+			Table altered.
+
+			SQL> desc emp;
+			 Name                                      Null?    Type
+			 ----------------------------------------- -------- ----------------------------
+			 ENO                                                NUMBER(3)
+			 ENAME                                              VARCHAR2(20)
+			 JOB                                                VARCHAR2(15)
+			 SAL                                                NUMBER(8,2)
+			 DOJ                                                DATE
+			 ADDRESS                                            VARCHAR2(50)
+			 CITY                                               VARCHAR2(15)
+			 PIN                                                NUMBER(6)
+
+			SQL>
+			======================================================
+			 - Observer above we changes address 30 size to 50 size 
+
+
+		4. How to remove a column or how to DROP a column in table strucher or how to remove a field in the table [ALTER table emp drop column city;]
+
+			===============OUTPUT============================
+			SQL> desc emp;
+			 Name                                      Null?    Type
+			 ----------------------------------------- -------- ----------------------------
+			 ENO                                                NUMBER(3)
+			 ENAME                                              VARCHAR2(20)
+			 JOB                                                VARCHAR2(15)
+			 SAL                                                NUMBER(8,2)
+			 DOJ                                                DATE
+			 ADDRESS                                            VARCHAR2(50)
+			 CITY                                               VARCHAR2(15)
+			 PIN                                                NUMBER(6)
+
+			SQL> ALTER table emp drop column city;
+
+			Table altered.
+
+			SQL> desc emp;
+			 Name                                      Null?    Type
+			 ----------------------------------------- -------- ----------------------------
+			 ENO                                                NUMBER(3)
+			 ENAME                                              VARCHAR2(20)
+			 JOB                                                VARCHAR2(15)
+			 SAL                                                NUMBER(8,2)
+			 DOJ                                                DATE
+			 ADDRESS                                            VARCHAR2(50)
+			 PIN                                                NUMBER(6)
+
+			SQL>
+			==========================================
+
+
+		5. How To remove Multiple colums in table strucher [It is not possible to remove multiple columns in single statement]
+
+			Note: In oracleDB it is not allowed to remove multiple columns if we want remove or drop column we have to excute multiple statements 
+			
+			---------------------
+			ALTER TABLE employees
+			DROP COLUMN column1;
+
+			ALTER TABLE employees
+			DROP COLUMN column2;
+			----------------------
+
+			Note: Remember droping a column from table especiall when a colum contain data it wont be get back be cautious and more carefull 
+
+
+		6. How Rename column in the table strucher [ALTER table emp rename column pin to pincode]
+
+			================output===========================
+			SQL> desc emp;
+			 Name                                      Null?    Type
+			 ----------------------------------------- -------- ----------------------------
+			 ENO                                                NUMBER(3)
+			 ENAME                                              VARCHAR2(20)
+			 JOB                                                VARCHAR2(15)
+			 SAL                                                NUMBER(8,2)
+			 DOJ                                                DATE
+			 ADDRESS                                            VARCHAR2(50)
+			 PIN                                                NUMBER(6)
+
+			SQL> ALTER table emp rename column pin to pincode;
+
+			Table altered.
+
+			SQL> desc emp;
+			 Name                                      Null?    Type
+			 ----------------------------------------- -------- ----------------------------
+			 ENO                                                NUMBER(3)
+			 ENAME                                              VARCHAR2(20)
+			 JOB                                                VARCHAR2(15)
+			 SAL                                                NUMBER(8,2)
+			 DOJ                                                DATE
+			 ADDRESS                                            VARCHAR2(50)
+			 PINCODE                                            NUMBER(6)
+
+			SQL>
+			=====================================================
+
+
+		7. How to Rename a Table name [ALTER table emp rename to my_emp]
+
+			> ALTER table emp rename to my_emp;
+				- emp is the old table 
+				- my_emp is the new table name 
+
+			======================output==========================
+			 SQL> desc emp;
+			 Name                                      Null?    Type
+			 ----------------------------------------- -------- ----------------------------
+			 ENO                                                NUMBER(3)
+			 ENAME                                              VARCHAR2(20)
+			 JOB                                                VARCHAR2(15)
+			 SAL                                                NUMBER(8,2)
+			 DOJ                                                DATE
+			 ADDRESS                                            VARCHAR2(50)
+			 PINCODE                                            NUMBER(6)
+
+			SQL> ALTER table emp rename to my_emp;
+
+			Table altered.
+
+			SQL> desc emp;
+			ERROR:
+			ORA-04043: object emp does not exist
+
+
+			SQL> desc my_emp;
+			 Name                                      Null?    Type
+			 ----------------------------------------- -------- ----------------------------
+			 ENO                                                NUMBER(3)
+			 ENAME                                              VARCHAR2(20)
+			 JOB                                                VARCHAR2(15)
+			 SAL                                                NUMBER(8,2)
+			 DOJ                                                DATE
+			 ADDRESS                                            VARCHAR2(50)
+			 PINCODE                                            NUMBER(6)
+
+			SQL>
+			=================================================
+
+
+
+
+
+	Advance ALTER activities
+
+		Altering Constraints:
+
+			1. Add a primari key 
+
+			 syntax:
+
+				ALTER TABLE table_name
+				ADD CONSTRAINT constraint_name PRIMARY KEY (column_name);
+
+			 Example:
+
+				ALTER TABLE employees
+				ADD CONSTRAINT pk_employee_id PRIMARY KEY (employee_id);
+
+			2. Add a Foreign Key
+
+			 syntax:
+
+			 	ALTER TABLE child_table
+				ADD CONSTRAINT fk_constraint_name
+				FOREIGN KEY (column_name)
+				REFERENCES parent_table (referenced_column);
+
+			 Example:
+
+			 	ALTER TABLE orders
+				ADD CONSTRAINT fk_customer_id
+				FOREIGN KEY (customer_id)
+				REFERENCES customers (customer_id);
+
+
+			3. Disable or Enable Constraints
+
+			 syntax: 
+
+			 	ALTER TABLE table_name
+				DISABLE CONSTRAINT constraint_name;
+
+				ALTER TABLE table_name
+				ENABLE CONSTRAINT constraint_name;
+
+

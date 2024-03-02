@@ -1,0 +1,46 @@
+INSERT
+----------
+ - To insert any data into table we use INSERT statemet 
+ - insert a record into table 
+
+ 	syntax: 
+
+ 		INSERT into <table_name>(fields_list) values(values_list)
+
+ 	OUTPUT
+ 		================================================================
+ 		SQL> INSERT INTO employe values(100,'Janaki','clerk',2000,'12-Jan-92');
+
+		1 row created.
+
+
+		SQL> select * from employe;
+
+		       ENO ENAME                JOB                    SAL DOJ
+		---------- -------------------- --------------- ---------- ---------
+		       100 Janaki               clerk                 2000 12-JAN-92
+
+		SQL>
+		==================================================================
+		 - Note: select statement used to see data inside table here table name is employe
+
+	 - How To give data only specific fields only 
+
+		======================================================================	 	
+		SQL> INSERT INTO employe(eno,ename) values(101,'Hari');
+
+		1 row created.
+
+		SQL> select * from employe;
+
+		       ENO ENAME                JOB                    SAL DOJ
+		---------- -------------------- --------------- ---------- ---------
+		       100 Janaki               clerk                 2000 12-JAN-92
+		       101 Hari
+
+		SQL>
+		=========================================================================
+			- from above only we give data only two specifi fields only 
+			
+
+

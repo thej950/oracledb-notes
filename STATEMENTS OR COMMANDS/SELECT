@@ -1,0 +1,35 @@
+SELECT
+-------
+	- To check data about the table [select * from table_name;]
+	- To check data from only one specific fields [select eno,ename from employe;]
+	
+
+	Basic syntax:
+
+		select * from table_name;
+
+	OUTPUT
+		============================================	
+		SQL> select * from employe;
+
+		       ENO ENAME                JOB                    SAL DOJ
+		---------- -------------------- --------------- ---------- ---------
+		       100 Janaki               clerk                 2000 12-JAN-92
+		       101 Hari
+
+		SQL>
+		==============================================
+	 
+	 - To check only specific fields from table 
+
+		==========================================	 	
+		SQL> select eno,ename from employe;
+
+		       ENO ENAME
+		---------- --------------------
+		       100 Janaki
+		       101 Hari
+
+		SQL>
+		=========================================
+

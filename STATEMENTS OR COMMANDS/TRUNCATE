@@ -1,0 +1,54 @@
+TRUNCATE
+-----------
+ - In Oracle SQL the TRUNCATE statement is more efficient way to remove rows in the table in a quick way 
+ - Ulike delete statement delete rows step by step and generate undo logs 
+ - truncate statement is more efficient way to delete all rows from a table 
+ - It more important while using trucate statemnt for any table make sure backup is important 
+
+ 	syntax:
+
+ 		TRUNCATE TABLE table_name;
+
+
+ 	Fetures:
+ 	 - speed : 
+ 	 	- truncate is fater compare to delete statament because it will not generate logs unlike delete statement 
+ 	 	- it will deallocate data blocks, effectivily removing all rows at once 
+
+ 	 - Rollback:
+ 	 	- Unlike delete statement TRUNCATE statment cannot rollback once trucate excution on an table data is gone thats why make sure while excute truncate statment
+ 	 	- this is more important in production environment 
+
+ 	 - Constraints and Triggers:
+ 	 	- Truncate might have restriction when foreign key constraints, uniq constraints, or triggers are present on the table 
+ 	 	- it may require additional privillages for removal of dependent objects 
+
+ 	 - space reclamation: 
+ 	 	- Releases the space associated with the table, reducing the water mark for the table 
+ 	 	- This operation is more efficient in terms of space than a DELETE 
+
+
+
+
+
+ 	 1. How To Delete data inside table permantly from this database
+
+ 	 	=============output==========================
+		SQL> select * from emp2;
+
+		       ENO ENAME                JOB                    SAL DOJ
+		---------- -------------------- --------------- ---------- ---------
+		       101 Prashanth            Developer            50000 21-JAN-22
+		       102 Navathej             Manager             800000 19-FEB-24
+
+		SQL> truncate table emp2;
+
+		Table truncated.
+
+		SQL> select * from emp2;
+
+		no rows selected
+
+		SQL>
+		====================output================================
+			- truncate will delete only data of the table not strucher of table 

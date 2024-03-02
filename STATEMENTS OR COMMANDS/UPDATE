@@ -1,0 +1,58 @@
+UPDATE
+-------
+ - UPDATE statement will modify the data inside the table
+ - UPDATE statement in database used to update or modify already existing fields or records in a table based on specified condition  
+
+ 	syntax: 
+	
+ 		UPDATE <table_name> set field_1=value_1,field_2=value_2,....[where clause];
+
+ 		UPDATE table_name
+ 		SET column1 = value1, column2 = value2, ....
+ 		WHERE condtions;
+
+ 		- from above syntax there are WHERE condition that will define where its need to be excute on which fields 
+
+ 	Note: Make sure while excution or using UPDATE statement Double check where condion is implementing if we not use where condion it may cause to perform entire table 
+
+ 	Examples:
+
+ 		==============output==================================
+		SQL> select * from employe;
+
+		       ENO ENAME                JOB                    SAL DOJ
+		---------- -------------------- --------------- ---------- ---------
+		       100 Janaki               clerk                 2000 12-JAN-92
+		       101 Hari
+
+		SQL> UPDATE employe set job='manager' WHERE ename='Hari';
+
+		1 row updated.
+
+		SQL> select * from employe;
+
+		       ENO ENAME                JOB                    SAL DOJ
+		---------- -------------------- --------------- ---------- ---------
+		       100 Janaki               clerk                 2000 12-JAN-92
+		       101 Hari                 manager
+
+		SQL>
+		=========================================================
+
+	- Below are another example how to add multiple fields 
+		===============output================================
+		SQL> UPDATE EMPLOYE SET sal=9000,doj='23-nov-2015' WHERE eno=101;
+
+		1 row updated.
+
+		SQL> SELECT * FROM EMPLOYE;
+
+		       ENO ENAME                JOB                    SAL DOJ
+		---------- -------------------- --------------- ---------- ---------
+		       100 Janaki               clerk                 2000 12-JAN-92
+		       101 Hari                 manager               9000 23-NOV-15
+
+		SQL>
+		============================================================
+
+		

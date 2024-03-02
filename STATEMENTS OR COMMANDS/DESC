@@ -1,0 +1,21 @@
+DESC
+----
+  - desc command used to display strucher of the table with appropriate field and and its datatype 
+  
+
+  example
+  
+  		SQL> CREATE TABLE employe(eno number(3),ename varchar2(20),job varchar2(15),sal number(8,2),doj date);
+
+		Table created.
+
+		SQL> desc employe
+		 Name                                      Null?    Type
+		 ----------------------------------------- -------- ----------------------------
+		 ENO                                                NUMBER(3)
+		 ENAME                                              VARCHAR2(20)
+		 JOB                                                VARCHAR2(15)
+		 SAL                                                NUMBER(8,2)
+		 DOJ                                                DATE
+
+		SQL>

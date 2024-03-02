@@ -1,0 +1,40 @@
+DELETE
+--------
+ - Delete statement used to delete records from the table based on specified where condition 
+
+ Basic syntax:
+
+ 	DELETE FROM table_name
+	WHERE condition;
+
+		- DELETE FROM table_name specify which table nedd to be take and perform activity
+		- WHERE condition specify where in the table which field need to be performed 
+		- Specifies the condition that determines which records to delete. If you omit the WHERE clause, all records in the table will be deleted.
+
+	Note: If we didn't specify where condition it will delete entire data of the table 
+
+	Examples:
+
+		====================OUTPUT==================================
+		SQL> select * from employe;
+
+		       ENO ENAME                JOB                    SAL DOJ
+		---------- -------------------- --------------- ---------- ---------
+		       100 Janaki               clerk                 2000 12-JAN-92
+		       101 Hari                 manager               9000 23-NOV-15
+
+		SQL> DELETE FROM employe WHERE ename='Hari';
+
+		1 row deleted.
+
+		SQL> select * from employe;
+
+		       ENO ENAME                JOB                    SAL DOJ
+		---------- -------------------- --------------- ---------- ---------
+		       100 Janaki               clerk                 2000 12-JAN-92
+
+		SQL>
+		================================================================
+			- Observe above example a row got  delete from table based on where condition 
+			- here while using Hari will work fine but when we use hari it will through a eeror because it an case sentive 
+		 
