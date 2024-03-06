@@ -55,4 +55,7 @@ UPDATE
 		SQL>
 		============================================================
 
-		
+
+History
+-------
+1. UPDATE employe set job='manager' WHERE ename='Hari';

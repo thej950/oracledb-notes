@@ -1,0 +1,61 @@
+ORDERED BY
+------------
+ - In Oracle ORDERED BY clause is used to start or re-arrange the records in the result set. 
+ - this ORDERED BY clause only used with select statement
+
+
+ 	syntax:
+
+ 		SELECT expression FROM tables
+ 		WHERE conditions
+ 		ORDER BY expression <ASC OR DESC>
+
+ 	1. here i want to see ordered wise details based on alphabatically 
+
+
+			SQL> select * from sbi_tbl order by name;
+
+			        ID NAME                 CITY          BALENCE
+			---------- -------------------- ---------- ----------
+			       101 babu                 chennai          5000
+			       104 githa                kolcutta         1000
+			       106 githa                vizag            3400
+			       100 janu                 hyd              3000
+			       103 kumar                kolcutta         3000
+			       102 nani                 hyd              3000
+			       105 vasu                 vizag            7000
+
+			7 rows selected.
+
+			SQL>
+
+	2. Now i want to see in desccending order 
+
+			SQL> select * from sbi_tbl order by name desc;
+
+			        ID NAME                 CITY          BALENCE
+			---------- -------------------- ---------- ----------
+			       105 vasu                 vizag            7000
+			       102 nani                 hyd              3000
+			       103 kumar                kolcutta         3000
+			       100 janu                 hyd              3000
+			       106 githa                vizag            3400
+			       104 githa                kolcutta         1000
+			       101 babu                 chennai          5000
+
+			7 rows selected.
+
+			SQL>
+
+	3. i want see total balence more than 3000 from table based on city wise but not hyd
+
+			SQL> select city,sum(balence) from sbi_tbl where balence>=3000 group by city having city<>'hyd' order by city;
+
+			CITY       SUM(BALENCE)
+			---------- ------------
+			chennai            5000
+			kolcutta           3000
+			vizag             10400
+
+			SQL> 
+			

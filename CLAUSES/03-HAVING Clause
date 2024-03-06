@@ -1,0 +1,37 @@
+HAVING Clause
+--------------
+ - In Oracle Having clause is used with GROUP By clause to restrict the groups of returned rows and where condition is TRUE 
+
+ 		Syntax:
+
+ 			SELECT expression1, expression2,.... expression_n,
+ 			aggregate_function (aggregate_expression) FROM tables
+ 			WHERE conditions
+ 			GROUP BY expression1, expression2,... expression_n
+ 			HAVING haing_condition;
+ 		
+ 	1. Here i want see only total balece of hyd users [select city,sum(balence) from sbi_tbl group by city having city='hyd';]
+
+
+			SQL> select city,sum(balence) from sbi_tbl group by city having city='hyd';
+
+			CITY       SUM(BALENCE)
+			---------- ------------
+			hyd                6000
+
+			SQL>
+
+	2. I want to see total balence of except of hyd users
+
+
+			SQL> select city,sum(balence) from sbi_tbl group by city having city!='hyd';
+
+			CITY       SUM(BALENCE)
+			---------- ------------
+			kolcutta           4000
+			vizag             10400
+			chennai            5000
+
+			SQL> 
+
+

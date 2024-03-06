@@ -1,0 +1,213 @@
+DISTICT
+---------
+ - This oracle distinct clause used to remove Duplicate data records from table 
+ - This DISTICT clause only used for SELECT statement only 
+
+ 	Syntax:
+
+ 		SELECT DISTINCT <column_name>
+ 		FROM <table_name>
+ 		WHERE <conditions>;
+
+ 	1. Using DISTINCT clause filter out city [select distinct city from customer;]
+
+ 		=============output=======================
+		NAME       CITY
+		---------- ----------
+		thej       banswada
+		Ramu       vizag
+		Raki       pune
+		Ramesh     pune
+		obules     chennai
+		prashanth  chennai
+		sai        hyd
+		srinu      hyd
+		shiva      hyd
+
+		9 rows selected.
+
+		SQL> select distinct city from customer;
+
+		CITY
+		----------
+		pune
+		banswada
+		vizag
+		chennai
+		hyd
+
+		SQL>
+		=======================================
+
+GROUP BY
+----------
+ - In Oracle GROUP BY clause is used with SELECT statment to Collect data from multiple records and group the results by one or more columns. 
+ - Aggregate Functions: aggregate functions are SUM, COUNT, MIN, MAX, or AVG functions
+
+
+
+ 		syntax:
+
+ 				SELECT expression1. expression2, expression_n, 
+ 				aggregate_function (aggregate_expression) 
+ 				FROM table_name 
+ 				WHERE conditions GROUP BY expression1, expression2,.............. expression_n;
+
+ 		Actual table from One customer
+
+ 			SQL> select * from sbi_tbl;
+
+			        ID NAME                 CITY          BALENCE
+			---------- -------------------- ---------- ----------
+			       100 janu                 hyd              3000
+			       101 babu                 chennai          5000
+			       102 nani                 hyd              3000
+			       103 kumar                kolcutta         3000
+			       104 githa                kolcutta         1000
+			       105 vasu                 vizag            7000
+			       106 githa                vizag            3400
+
+			7 rows selected.
+
+		1. From above i want total balence of all users [select sum(balence) from sbi_tbl;]
+
+
+				SQL> select sum(balence) from sbi_tbl;
+
+				SUM(BALENCE)
+				------------
+				       25400
+
+				SQL>
+
+		2. From above table i want only maximum value from balence [select max(balence) from sbi_tbl;]
+
+				SQL> select max(balence) from sbi_tbl;
+
+				MAX(BALENCE)
+				------------
+				        7000
+
+				SQL>
+		
+		3. I want to see only minimum balence [select min(balence) from sbi_tbl;]
+
+				SQL> select min(balence) from sbi_tbl;
+
+				MIN(BALENCE)
+				------------
+				        1000
+
+				SQL> 		
+
+
+		4. I want see now Total balence based on city [select city,sum(balence) from sbi_tbl group by city;] 
+
+				SQL> select city,sum(balence) from sbi_tbl group by city;
+
+				CITY       SUM(BALENCE)
+				---------- ------------
+				kolcutta           4000
+				vizag             10400
+				hyd                6000
+				chennai            5000
+
+				SQL>
+
+HAVING Clause
+--------------
+ - In Oracle Having clause is used with GROUP By clause to restrict the groups of returned rows and where condition is TRUE 
+
+ 		Syntax:
+
+ 			SELECT expression1, expression2,.... expression_n,
+ 			aggregate_function (aggregate_expression) FROM tables
+ 			WHERE conditions
+ 			GROUP BY expression1, expression2,... expression_n
+ 			HAVING haing_condition;
+ 		
+ 	1. Here i want see only total balece of hyd users [select city,sum(balence) from sbi_tbl group by city having city='hyd';]
+
+
+			SQL> select city,sum(balence) from sbi_tbl group by city having city='hyd';
+
+			CITY       SUM(BALENCE)
+			---------- ------------
+			hyd                6000
+
+			SQL>
+
+	2. I want to see total balence of except of hyd users
+
+
+			SQL> select city,sum(balence) from sbi_tbl group by city having city!='hyd';
+
+			CITY       SUM(BALENCE)
+			---------- ------------
+			kolcutta           4000
+			vizag             10400
+			chennai            5000
+
+			SQL> 
+
+ORDERED BY
+------------
+ - In Oracle ORDERED BY clause is used to start or re-arrange the records in the result set. 
+ - this ORDERED BY clause only used with select statement
+
+
+ 	syntax:
+
+ 		SELECT expression FROM tables
+ 		WHERE conditions
+ 		ORDER BY expression <ASC OR DESC>
+
+ 	1. here i want to see ordered wise details based on alphabatically 
+
+
+			SQL> select * from sbi_tbl order by name;
+
+			        ID NAME                 CITY          BALENCE
+			---------- -------------------- ---------- ----------
+			       101 babu                 chennai          5000
+			       104 githa                kolcutta         1000
+			       106 githa                vizag            3400
+			       100 janu                 hyd              3000
+			       103 kumar                kolcutta         3000
+			       102 nani                 hyd              3000
+			       105 vasu                 vizag            7000
+
+			7 rows selected.
+
+			SQL>
+
+	2. Now i want to see in desccending order 
+
+			SQL> select * from sbi_tbl order by name desc;
+
+			        ID NAME                 CITY          BALENCE
+			---------- -------------------- ---------- ----------
+			       105 vasu                 vizag            7000
+			       102 nani                 hyd              3000
+			       103 kumar                kolcutta         3000
+			       100 janu                 hyd              3000
+			       106 githa                vizag            3400
+			       104 githa                kolcutta         1000
+			       101 babu                 chennai          5000
+
+			7 rows selected.
+
+			SQL>
+
+	3. i want see total balence more than 3000 from table based on city wise but not hyd
+
+			SQL> select city,sum(balence) from sbi_tbl where balence>=3000 group by city having city<>'hyd' order by city;
+
+			CITY       SUM(BALENCE)
+			---------- ------------
+			chennai            5000
+			kolcutta           3000
+			vizag             10400
+
+			SQL> 
+			

@@ -1,0 +1,97 @@
+SAVEPOINT command
+--------------------- 
+	- this savepoint concept in oracle sed to save transaction temporarly
+	- which means it will hold the data with certain tag before move to database 
+	- we can save multiple savepoints in a single transactions 
+	- we can ROLLBACK the transaction to a given SAVEPOINT and the transaction after the SAVEPOINT are revert back its previuos state 
+	- we cannot ROLLBACK to a SAVEPOINT after the COMMIT statement
+
+		Syntax:
+
+			savepoint <pointer_name>
+
+		- Practicles OUTPUT
+
+			++++++++++++++++++++++++++++++++++++++++++++++++++++
+		SQL> select * from hdfc_tbl;
+
+		        ID NAME                 CITY          BALENCE
+		---------- -------------------- ---------- ----------
+		       100 janu                 hyd              3000
+		       101 babu                 chennai          5000
+		       102 nani                 hyd              3000
+		       200 raju                 bangalore        4000
+		       201 kiran                guntur           4500
+
+		SQL> delete from hdfc_tbl where id=100;
+
+		1 row deleted.
+
+		SQL> select * from hdfc_tbl;
+
+		        ID NAME                 CITY          BALENCE
+		---------- -------------------- ---------- ----------
+		       101 babu                 chennai          5000
+		       102 nani                 hyd              3000
+		       200 raju                 bangalore        4000
+		       201 kiran                guntur           4500
+
+		SQL>
+		SQL> savepoint b;
+
+		Savepoint created.
+
+		SQL>
+		SQL> update hdfc_tbl set city='hyderabad' where name='nani';
+
+		1 row updated.
+
+		SQL>
+
+		SQL> select * from hdfc_tbl;
+
+		        ID NAME                 CITY          BALENCE
+		---------- -------------------- ---------- ----------
+		       101 babu                 chennai          5000
+		       102 nani                 hyderabad        3000
+		       200 raju                 bangalore        4000
+		       201 kiran                guntur           4500
+
+		SQL>
+
+		SQL> savepoint c;
+
+		Savepoint created.
+
+		SQL>
+
+		SQL> rollback to b;
+
+		Rollback complete.
+
+		SQL> select * from hdfc_tbl;
+
+		        ID NAME                 CITY          BALENCE
+		---------- -------------------- ---------- ----------
+		       101 babu                 chennai          5000
+		       102 nani                 hyd              3000
+		       200 raju                 bangalore        4000
+		       201 kiran                guntur           4500
+
+		SQL>
+		SQL> rollback;
+
+		Rollback complete.
+
+		SQL> select * from hdfc_tbl;
+
+		        ID NAME                 CITY          BALENCE
+		---------- -------------------- ---------- ----------
+		       100 janu                 hyd              3000
+		       101 babu                 chennai          5000
+		       102 nani                 hyd              3000
+		       200 raju                 bangalore        4000
+		       201 kiran                guntur           4500
+
+		SQL>
+		++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

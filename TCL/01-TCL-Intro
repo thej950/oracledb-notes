@@ -1,0 +1,9 @@
+01-TCL-Intro
+------------
+TCL - Commands
+------------------
+ - TCL is means Transanction Control Language 
+ - It means whatevere we do while performing inserting the data and updating the data deleting the data 
+ - whetever DML commands those activity we used to call Transactions 
+ - To Control Those Transcation by using TCL commands
+

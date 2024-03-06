@@ -1,0 +1,54 @@
+ROLLBACK COMMAND
+----------------
+	- The Rollback command in oracle used to perform undo action which is not saved permanently to the database
+	- It will get back its initial state of the tabble before DML commands excution
+	- If the COMMIT was performed those data it will not return back 
+	- which means if data is commited there ROLLBACK was not work 
+
+	Syntax:
+
+		rollback;
+
+	- Observer Below output i update hyd to hyderabad for only janu the i perform rollback
+
+			+++++++++++++++++++++++++++++++++++++++++++++++++++
+		SQL> select * from hdfc_tbl;
+
+		        ID NAME                 CITY          BALENCE
+		---------- -------------------- ---------- ----------
+		       100 janu                 hyd              3000
+		       101 babu                 chennai          5000
+		       102 nani                 hyd              3000
+		       200 raju                 bangalore        4000
+		       201 kiran                guntur           4500
+
+		SQL> update hdfc_tbl set city='hyderabd' where id=100;
+
+		1 row updated.
+
+		SQL> select * from hdfc_tbl;
+
+		        ID NAME                 CITY          BALENCE
+		---------- -------------------- ---------- ----------
+		       100 janu                 hyderabd         3000
+		       101 babu                 chennai          5000
+		       102 nani                 hyd              3000
+		       200 raju                 bangalore        4000
+		       201 kiran                guntur           4500
+
+		SQL> rollback;
+
+		Rollback complete.
+
+		SQL> select * from hdfc_tbl;
+
+		        ID NAME                 CITY          BALENCE
+		---------- -------------------- ---------- ----------
+		       100 janu                 hyd              3000
+		       101 babu                 chennai          5000
+		       102 nani                 hyd              3000
+		       200 raju                 bangalore        4000
+		       201 kiran                guntur           4500
+
+		SQL>
+		++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

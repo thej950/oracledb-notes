@@ -1,0 +1,16 @@
+COMMIT
+---------
+ 	1. COMMIT Command
+ 		- when we perform commit command all the activity done previously and moved to database all the data
+ 		- In simple way to excute command is "commit" 
+
+ 		There two ways of commits 
+ 			- IMPLICIT COMMIT 
+ 			  - this impliciti commit these transaction commited by system by default example like DDL commands
+
+ 			- EXPLICIT COMMIT
+ 			  - These Transactions are committed by te user as per Requirements example like DML commands
+
+ 		Syntax: 
+
+ 			commit;

@@ -1,0 +1,3 @@
+To see tables owned by a curent user 
+	
+	SELECT table_name FROM user_tables;

@@ -1,0 +1,75 @@
+GROUP BY
+----------
+ - In Oracle GROUP BY clause is used with SELECT statment to Collect data from multiple records and group the results by one or more columns. 
+ - Aggregate Functions: aggregate functions are SUM, COUNT, MIN, MAX, or AVG functions
+
+
+
+ 		syntax:
+
+ 				SELECT expression1. expression2, expression_n, 
+ 				aggregate_function (aggregate_expression) 
+ 				FROM table_name 
+ 				WHERE conditions GROUP BY expression1, expression2,.............. expression_n;
+
+ 		Actual table from One customer
+
+ 			SQL> select * from sbi_tbl;
+
+			        ID NAME                 CITY          BALENCE
+			---------- -------------------- ---------- ----------
+			       100 janu                 hyd              3000
+			       101 babu                 chennai          5000
+			       102 nani                 hyd              3000
+			       103 kumar                kolcutta         3000
+			       104 githa                kolcutta         1000
+			       105 vasu                 vizag            7000
+			       106 githa                vizag            3400
+
+			7 rows selected.
+
+		1. From above i want total balence of all users [select sum(balence) from sbi_tbl;]
+
+
+				SQL> select sum(balence) from sbi_tbl;
+
+				SUM(BALENCE)
+				------------
+				       25400
+
+				SQL>
+
+		2. From above table i want only maximum value from balence [select max(balence) from sbi_tbl;]
+
+				SQL> select max(balence) from sbi_tbl;
+
+				MAX(BALENCE)
+				------------
+				        7000
+
+				SQL>
+		
+		3. I want to see only minimum balence [select min(balence) from sbi_tbl;]
+
+				SQL> select min(balence) from sbi_tbl;
+
+				MIN(BALENCE)
+				------------
+				        1000
+
+				SQL> 		
+
+
+		4. I want see now Total balence based on city [select city,sum(balence) from sbi_tbl group by city;] 
+
+				SQL> select city,sum(balence) from sbi_tbl group by city;
+
+				CITY       SUM(BALENCE)
+				---------- ------------
+				kolcutta           4000
+				vizag             10400
+				hyd                6000
+				chennai            5000
+
+				SQL>
+

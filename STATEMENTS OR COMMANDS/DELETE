@@ -13,6 +13,7 @@ DELETE
 
 	Note: If we didn't specify where condition it will delete entire data of the table 
 
+ 1. To delete a specific row in the table [DELETE FROM employe WHERE ename='Hari';]
 	Examples:
 
 		====================OUTPUT==================================
@@ -37,4 +38,24 @@ DELETE
 		================================================================
 			- Observe above example a row got  delete from table based on where condition 
 			- here while using Hari will work fine but when we use hari it will through a eeror because it an case sentive 
-		 
+
+ 2. How to delete a entire table data [delete from table2;]
+	======output==========
+	SQL> delete from table2;
+
+	9 rows deleted.
+
+	SQL>
+	========================
+		- here only table data will be delete not table strucher 
+		- table strucher remain same 
+	
+	==============output=============================
+	SQL> desc table2;
+	Name                                      Null?    Type
+	----------------------------------------- -------- ----------------------------
+	NO                                                 NUMBER(3)
+	NAME                                               VARCHAR2(10)
+	
+	SQL>
+	========================================

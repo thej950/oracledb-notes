@@ -1,0 +1,42 @@
+DISTICT
+---------
+ - This oracle distinct clause used to remove Duplicate data records from table 
+ - This DISTICT clause only used for SELECT statement only 
+
+ 	Syntax:
+
+ 		SELECT DISTINCT <column_name>
+ 		FROM <table_name>
+ 		WHERE <conditions>;
+
+ 	1. Using DISTINCT clause filter out city [select distinct city from customer;]
+
+ 		=============output=======================
+		NAME       CITY
+		---------- ----------
+		thej       banswada
+		Ramu       vizag
+		Raki       pune
+		Ramesh     pune
+		obules     chennai
+		prashanth  chennai
+		sai        hyd
+		srinu      hyd
+		shiva      hyd
+
+		9 rows selected.
+
+		SQL> select distinct city from customer;
+
+		CITY
+		----------
+		pune
+		banswada
+		vizag
+		chennai
+		hyd
+
+		SQL>
+		=======================================
+
+

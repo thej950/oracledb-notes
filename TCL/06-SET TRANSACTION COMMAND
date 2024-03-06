@@ -1,0 +1,92 @@
+SET TRANSACTION COMMAND
+---------------------------- 
+	- A SET TRASACTION in oracle is optional 
+	- a new  transaction begins implicitly with the first DML statement that will excute after you make a database connection or with the first DML statement that you excute following a commit or a rollback 
+	- You use SET TRANSACTION only when we want TRANSACTION ATTRIBUTES  such as READ ONLY that are not default 
+
+	- The SET TRANSACTION marks the begining of a transaction 
+	- Any changes we make to our data following the begiing of the trasaction are not made permanent untill we issue a COMMIT 
+	- further more those changes will not visible to other users until we have to issue a commit 
+
+		Syntax:
+
+			SET TRANSACTION <READ ONLY | READ WRITE> <NAME 'transaction_name'>;
+
+	- Transaction Types
+		
+		1. set transaction read write 
+			- it is the default transaction type specified as a read write transaction 
+			- it will allow us to issue statements like UPDATE and DELETE
+
+		2. set transaction read only
+			- it is read only transaction 
+			- it will does not allow and delete statements like DML statements
+
+		Practicles of OUTPUT
+
+				+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+				SQL> set transaction read only;
+
+				Transaction set.
+
+				SQL> select * from hdfc_tbl;
+
+				        ID NAME                 CITY          BALENCE
+				---------- -------------------- ---------- ----------
+				       100 janu                 hyd              3000
+				       101 babu                 chennai          5000
+				       102 nani                 hyd              3000
+				       200 raju                 bangalore        4000
+				       201 kiran                guntur           4500
+
+				SQL> update hdfc_tbl set city='nellore' where id=100;
+				update hdfc_tbl set city='nellore' where id=100
+				       *
+				ERROR at line 1:
+				ORA-01456: may not perform insert/delete/update operation inside a READ ONLY
+				transaction
+
+
+				SQL>
+				+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+			- which means we cannot update or delete or insert data into database
+
+				++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+				SQL> set transaction read write;
+				set transaction read write
+				*
+				ERROR at line 1:
+				ORA-01453: SET TRANSACTION must be first statement of transaction
+
+
+				SQL>
+
+			- after restart system it will work observer below output simple close terminal and open terminal 
+					
+				+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+				SQL> select * from hdfc_tbl;
+
+				        ID NAME                 CITY          BALENCE
+				---------- -------------------- ---------- ----------
+				       100 janu                 hyd              3000
+				       101 babu                 chennai          5000
+				       102 nani                 hyd              3000
+				       200 raju                 bangalore        4000
+				       201 kiran                guntur           4500
+
+				SQL> update hdfc_tbl set city='nellore' where id=101;
+
+				1 row updated.
+
+				SQL> select * from hdfc_tbl;
+
+				        ID NAME                 CITY          BALENCE
+				---------- -------------------- ---------- ----------
+				       100 janu                 hyd              3000
+				       101 babu                 nellore          5000
+				       102 nani                 hyd              3000
+				       200 raju                 bangalore        4000
+				       201 kiran                guntur           4500
+
+				SQL>
+				+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

@@ -7,21 +7,21 @@ INSERT
 
  		INSERT into <table_name>(fields_list) values(values_list)
 
- 	OUTPUT
- 		================================================================
- 		SQL> INSERT INTO employe values(100,'Janaki','clerk',2000,'12-Jan-92');
-
-		1 row created.
-
-
-		SQL> select * from employe;
-
-		       ENO ENAME                JOB                    SAL DOJ
-		---------- -------------------- --------------- ---------- ---------
-		       100 Janaki               clerk                 2000 12-JAN-92
-
-		SQL>
-		==================================================================
+			OUTPUT
+				================================================================
+				SQL> INSERT INTO employe values(100,'Janaki','clerk',2000,'12-Jan-92');
+		
+				1 row created.
+		
+		
+				SQL> select * from employe;
+		
+					ENO ENAME                JOB                    SAL DOJ
+				---------- -------------------- --------------- ---------- ---------
+					100 Janaki               clerk                 2000 12-JAN-92
+		
+				SQL>
+				==================================================================
 		 - Note: select statement used to see data inside table here table name is employe
 
 	 - How To give data only specific fields only 
@@ -41,6 +41,285 @@ INSERT
 		SQL>
 		=========================================================================
 			- from above only we give data only two specifi fields only 
+
+
+
+ - How to use insert statement in efficient way to add rows in the table 
+
+ 	Examples:
+
+ 	1 Insert data repeatadly using one command [insert into emp values (&eno,'&ename','&job','&sal','&doj');]
+ 	 	- using below & we can add multiple lines efficiently in a table easily
+	 	- "/" this is a backward slash this will run previous command of sql statement  
+ 
+
+ 		- Here create emp table the perform activiy store rows in emp table 
+
+ 		===========output======================
+		SQL> select * from emp;
+
+		no rows selected
+
+		SQL> insert into emp values (&eno,'&ename','&job','&sal','&doj');
+		Enter value for eno: 101
+		Enter value for ename: Prashanth
+		Enter value for job: Developer
+		Enter value for sal: 50000
+		Enter value for doj: 21-jan-22
+		old   1: insert into emp values (&eno,'&ename','&job','&sal','&doj')
+		new   1: insert into emp values (101,'Prashanth','Developer','50000','21-jan-22')
+
+		1 row created.
+
+		SQL> /
+		Enter value for eno: 102
+		Enter value for ename: Navathej
+		Enter value for job: Manager
+		Enter value for sal: 800000
+		Enter value for doj: 19-feb-24
+		old   1: insert into emp values (&eno,'&ename','&job','&sal','&doj')
+		new   1: insert into emp values (102,'Navathej','Manager','800000','19-feb-24')
+
+		1 row created.
+
+		SQL> select * from emp;
+
+		       ENO ENAME                JOB                    SAL DOJ
+		---------- -------------------- --------------- ---------- ---------
+		       101 Prashanth            Developer            50000 21-JAN-22
+		       102 Navathej             Manager             800000 19-FEB-24
+
+		SQL>
+		========================================
+
+	2 To copy data from one table to another table with same strucher and same data [create table emp2 as select * from emp;]
+
+	 	- INSERT INTO SELECT statement
+	 	- lets create a table with emp and add some rows into that 
+
+		 	SQL> CREATE TABLE emp(eno number(3),ename varchar2(20),job varchar2(15),sal number(8,2),doj date);
+
+
+			SQL> select * from emp;
+
+			       ENO ENAME                JOB                    SAL DOJ
+			---------- -------------------- --------------- ---------- ---------
+			       101 Prashanth            Developer            50000 21-JAN-22
+			       102 Navathej             Manager             800000 19-FEB-24
+
+			SQL>
+
+
+		- Now create a same table with different name using beow command
+
+
+			SQL> create table emp2 as select * from emp;
+
+			Table created.
+
+			SQL> select * from emp;
+
+			       ENO ENAME                JOB                    SAL DOJ
+			---------- -------------------- --------------- ---------- ---------
+			       101 Prashanth            Developer            50000 21-JAN-22
+			       102 Navathej             Manager             800000 19-FEB-24
+
+			SQL> select * from emp2;
+
+			       ENO ENAME                JOB                    SAL DOJ
+			---------- -------------------- --------------- ---------- ---------
+			       101 Prashanth            Developer            50000 21-JAN-22
+			       102 Navathej             Manager             800000 19-FEB-24
+
+			SQL>
+
+	3 To copy only strucher of the table below is the command
+
+	 	===============output===================================
+	 	SQL> create table new_emp3 as select * from emp where eno=0;
+
+		Table created.
+
+		SQL> select * from new_emp3;
+
+		no rows selected
+
+		SQL> desc new_emp3;
+		 Name                                      Null?    Type
+		 ----------------------------------------- -------- ----------------------------
+		 ENO                                                NUMBER(3)
+		 ENAME                                              VARCHAR2(20)
+		 JOB                                                VARCHAR2(15)
+		 SAL                                                NUMBER(8,2)
+		 DOJ                                                DATE
+
+		SQL>
+		===========================================================
+			- from above command only strucher taken from old table but not data 
+
+	4 Add data into another table (source table to destination table) 
+	[create table emp_4 as select * from emp where eno=0;]
+
+	 	- Now we have a new_emp table from above scenario that new_emp table is empty it not containe data so here i want to add data into new table from old table (emp) to new table (new_emp) using below command
+
+	 	syntax: 
+	 		insert into <destination_already existed new_table>(field1,field2...etc) select field1,field2 from <source_old_table>
+
+	 	Examples: 
+
+	 		================output==================================
+			SQL> create table emp_4 as select * from emp where eno=0;
+
+			Table created.
+
+			SQL> select * from emp_4;
+
+			no rows selected
+
+			SQL> desc emp_4;
+			 Name                                      Null?    Type
+			 ----------------------------------------- -------- ----------------------------
+			 ENO                                                NUMBER(3)
+			 ENAME                                              VARCHAR2(20)
+			 JOB                                                VARCHAR2(15)
+			 SAL                                                NUMBER(8,2)
+			 DOJ                                                DATE
+
+			SQL> insert into emp_4(eno,ename) select eno,ename from emp;
+
+			2 rows created.
+
+			SQL> select * from emp_4;
+
+			       ENO ENAME                JOB                    SAL DOJ
+			---------- -------------------- --------------- ---------- ---------
+			       101 Prashanth
+			       102 Navathej
+
+			SQL>
+			===================================================
+
+
+
+
+	5 Add Multiple Rows in a single table in a single command
+	[insert into employees (employee_id, employee_name, employee_salary) values(101, 'jhon Doe', 50000);]
+
+		- To add multiple rows into a single table we mostly use INSERT INTO statement with VALUES clause or INSERT INTO .... SELECT syntax 
+
+			Using INSERT INTO ... VALUES:
+			---------------------------------
+			INSERT INTO your_table_name (column1, column2, column3, ...)
+			VALUES
+			(value1_1, value1_2, value1_3, ...),
+			(value2_1, value2_2, value2_3, ...),
+			(value3_1, value3_2, value3_3, ...),
+			...;
+			------------------------------------
+			Like Below 
+			-----------------------------------
+			INSERT INTO employees (employee_id, employee_name, salary)
+			VALUES
+			(101, 'John Doe', 50000),
+			(102, 'Jane Smith', 60000),
+			(103, 'Bob Johnson', 55000);
+			---------------------------------------
+			- If the values you want to insert are already present in another table or result set, you can use the INSERT INTO ... SELECT syntax:
+			---------------------------------------
+			INSERT INTO your_table_name (column1, column2, column3, ...)
+			SELECT value1_1, value1_2, value1_3, ...
+			FROM another_table_name
+			WHERE your_condition;
+			------------------------------------------
+			Example Below:
+			-----------------------------------------
+			INSERT INTO employees (employee_id, employee_name, salary)
+			SELECT 104, 'Alice Brown', 70000
+			FROM dual;
+ 			-----------------------------------------
+ 			- above example will instruct to understand how insert multiple rows into table using single sql statement
+
+
+
+ 
+
+
+
+
+
+
+ 		- Lets understand here as well to add multiple rows in single table with single sql statement
+ 		 
+ 		 - lets create a fruits table here
+
+ 		 	CREATE TABLE fruits (
+ 		 		fruite_name VARVHAR2(100),
+ 		 		color VARCHAR2(100)
+ 		 		);
+
+ 		 - from above command a fruits table got create lets add multiple rows in tha fruits table 
+
+ 		 	INSERT ALL
+ 		 		INTO fruits(fruite_name,color) values('banana','yellow')
+ 		 		INTO fruits(fruite_name,color) values('grape','black')
+ 		 		INTO fruits(fruite_name,color) valuse('apple','red')
+ 		 	select 1 from dual;
+
+ 		 		- from above statement it will add three lines into fruits table 
+
+ 		 	- And we can also excute above statement in a single statement also
+ 		 		--------------------------------------------------
+				CREATE TABLE fruits (
+				    fruite_name VARCHAR2(100),
+				    color VARCHAR2(100)
+				);
+
+				INSERT ALL
+				    INTO fruits(fruite_name, color) VALUES ('banana', 'yellow')
+				    INTO fruits(fruite_name, color) VALUES ('grape', 'black')
+				    INTO fruits(fruite_name, color) VALUES ('apple', 'red')
+				SELECT 1 FROM dual;
+				---------------------------------------------------------
+
+				==============output=========================
+
+				SQL> desc fruits
+				 Name                                      Null?    Type
+				 ----------------------------------------- -------- ----------------------------
+				 FRUITE_NAME                                        VARCHAR2(100)
+				 COLOR                                              VARCHAR2(100)
+
+				SQL> INSERT ALL
+				  2  INTO fruits(fruite_name, color) VALUES ('banana', 'yellow')
+				  3  INTO fruits(fruite_name, color) VALUES ('grape', 'black')
+				  4  INTO fruits(fruite_name, color) VALUES ('apple', 'red')
+				  5  SELECT 1 FROM dual;
+
+				3 rows created.
+				==================================================
+				SQL> select * from fruits;
+
+				FRUITE_NAME
+				--------------------------------------------------------------------------------
+				COLOR
+				--------------------------------------------------------------------------------
+				banana
+				yellow
+
+				grape
+				black
+
+				apple
+				red
+
+
+				SQL>
+				==============================================
+					- from above we use VARCHAR(100) thats why those take lengthy lines thats they will display like that 
+
+
+
+
 			
 
 

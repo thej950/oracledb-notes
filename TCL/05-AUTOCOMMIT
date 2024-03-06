@@ -1,0 +1,9 @@
+AUTOCOMMIT
+--------------
+	- when we setup AUTOCOMMIT in database there is not required excute commit command every time
+	- when we perform theses DML  commands like INSERT, UPDATE, DELETE command is excuted then after to store data while we need to perform command like COMMIT to store all TRANSACTION in database 
+	- But whe we set AUTOCOMMIT ON there is not required to excute everytime to perform commit command 
+
+		Syntax:
+
+			SET AUTOCOMMIT ON/OFF;

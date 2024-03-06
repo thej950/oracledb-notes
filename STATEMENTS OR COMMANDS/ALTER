@@ -22,6 +22,7 @@ ALTER
 				ADD birthdate DATE;
 
 		2. How to Add a column into the tables How to add multiple columns into the table [ALTER table emp ADD (address VARCHAR2(30));]
+		(Add column) 
 
 			===========output============
 
@@ -76,6 +77,7 @@ ALTER
 
 
 		3. How to modify existing column in table [ALTER table emp modify (address varchar2(50));]
+		(modify column)
 
 			====================OUTPUT===============================
 			SQL> desc emp;
@@ -112,6 +114,7 @@ ALTER
 
 
 		4. How to remove a column or how to DROP a column in table strucher or how to remove a field in the table [ALTER table emp drop column city;]
+		(Remove column)
 
 			===============OUTPUT============================
 			SQL> desc emp;
@@ -160,7 +163,8 @@ ALTER
 			Note: Remember droping a column from table especiall when a colum contain data it wont be get back be cautious and more carefull 
 
 
-		6. How Rename column in the table strucher [ALTER table emp rename column pin to pincode]
+		6. How Rename column in the table strucher [ALTER table emp rename column pin to pincode;]
+		(Rename column)
 
 			================output===========================
 			SQL> desc emp;
@@ -193,7 +197,8 @@ ALTER
 			=====================================================
 
 
-		7. How to Rename a Table name [ALTER table emp rename to my_emp]
+		7. How to Rename a Table name [ALTER table emp rename to my_emp;]
+		(Rename Table name)
 
 			> ALTER table emp rename to my_emp;
 				- emp is the old table 
@@ -282,3 +287,11 @@ ALTER
 				ENABLE CONSTRAINT constraint_name;
 
 
+
+HISTORY
+-------
+1. ALTER table emp ADD (address VARCHAR2(30));
+2. ALTER table emp modify (address varchar2(50));
+3. ALTER table emp drop column city;
+4. ALTER table emp rename column pin to pincode;
+5. ALTER table emp rename to my_emp;
