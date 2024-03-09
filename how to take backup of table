@@ -1,0 +1,5 @@
+how to take backup of table
+----------------------------
+	
+
+	1. create table new_tbl as select column_1,column_2 from old_tbl;

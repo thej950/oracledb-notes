@@ -1,0 +1,118 @@
+CHECK Constraints
+------------------
+ - check constraints in Oracle used to enforce Domain integrity.
+ - Domain intigrity means the values that are going to store in a table column must be followed by some defined rules such as range, types, and format.
+ - In simple words we can say that Constraints ensures Valid entities for a given column value by restricting the type of value, the format data, or the range of possible values. 
+ - The check constraints in Oracle can be applied to a single or multiple columns of a table 
+ - The CHEK Constraints ca be defined while creating a new table or using ALTER TABLE statement for the already existing table 
+
+ - check constraints in oracle can be implemeted in two ways 
+ 	1. Column level Constraints
+ 		- when we apply column level constraints this will appled to only column of the table 
+
+ 	2. Table Level Constraints
+ 		- when we apply this check contraints in table it will refered to any column in table 
+
+ 	- A Table may containe any umber of check constraints and will apply to any column Data type like integer, charecter, and decimal, data etc....
+
+ 		How to add constraints to an existing table in oracle 
+
+ 			syntax:
+
+ 				ALTER TABLE <table_name> ADD CONSTRAINT <constraint_key_name> <constraint_type> (<column_name>);
+
+ 		How to Drop constraints from an existing table in Oracle
+
+ 			syntax:
+
+ 				ALTER TABLE <table_name> DROP CONSTRAINT <constraint_key_name>;
+
+ 			OUTPUT PRACTICLES FOR COLUMN CONSTRAINT
+
+ 				step1: table created with check constraint 
+
+ 						SQL> create table student(id number(3),name varchar2(10),course varchar2(10),fee number(8,2) check(fee between 4000 and 8000));
+
+						Table created.
+
+						SQL>
+
+				step2: we inser a value inside table 
+
+
+						SQL> insert into student values(100,'kiran','Oracle',4500);
+
+						1 row created.
+
+						SQL>
+
+				step3: Insert a new values with to voilate check constraint 
+
+						SQL> insert into student values(10,'Hari','Java',9000);
+						insert into student values(10,'Hari','Java',9000)
+						*
+						ERROR at line 1:
+						ORA-02290: check constraint (SYSTEM.SYS_C007446) violated
+
+
+						SQL>
+
+					Note: Observe above output we already give check constraint that need to be use fee between 400 to 800 only but here is 9000 thats we it is voilating its check constraints rules 
+
+
+
+
+
+
+
+			OUTPUT PRACTICLE FOR TABLE CONSTRAINT
+
+				step1: table created with table constraint with constraint name here is "ck1" and also we specify in that couser column must should containe only specified valuse and fee column should be only 4000 to 8000 only 
+
+
+						SQL> create table student(id number(3), name varchar2(10), course varchar2(10), fee number(8,2), constraint ck1 check(course in('Oracle','Java','Html') and fee between 4000 and 8000));
+
+						Table created.
+
+						SQL>
+
+				step2: we insert some values into table 
+
+						SQL> insert into student values(100, 'Thej', 'Java', 5000);
+
+						1 row created.
+
+						SQL>
+
+				step3: we insery some values ints gets error because we violated constraint
+
+						SQL> insert into student values(101, 'Raju', 'C lang', 4500);
+						insert into student values(101, 'Raju', 'C lang', 4500)
+						*
+						ERROR at line 1:
+						ORA-02290: check constraint (SYSTEM.CK1) violated
+
+				step4: lets Remove ck1 constraint here by using ALTER statement
+
+						SQL> alter table student drop constraint ck1;
+
+						Table altered.
+
+						SQL>
+
+				step4: Now we able to add that insert values earlier we get an error
+
+						SQL> insert into student values(101, 'Raju', 'C lang', 4500);
+
+						1 row created.
+
+						SQL>
+
+				step5: Lets add constraint again with ALTER statement
+
+						SQL> alter table student add constraint ck1 check(course in('Html','Oracle','Java') and fee between 4000 and 8000);
+
+						Table altered.
+
+						SQL>
+

@@ -1,0 +1,53 @@
+Microsoft Azure
+----------------
+DAY-1
+	what is azure 
+	 - Azure is a public cloud computing platform from microsoft 
+
+	What is infrastrucher 
+	 - compute
+	 - storage 
+	 - network
+	 - security
+
+	what is data center 
+	 - Data center is a physiacl location where all the facility containe to host all our IT infrastrucher
+	 - we easily access the datacenter from our system 
+
+	what does cloud computing 
+	 - cloud computing provide and available datacenter using through internet
+	 - which means we easily access datacenter servers using internet if we setup our datacenter on cloud 
+	 - cloud computing provide ondemand availability of computers and system resources especially storage 
+
+	Types of cloud computing
+	 - public
+	  - less expensive 
+	  - not security
+	 - private
+	  - expensive
+	  - internal cloud 
+	  - more secure specific to customers only
+	  - here we setup datacenter in a dedicated places 
+	 - hybrid
+	  - combination of public and private 
+	  
+	Cloud Models
+	 - IAAS
+	 - PAAS
+	 - SAAS
+
+	To create Azure account in (www.portal.azure.com)
+	 - Goto azure free trial account
+	   1. create a microsoft account (abcd.outlook.com)
+	   2. provide debit card details also 
+
+
+DAY-2
+	1. Process to depoy an virtual machine in azure "8:00 min To 33:00 min"
+	  - here launch an windows server2016 
+	  - connect that machine using rdp with username and password this username and password we created at the time of lauching and vm
+	
+	2. Download sql server 22 edition in vm using internet browser and install sql server in vm "38:00 min to 46:00 min" 
+	
+	3. Download SSMS and perform connect sql server using ssms inside vm
+	 - Download and install ssms using browser in vm and this ssms using we able to connect that sql usig this ssms "48:00 min to 58:00min"

@@ -1,0 +1,713 @@
+DATA INTEGRITY CONSTRAINTS
+----------------------------
+1. What is Data Integrity In Oracle
+  - Data integrity means the data containes in the database need to be accurate and consistent and reliable
+  - To provide data integrity "RDBMS" Provide us a Set of Integrity Constraints those will ensurs the whatever data entered in to database is going to be accurate, consistent, and reliable. 
+  - This is the Main reason why end user Trust the database.
+
+  Note: Thses Constraints will Maintain from Data miss manage in the Database  
+
+  This Data Integrity again Classified Into Two Types
+  ----------------------------------------------------
+  	1. Pre-defined Data integrity (using constraints) or Declarative
+  	2. User-defined data integrity (using triggers) or Procedural
+
+  	Predefined Data integrity: 
+  	--------------------------
+  		- This Data Integrity can be implemented with the help of "Constraints"
+  		- These are again Three Types
+
+  			1. Entity Integrity
+  			2. Referential Integrity
+  			3. Domain Integrity 
+
+  		1. Entity Integrity: 
+  			- it will ensure each Row is Uniquely Identified in a Table.
+  			- To Implement This Mechanism we use "primary key" or "unique" constraint.
+  		2. Referential Integrity:
+
+  			- It will Ensure To create a Relationship between tables.
+  			- To Implement This Mechanism we use "foreign key"
+  		
+  		3. Domain Integrity:
+  			- Domain is Nothing But a Column.
+  			- It will ensure that To check values with user define conditions before accepting values into a column
+  			- To Perform This Mechanism we use "check", "default", "not null" constraints
+
+ Constraints In Oracle:
+ ------------------------
+	- This Constrints in Oracle are Basically used to restrict the Insertion of Unwanted data in the database.
+	- which means They are Mainly used to Maintain Data Integrity
+	- we can create the constraint on single column or Multiple columns of a table in Oracle
+
+	Types of Constraints available in Oracle:
+	--------------------------------------------
+
+		- NOT NULL Constraint
+		- UNIQUE KEY Constraint
+		- CHECK KEY Constraint
+		- PRIMARY KEY Constraint
+		- FOREIGN KEY OR REFERENCE KEY Constraint
+		- DEFAULT Constraint
+
+
+ How To Create Contraints in Oracle
+ ------------------------------------
+  - All Database are supporting the Below Following Two types of methods To Define Constraints 
+  	1. Column Level
+  	2. Table level
+
+  	Column Level constraint:
+  		- In this method we are defining constraints on indivudual columns.
+
+  		Syntax:
+
+  			CREATE TABLE <table_name> (<column_name1> <datatype> <constraint_type>,.............);
+
+  	Table Level constriant:
+  		- In this method we are defining constraints after all columns are declared at the end of the table defintion
+
+  		Syntax:
+
+  			CREATE TABLE <table_name> (<column_name> <data_type>, <column_name> <data_type>,............ <constraint_type>);
+
+
+  	NOT NULL Constraints:
+  	---------------------
+  		- By default the database stores NULL value means no value in the data Row.
+  		- By defining NOT NULL to the column, the default behaviour of the database colum changes and it does not accept NULL VALUES.
+  		- In Oracle, A Table can containe any number of NOT NULL Constraints
+  		- The NOT NULL Constraints can be defined to string as well as Numeric data types also such as INT, VARCHAR, etc...
+  		- The NOT NULL Constraints Does not support "Table Level" it can be only applicable to Column level
+
+  	Practicles OUTPUT
+
+		step1: create a table
+			+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+			 SQL> create table flipkart_tbl(id number(3) not null, name varchar2(10) not null, qty number(2),price number(8,2));
+
+			Table created.
+			++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		
+		step2: describe a table
+			+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+			SQL> desc flipkart_tbl;
+			 Name                                      Null?    Type
+			 ----------------------------------------- -------- ----------------------------
+			 ID                                        NOT NULL NUMBER(3)
+			 NAME                                      NOT NULL VARCHAR2(10)
+			 QTY                                                NUMBER(2)
+			 PRICE                                              NUMBER(8,2)
+
+			SQL>
+			+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		
+		step3: Insert some valuse in table
+			+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+			SQL> insert into flipkart_tbl values(100,'pen',30,5);
+
+			1 row created.
+
+			SQL>
+			++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		
+		step4: Insert some valuse into table
+			+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+			SQL> insert into flipkart_tbl(id,name) values(101,'pencil');
+
+			1 row created.
+
+			SQL>
+			+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		
+		step5: insert some values into table
+			++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+			SQL> insert into flipkart_tbl(id,qty,price) values(101,'6',10);
+			insert into flipkart_tbl(id,qty,price) values(101,'6',10)
+			*
+			ERROR at line 1:
+			ORA-01400: cannot insert NULL into ("SYSTEM"."FLIPKART_TBL"."NAME")
+
+
+			SQL
+			++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+			-> Now it will throw an error because name colums should be anything it should fill anything not be emty 
+			-> even if we miss id also it throw an error id and name should be any content why becase we specify NOT NULL 
+		
+
+		1. we can change or modify or rename constraints in the column using ALTER statement
+				
+			syntax:
+
+				ALTER TABLE <table_name> rename CONSTRAINT <old_constrain_name> To <new_constraints_name>;
+
+				ALETR TABLE <table_name> modify (<colum_name> <data_type> null); 
+
+
+		2. we can add constraint to existing column also 
+			
+			syntax: 
+
+				ALTER TABLE <table_name> ADD CONSTRAINT <constraint_key_name> <constraint_type> <column_name>
+
+		
+		3. How DROP constraints from existing table in Oracle
+
+			syntax:
+
+				ALTER TABLE <table_name> DROP CONSTRAINT <CONSTRAINT_KEY_NAME>;
+
+CHECK Constraints
+------------------
+ - check constraints in Oracle used to enforce Domain integrity.
+ - Domain intigrity means the values that are going to store in a table column must be followed by some defined rules such as range, types, and format.
+ - In simple words we can say that Constraints ensures Valid entities for a given column value by restricting the type of value, the format data, or the range of possible values. 
+ - The check constraints in Oracle can be applied to a single or multiple columns of a table 
+ - The CHEK Constraints ca be defined while creating a new table or using ALTER TABLE statement for the already existing table 
+
+ - check constraints in oracle can be implemeted in two ways 
+ 	1. Column level Constraints
+ 		- when we apply column level constraints this will appled to only column of the table 
+
+ 	2. Table Level Constraints
+ 		- when we apply this check contraints in table it will refered to any column in table 
+
+ 	- A Table may containe any umber of check constraints and will apply to any column Data type like integer, charecter, and decimal, data etc....
+
+ 		How to add constraints to an existing table in oracle 
+
+ 			syntax:
+
+ 				ALTER TABLE <table_name> ADD CONSTRAINT <constraint_key_name> <constraint_type> (<column_name>);
+
+ 		How to Drop constraints from an existing table in Oracle
+
+ 			syntax:
+
+ 				ALTER TABLE <table_name> DROP CONSTRAINT <constraint_key_name>;
+
+ 			OUTPUT PRACTICLES FOR COLUMN CONSTRAINT
+
+ 				step1: table created with check constraint 
+
+ 						SQL> create table student(id number(3),name varchar2(10),course varchar2(10),fee number(8,2) check(fee between 4000 and 8000));
+
+						Table created.
+
+						SQL>
+
+				step2: we inser a value inside table 
+
+
+						SQL> insert into student values(100,'kiran','Oracle',4500);
+
+						1 row created.
+
+						SQL>
+
+				step3: Insert a new values with to voilate check constraint 
+
+						SQL> insert into student values(10,'Hari','Java',9000);
+						insert into student values(10,'Hari','Java',9000)
+						*
+						ERROR at line 1:
+						ORA-02290: check constraint (SYSTEM.SYS_C007446) violated
+
+
+						SQL>
+
+					Note: Observe above output we already give check constraint that need to be use fee between 400 to 800 only but here is 9000 thats we it is voilating its check constraints rules 
+
+
+
+
+
+
+
+			OUTPUT PRACTICLE FOR TABLE CONSTRAINT
+
+				step1: table created with table constraint with constraint name here is "ck1" and also we specify in that couser column must should containe only specified valuse and fee column should be only 4000 to 8000 only 
+
+
+						SQL> create table student(id number(3), name varchar2(10), course varchar2(10), fee number(8,2), constraint ck1 check(course in('Oracle','Java','Html') and fee between 4000 and 8000));
+
+						Table created.
+
+						SQL>
+
+				step2: we insert some values into table 
+
+						SQL> insert into student values(100, 'Thej', 'Java', 5000);
+
+						1 row created.
+
+						SQL>
+
+				step3: we insery some values ints gets error because we violated constraint
+
+						SQL> insert into student values(101, 'Raju', 'C lang', 4500);
+						insert into student values(101, 'Raju', 'C lang', 4500)
+						*
+						ERROR at line 1:
+						ORA-02290: check constraint (SYSTEM.CK1) violated
+
+				step4: lets Remove ck1 constraint here by using ALTER statement
+
+						SQL> alter table student drop constraint ck1;
+
+						Table altered.
+
+						SQL>
+
+				step4: Now we able to add that insert values earlier we get an error
+
+						SQL> insert into student values(101, 'Raju', 'C lang', 4500);
+
+						1 row created.
+
+						SQL>
+
+				step5: Lets add constraint again with ALTER statement
+
+						SQL> alter table student add constraint ck1 check(course in('Html','Oracle','Java') and fee between 4000 and 8000);
+
+						Table altered.
+
+						SQL>
+
+
+DEFAULT Constraint
+-------------------
+ - Default contraint in Oracle is used to set up a default value for the data column.
+ - If the value for the colum in the data Row is not specified, the default value will be added to the data row colum.
+ - In simple words we can say that default constraints are used to insert a deafault value to a coumn when the user doesn't specify a value 
+
+  OUTPUT PRACTICLES OF DEFAULT
+
+  		step1: lets create a tablle with DEFAULT constraint
+
+
+					SQL> create table exam_tbl(id number(2),name varchar2(10),pass number(2) default 35);
+
+					Table created.
+
+					SQL>
+
+			step2: Insert some values into table
+
+					SQL> insert into exam_tbl(id,name) values(1,'oracle');
+
+					1 row created.
+
+					SQL> insert into exam_tbl(id,name) values(2,'java');
+
+					1 row created.
+
+					SQL> insert into exam_tbl(id,name) values(3,'html');
+
+					1 row created.
+
+					SQL> insert into exam_tbl(id,name) values(4,'c lang');
+
+					1 row created.
+
+					SQL>
+
+			step3: see the table 
+
+
+					SQL> select * from exam_tbl;
+
+					        ID NAME             PASS
+					---------- ---------- ----------
+					         1 oracle             35
+					         2 java               35
+					         3 html               35
+					         4 c lang             35
+
+					SQL>
+
+			Note: from above table we did'nt specify pass valuse but takes automatically  how Defaut constraint will work 
+			Note: charecter word we use <default 'any_word_here'>
+			Note: we can change default constraint value using ALTER statement [alter table exam_tbl modify pass number(4) default 40;]
+
+
+
+
+
+
+
+
+UNIQUE Constraint 
+-------------------
+ - This UNIQUE Constraint will avoid Duplicate valuse into the table
+ - when we want a column or columns it will not to accept any duplicate values there we need to use UNIQUE Constraint i Oracle is useful to storing of duplicate data row values in a given column or combination of columns.
+ - But it will accepts NULL values in that column 
+
+ - Multiple Columns in a single table can have UNIQUE Constraint 
+ - The UNIQUE Constraint can be applied either at the level or at the table level 
+
+ 	OUTPUT PRACTICLES OF UNIQUE
+
+ 			step1: create a table with name lib_tbl with UNIQUE constraint for bookname
+
+
+					SQL> create table lib_tbl(id number(3),bookname varchar2(20) unique);
+
+					Table created.
+
+					SQL>
+
+			step2: insert some valuse 
+
+					SQL> insert into lib_tbl values(100,'oracle 19c');
+
+					1 row created.
+
+					SQL> insert into lib_tbl values(100,'java');
+
+					1 row created.
+
+					SQL>
+
+			step3: Now lets add same bookname add again then it will throw an error
+
+
+					SQL> insert into lib_tbl values(102,'oracle 19c');
+					insert into lib_tbl values(102,'oracle 19c')
+					*
+					ERROR at line 1:
+					ORA-00001: unique constraint (SYSTEM.SYS_C007449) violated
+
+
+					SQL>
+
+			step4: lets drop lib_tbl again create that table here why because we put usnique constarint for twi columns also like id and bookname 
+
+
+					SQL> insert into lib_tbl values(100,'c lang');
+
+					1 row created.
+					SQL> insert into lib_tbl values(101,'java');
+
+					1 row created.
+
+					SQL> insert into lib_tbl values(102,'html');
+
+					1 row created.
+
+					SQL>
+
+			step5: see table of lib_tbl 
+
+
+					SQL> select * from lib_tbl;
+
+					        ID BOOKNAME
+					---------- ----------
+					       100 c lang
+					       101 java
+					       102 html
+
+					SQL>
+
+		OUTPUT FOR UNIQUE TABLE Constraint
+
+			step1: create a table with table constraint 
+
+
+					SQL> create table lib_tbl2(id number(3),name varchar(10),constraint uk1 unique(id,name));
+
+					Table created.
+
+					SQL>
+
+			step2: Lets insert some values
+
+
+					SQL> insert into lib_tbl2 values(100,'oracle');
+
+					1 row created.
+
+					SQL> insert into lib_tbl2 values(101,'java');
+
+					1 row created.
+
+					SQL>
+
+
+					SQL> insert into lib_tbl2 values(101,'c lang');
+
+					1 row created.
+
+					SQL>
+
+				Note: observe above output and see the table any one rows  changes that  is fine 
+
+
+					SQL> select * from lib_tbl2;
+
+					        ID NAME
+					---------- ----------
+					       100 oracle
+					       101 java
+					       101 c lang
+
+					SQL>
+
+
+
+PRIMARY KEY 
+-------------
+ - The PRIMARY KEY is Oracle is the combination of UNIQUE and NOT NULL Constraint
+ - it means it will not allow either NULL or DUPLICATE values into a columns on which the primary key constraints is applied 
+ - using the primary key we can enforce the entity integrity using the primary key we can iniquely identify each record in a table 
+ - In oracle a table can containe only one primary key which can be either in a single column or multiple columns that is composite primary key
+ - the primary key constraint in oracle can be applied to numeric and string data types such as INT, VARCHAR, rtc...
+ - the primary key constraint can be applied either at the column level or at the table level 
+ - as it is allowing the primary key to be applied at the table level, so we have option to create a composite primary key that is primary key based on multiple columns
+
+ 	UNIQUE + NOT NULL = PRIMARY KEY
+
+
+ 	OUTPUT PRACTICLES FOR PRIMARY KEY
+
+ 			step1: create a table with using primary key 
+
+
+					SQL> create  table dept(dno number(3) primary key,dname varchar2(10),location varchar2(10));
+
+					Table created.
+
+					SQL>
+
+ 					SQL> desc dept;
+					Name                                      Null?    Type
+					----------------------------------------- -------- ----------------------------
+					DNO                                       NOT NULL NUMBER(3)
+					DNAME                                              VARCHAR2(10)
+					LOCATION                                           VARCHAR2(10)
+  				
+  				SQL>
+
+  			- from above output we applied primary key to id then automatically it will get NOT NULL constraint here 
+  			- when NOT NULL column definitly need to be any content inside columnt it should not emty 
+
+  		step2: insert some values into table 
+
+  				SQL> insert into dept values(10,'sales','hyd');
+
+					1 row created.
+
+					SQL>
+					
+					SQL> desc dept;
+
+					Name                                      Null?    Type
+					----------------------------------------- -------- ----------------------------
+					DNO                                       NOT NULL NUMBER(3)
+					DNAME                                              VARCHAR2(10)
+					LOCATION                                           VARCHAR2(10)
+
+					SQL>
+
+					SQL> select * from dept;
+
+					       DNO DNAME      LOCATION
+					---------- ---------- ----------
+					        10 sales      hyd
+
+					SQL>
+
+			step2: lets not add id number into table it will throw an below error 
+
+					SQL> insert into dept(dname,location) values('purchase','vizag');
+					insert into dept(dname,location) values('purchase','vizag')
+					*
+					ERROR at line 1:
+					ORA-01400: cannot insert NULL into ("SYSTEM"."DEPT"."DNO")
+
+
+					SQL>
+
+				Note: id number should be filed because there specified NOT NULL when we use PRIMARY KEY over there 
+
+			step3: To remove PRIMARY KEY from dept table using ALTER statement
+
+
+					SQL> alter table dept drop primary key;
+
+					Table altered.
+
+					SQL>
+
+
+			step4: again add primary key into dept table 
+
+					SQL> alter table dept add primary key(dno,dname);
+
+					Table altered.
+
+					SQL> desc dept;
+					 Name                                      Null?    Type
+					 ----------------------------------------- -------- ----------------------------
+					 DNO                                       NOT NULL NUMBER(3)
+					 DNAME                                     NOT NULL VARCHAR2(10)
+					 LOCATION                                           VARCHAR2(10)
+
+					SQL>
+
+				- from above we specified primary key to two fields again using alter statement 
+
+
+
+FOREIGN KEY 
+--------------
+ - Foreign key can be called as Referential integrity constraint also 
+ - It will create the relationship between the tables in the database 
+ - it is the one of the most important concept in the database 
+ - The Relationship between multiple tables provides a Mechanism for Linking the Data stores in  multiple tables and Retrieving them in an effiecient way 
+
+ - In order to create a Link Between two tables we must specify a Foreign Key
+ - In One table That references a column in another table. That means the foreign key costraints in oracle is used for binding two tables with each other ad then verifying the existence of one table data in other tables.
+
+ Note: A Foreign key in one table Points to either a primary key or a Unique key in another table in Oracle The Foreign key constraints are basically used to enforce referential intigrity.
+
+ How To create Foreig key constraint in Oracle
+ ----------------------------------------------
+ 	- To create a foreign key constraint in oracle we require some following steps 
+ 	 1. we need two tables for linking with each other and those tables must have a common column for binding the tables 
+ 	 2. the common column that is present in both tables need to have the same name and thire data type must be the same 
+ 	 3. The common column that is present under the parent table or master table is known as the referece key column and moreover, the referece key column should not contain any duplicate values so we need to impose eithre unique or primary key constraint on that colum 
+ 	 4. the common column which is present in the child or detailed table is known as foreign key column and we need to impose foreign key constraint on the column which refers to the reference key column of the master table 
+ 	 5. Foreign key column values should be matched with the primary key or unique key column values only. Generally, The primary key or Unique key is not allowed duplicate values whereas the Foreign key is allowed duplicate & null values 
+
+ 	 OUTPUT PRACTICLES FOR FOREIGN KEY
+ 	 ---------------------------------
+
+ 	 		step1: lets create a dept parent table add some valuse inside with primary key for id only
+
+					SQL> create  table dept(dno number(3),dname varchar2(10),location varchar2(10));
+
+					Table created.
+
+					SQL>
+
+					SQL> alter table dept add primary key(dno);
+
+					Table altered.
+
+					SQL> desc dept;
+					 Name                                      Null?    Type
+					 ----------------------------------------- -------- ----------------------------
+					 DNO                                       NOT NULL NUMBER(3)
+					 DNAME                                     				  VARCHAR2(10)
+					 LOCATION                                           VARCHAR2(10)
+
+					SQL>
+
+					SQL> select * from dept;
+
+					       DNO DNAME      LOCATION
+					---------- ---------- ----------
+					        10 sales      hyd
+					        20 purchase   chennai
+
+					SQL>
+
+			step2: Lets create child table with name employ
+
+					SQL> create table employ(eno number(3),ename varchar2(10),job varchar2(20), sal number(8,2), dno number(3), constraint fk1 foreign key (dno) references dept(dno));
+
+					Table created.
+
+					SQL>
+
+				  SQL> desc employ;
+				  Name                                      Null?    Type
+				  ----------------------------------------- -------- ----------------------------
+				  ENO                                                NUMBER(3)
+				  ENAME                                              VARCHAR2(10)
+				  JOB                                                VARCHAR2(20)
+				  SAL                                                NUMBER(8,2)
+				  DNO                                                NUMBER(3)
+
+				  SQL>
+
+				- from above tables child tables will make references of to parent tables dept tables id 
+				- we setup link 
+
+			step3: Now add valuse into child tables employ
+
+					SQL> insert into employ values(100,'kiran','clerk',3000,10);
+
+					1 row created.
+
+					SQL>
+
+					SQL> insert into employ values(101,'Ravi','manager',7000,20);
+
+					1 row created.
+
+					SQL>
+					
+					SQL> select * from dept;
+
+					       DNO DNAME      LOCATION
+					---------- ---------- ----------
+					        10 sales      hyd
+					        20 purchase   chennai
+
+					SQL> select * from employ;
+
+					       ENO ENAME      JOB                         SAL        DNO
+					---------- ---------- -------------------- ---------- ----------
+					       100 kiran      clerk                      3000         10
+					       101 Ravi       manager                    7000         20
+
+					SQL>
+
+			step4: Now lets try not contain data insert we throw a error belo like this 
+
+					SQL> insert into employ values(102,'vamsi','programmer',9000,30);
+					insert into employ values(102,'vamsi','programmer',9000,30)
+					*
+					ERROR at line 1:
+					ORA-02291: integrity constraint (SYSTEM.FK1) violated - parent key not found
+
+
+					SQL>
+
+				- It throws an error because there is nothing available in the parent table information 
+				- if we give 20 record it will take  insert into employ values(102,'vamsi','programmer',9000,20);
+
+    		Note: Here we can delete child table records But  we cannot delete parent records which is containe
+		    Note: we have an option to delete along with parent record and child record also delete single time it is possible 
+
+					- deletig child table record
+					SQL> delete from employ where eno=102;
+
+					1 row deleted.
+
+					SQL>
+					- try to delete parent record which is linked to child table record 
+					SQL> delete from dept where dno=20;
+					delete from dept where dno=20
+					*
+					ERROR at line 1:
+					ORA-02292: integrity constraint (SYSTEM.FK1) violated - child record found
+
+
+					SQL> 
+
+			step5: To remove foreign key from table using alter statement
+
+					SQL> alter table employ drop constraint fk1;
+
+					Table altered.
+
+					SQL>
+
+
+
+

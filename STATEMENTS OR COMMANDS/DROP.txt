@@ -1,0 +1,81 @@
+DROP
+-----
+ - DROP statement will remove entire table including strucher with data also 
+
+ 	1. To DROP a table [ DROP TABLE table_name; ]
+ 		- above command will drop or remove table 
+
+	2. Below information from chatGPT
+	
+	 		In Oracle SQL, the `DROP` statement is used to remove database objects such as tables, views, indexes, or even an entire database. Here's a basic overview of how you can use the `DROP` statement:
+
+
+			### Drop a Table:
+
+			```sql
+			DROP TABLE table_name;
+			```
+
+			This statement removes the specified table and all associated data. Be careful when using `DROP TABLE`, as it is a permanent operation, and the data will be lost.
+
+			### Drop a View:
+
+			```sql
+			DROP VIEW view_name;
+			```
+
+			This statement removes the specified view from the database.
+
+			### Drop an Index:
+
+			```sql
+			DROP INDEX index_name;
+			```
+
+			This statement removes the specified index from the database.
+
+			### Drop a Sequence:
+
+			```sql
+			DROP SEQUENCE sequence_name;
+			```
+
+			This statement removes the specified sequence from the database.
+
+			### Drop a Synonym:
+
+			```sql
+			DROP SYNONYM synonym_name;
+			```
+
+			This statement removes the specified synonym from the database.
+
+			### Drop a Database (Caution: Rarely Used):
+
+			```sql
+			DROP DATABASE database_name;
+			```
+
+			This statement removes the entire database. Be extremely cautious with this statement, as it deletes all objects within the database, and it is not commonly used in normal database operations.
+
+			### Example:
+
+			```sql
+			-- Drop a table
+			DROP TABLE employees;
+
+			-- Drop an index
+			DROP INDEX idx_employee_name;
+
+			-- Drop a view
+			DROP VIEW employee_details;
+
+			-- Drop a sequence
+			DROP SEQUENCE employee_id_seq;
+			```
+
+			Before using the `DROP` statement, ensure you have the necessary privileges to drop the object, and always double-check your SQL statement to avoid unintentional data loss. Additionally, consider taking a backup before performing such operations, especially in a production environment.
+
+
+
+

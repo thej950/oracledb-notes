@@ -1,0 +1,150 @@
+FOREIGN KEY 
+--------------
+ - Foreign key can be called as Referential integrity constraint also 
+ - It will create the relationship between the tables in the database 
+ - it is the one of the most important concept in the database 
+ - The Relationship between multiple tables provides a Mechanism for Linking the Data stores in  multiple tables and Retrieving them in an effiecient way 
+
+ - In order to create a Link Between two tables we must specify a Foreign Key
+ - In One table That references a column in another table. That means the foreign key costraints in oracle is used for binding two tables with each other ad then verifying the existence of one table data in other tables.
+
+ Note: A Foreign key in one table Points to either a primary key or a Unique key in another table in Oracle The Foreign key constraints are basically used to enforce referential intigrity.
+
+ How To create Foreig key constraint in Oracle
+ ----------------------------------------------
+ 	- To create a foreign key constraint in oracle we require some following steps 
+ 	 1. we need two tables for linking with each other and those tables must have a common column for binding the tables 
+ 	 2. the common column that is present in both tables need to have the same name and thire data type must be the same 
+ 	 3. The common column that is present under the parent table or master table is known as the referece key column and moreover, the referece key column should not contain any duplicate values so we need to impose eithre unique or primary key constraint on that colum 
+ 	 4. the common column which is present in the child or detailed table is known as foreign key column and we need to impose foreign key constraint on the column which refers to the reference key column of the master table 
+ 	 5. Foreign key column values should be matched with the primary key or unique key column values only. Generally, The primary key or Unique key is not allowed duplicate values whereas the Foreign key is allowed duplicate & null values 
+
+ 	 OUTPUT PRACTICLES FOR FOREIGN KEY
+ 	 ---------------------------------
+
+ 	 		step1: lets create a dept parent table add some valuse inside with primary key for id only
+
+					SQL> create  table dept(dno number(3),dname varchar2(10),location varchar2(10));
+
+					Table created.
+
+					SQL>
+
+					SQL> alter table dept add primary key(dno);
+
+					Table altered.
+
+					SQL> desc dept;
+					 Name                                      Null?    Type
+					 ----------------------------------------- -------- ----------------------------
+					 DNO                                       NOT NULL NUMBER(3)
+					 DNAME                                     				  VARCHAR2(10)
+					 LOCATION                                           VARCHAR2(10)
+
+					SQL>
+
+					SQL> select * from dept;
+
+					       DNO DNAME      LOCATION
+					---------- ---------- ----------
+					        10 sales      hyd
+					        20 purchase   chennai
+
+					SQL>
+
+			step2: Lets create child table with name employ
+
+					SQL> create table employ(eno number(3),ename varchar2(10),job varchar2(20), sal number(8,2), dno number(3), constraint fk1 foreign key (dno) references dept(dno));
+
+					Table created.
+
+					SQL>
+
+				  SQL> desc employ;
+				  Name                                      Null?    Type
+				  ----------------------------------------- -------- ----------------------------
+				  ENO                                                NUMBER(3)
+				  ENAME                                              VARCHAR2(10)
+				  JOB                                                VARCHAR2(20)
+				  SAL                                                NUMBER(8,2)
+				  DNO                                                NUMBER(3)
+
+				  SQL>
+
+				- from above tables child tables will make references of to parent tables dept tables id 
+				- we setup link 
+
+			step3: Now add valuse into child tables employ
+
+					SQL> insert into employ values(100,'kiran','clerk',3000,10);
+
+					1 row created.
+
+					SQL>
+
+					SQL> insert into employ values(101,'Ravi','manager',7000,20);
+
+					1 row created.
+
+					SQL>
+					
+					SQL> select * from dept;
+
+					       DNO DNAME      LOCATION
+					---------- ---------- ----------
+					        10 sales      hyd
+					        20 purchase   chennai
+
+					SQL> select * from employ;
+
+					       ENO ENAME      JOB                         SAL        DNO
+					---------- ---------- -------------------- ---------- ----------
+					       100 kiran      clerk                      3000         10
+					       101 Ravi       manager                    7000         20
+
+					SQL>
+
+			step4: Now lets try not contain data insert we throw a error belo like this 
+
+					SQL> insert into employ values(102,'vamsi','programmer',9000,30);
+					insert into employ values(102,'vamsi','programmer',9000,30)
+					*
+					ERROR at line 1:
+					ORA-02291: integrity constraint (SYSTEM.FK1) violated - parent key not found
+
+
+					SQL>
+
+				- It throws an error because there is nothing available in the parent table information 
+				- if we give 20 record it will take  insert into employ values(102,'vamsi','programmer',9000,20);
+
+    		Note: Here we can delete child table records But  we cannot delete parent records which is containe
+		    Note: we have an option to delete along with parent record and child record also delete single time it is possible 
+
+					- deletig child table record
+					SQL> delete from employ where eno=102;
+
+					1 row deleted.
+
+					SQL>
+					- try to delete parent record which is linked to child table record 
+					SQL> delete from dept where dno=20;
+					delete from dept where dno=20
+					*
+					ERROR at line 1:
+					ORA-02292: integrity constraint (SYSTEM.FK1) violated - child record found
+
+
+					SQL> 
+
+			step5: To remove foreign key from table using alter statement
+
+					SQL> alter table employ drop constraint fk1;
+
+					Table altered.
+
+					SQL>
+
+
+
+

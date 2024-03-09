@@ -1,0 +1,55 @@
+DEFAULT Constraint
+-------------------
+ - Default contraint in Oracle is used to set up a default value for the data column.
+ - If the value for the colum in the data Row is not specified, the default value will be added to the data row colum.
+ - In simple words we can say that default constraints are used to insert a deafault value to a coumn when the user doesn't specify a value 
+
+  OUTPUT PRACTICLES OF DEFAULT
+
+  		step1: lets create a tablle with DEFAULT constraint
+
+
+					SQL> create table exam_tbl(id number(2),name varchar2(10),pass number(2) default 35);
+
+					Table created.
+
+					SQL>
+
+			step2: Insert some values into table
+
+					SQL> insert into exam_tbl(id,name) values(1,'oracle');
+
+					1 row created.
+
+					SQL> insert into exam_tbl(id,name) values(2,'java');
+
+					1 row created.
+
+					SQL> insert into exam_tbl(id,name) values(3,'html');
+
+					1 row created.
+
+					SQL> insert into exam_tbl(id,name) values(4,'c lang');
+
+					1 row created.
+
+					SQL>
+
+			step3: see the table 
+
+
+					SQL> select * from exam_tbl;
+
+					        ID NAME             PASS
+					---------- ---------- ----------
+					         1 oracle             35
+					         2 java               35
+					         3 html               35
+					         4 c lang             35
+
+					SQL>
+
+			Note: from above table we did'nt specify pass valuse but takes automatically  how Defaut constraint will work 
+			Note: charecter word we use <default 'any_word_here'>
+			Note: we can change default constraint value using ALTER statement [alter table exam_tbl modify pass number(4) default 40;]
+

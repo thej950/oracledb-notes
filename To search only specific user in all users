@@ -1,4 +1,0 @@
-To search only specific user in all users
-----------------------------------------
-	
-	SELECT username FROM dba_users WHERE username = 'SYS';

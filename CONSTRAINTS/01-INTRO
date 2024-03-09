@@ -1,0 +1,75 @@
+Introduction of Constraints
+------------------------------
+
+DATA INTEGRITY CONSTRAINTS
+----------------------------
+1. What is Data Integrity In Oracle
+  - Data integrity means the data containes in the database need to be accurate and consistent and reliable
+  - To provide data integrity "RDBMS" Provide us a Set of Integrity Constraints those will ensurs the whatever data entered in to database is going to be accurate, consistent, and reliable. 
+  - This is the Main reason why end user Trust the database.
+
+  Note: Thses Constraints will Maintain from Data miss manage in the Database  
+
+  This Data Integrity again Classified Into Two Types
+  ----------------------------------------------------
+  	1. Pre-defined Data integrity (using constraints) or Declarative
+  	2. User-defined data integrity (using triggers) or Procedural
+
+  	Predefined Data integrity: 
+  	--------------------------
+  		- This Data Integrity can be implemented with the help of "Constraints"
+  		- These are again Three Types
+
+  			1. Entity Integrity
+  			2. Referential Integrity
+  			3. Domain Integrity 
+
+  		1. Entity Integrity: 
+  			- it will ensure each Row is Uniquely Identified in a Table.
+  			- To Implement This Mechanism we use "primary key" or "unique" constraint.
+  		2. Referential Integrity:
+
+  			- It will Ensure To create a Relationship between tables.
+  			- To Implement This Mechanism we use "foreign key"
+  		
+  		3. Domain Integrity:
+  			- Domain is Nothing But a Column.
+  			- It will ensure that To check values with user define conditions before accepting values into a column
+  			- To Perform This Mechanism we use "check", "default", "not null" constraints
+
+ Constraints In Oracle:
+ ------------------------
+	- This Constrints in Oracle are Basically used to restrict the Insertion of Unwanted data in the database.
+	- which means They are Mainly used to Maintain Data Integrity
+	- we can create the constraint on single column or Multiple columns of a table in Oracle
+
+	Types of Constraints available in Oracle:
+	--------------------------------------------
+
+		- NOT NULL Constraint
+		- UNIQUE KEY Constraint
+		- CHECK KEY Constraint
+		- PRIMARY KEY Constraint
+		- FOREIGN KEY OR REFERENCE KEY Constraint
+		- DEFAULT Constraint
+
+
+ How To Create Contraints in Oracle
+ ------------------------------------
+  - All Database are supporting the Below Following Two types of methods To Define Constraints 
+  	1. Column Level
+  	2. Table level
+
+  	Column Level constraint:
+  		- In this method we are defining constraints on indivudual columns.
+
+  		Syntax:
+
+  			CREATE TABLE <table_name> (<column_name1> <datatype> <constraint_type>,.............);
+
+  	Table Level constriant:
+  		- In this method we are defining constraints after all columns are declared at the end of the table defintion
+
+  		Syntax:
+
+  			CREATE TABLE <table_name> (<column_name> <data_type>, <column_name> <data_type>,............ <constraint_type>);

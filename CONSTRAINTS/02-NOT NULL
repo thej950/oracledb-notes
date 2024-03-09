@@ -1,0 +1,84 @@
+NOT NULL Constraints:
+---------------------
+	- By default the database stores NULL value means no value in the data Row.
+	- By defining NOT NULL to the column, the default behaviour of the database colum changes and it does not accept NULL VALUES.
+	- In Oracle, A Table can containe any number of NOT NULL Constraints
+	- The NOT NULL Constraints can be defined to string as well as Numeric data types also such as INT, VARCHAR, etc...
+	- The NOT NULL Constraints Does not support "Table Level" it can be only applicable to Column level
+
+Practicles OUTPUT
+
+step1: create a table
+	+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	 SQL> create table flipkart_tbl(id number(3) not null, name varchar2(10) not null, qty number(2),price number(8,2));
+
+	Table created.
+	++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+step2: describe a table
+	+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	SQL> desc flipkart_tbl;
+	 Name                                      Null?    Type
+	 ----------------------------------------- -------- ----------------------------
+	 ID                                        NOT NULL NUMBER(3)
+	 NAME                                      NOT NULL VARCHAR2(10)
+	 QTY                                                NUMBER(2)
+	 PRICE                                              NUMBER(8,2)
+
+	SQL>
+	+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+step3: Insert some valuse in table
+	+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	SQL> insert into flipkart_tbl values(100,'pen',30,5);
+
+	1 row created.
+
+	SQL>
+	++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+step4: Insert some valuse into table
+	+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	SQL> insert into flipkart_tbl(id,name) values(101,'pencil');
+
+	1 row created.
+
+	SQL>
+	+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+step5: insert some values into table
+	++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	SQL> insert into flipkart_tbl(id,qty,price) values(101,'6',10);
+	insert into flipkart_tbl(id,qty,price) values(101,'6',10)
+	*
+	ERROR at line 1:
+	ORA-01400: cannot insert NULL into ("SYSTEM"."FLIPKART_TBL"."NAME")
+
+
+	SQL
+	++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	-> Now it will throw an error because name colums should be anything it should fill anything not be emty 
+	-> even if we miss id also it throw an error id and name should be any content why becase we specify NOT NULL 
+
+
+1. we can change or modify or rename constraints in the column using ALTER statement
+		
+	syntax:
+
+		ALTER TABLE <table_name> rename CONSTRAINT <old_constrain_name> To <new_constraints_name>;
+
+		ALETR TABLE <table_name> modify (<colum_name> <data_type> null); 
+
+
+2. we can add constraint to existing column also 
+	
+	syntax: 
+
+		ALTER TABLE <table_name> ADD CONSTRAINT <constraint_key_name> <constraint_type> <column_name>
+
+
+3. How DROP constraints from existing table in Oracle
+
+	syntax:
+
+		ALTER TABLE <table_name> DROP CONSTRAINT <CONSTRAINT_KEY_NAME>;

@@ -1,0 +1,117 @@
+UNIQUE Constraint 
+-------------------
+ - This UNIQUE Constraint will avoid Duplicate valuse into the table
+ - when we want a column or columns it will not to accept any duplicate values there we need to use UNIQUE Constraint i Oracle is useful to storing of duplicate data row values in a given column or combination of columns.
+ - But it will accepts NULL values in that column 
+
+ - Multiple Columns in a single table can have UNIQUE Constraint 
+ - The UNIQUE Constraint can be applied either at the level or at the table level 
+
+ 	OUTPUT PRACTICLES OF UNIQUE
+
+ 			step1: create a table with name lib_tbl with UNIQUE constraint for bookname
+
+
+					SQL> create table lib_tbl(id number(3),bookname varchar2(20) unique);
+
+					Table created.
+
+					SQL>
+
+			step2: insert some valuse 
+
+					SQL> insert into lib_tbl values(100,'oracle 19c');
+
+					1 row created.
+
+					SQL> insert into lib_tbl values(100,'java');
+
+					1 row created.
+
+					SQL>
+
+			step3: Now lets add same bookname add again then it will throw an error
+
+
+					SQL> insert into lib_tbl values(102,'oracle 19c');
+					insert into lib_tbl values(102,'oracle 19c')
+					*
+					ERROR at line 1:
+					ORA-00001: unique constraint (SYSTEM.SYS_C007449) violated
+
+
+					SQL>
+
+			step4: lets drop lib_tbl again create that table here why because we put usnique constarint for twi columns also like id and bookname 
+
+
+					SQL> insert into lib_tbl values(100,'c lang');
+
+					1 row created.
+					SQL> insert into lib_tbl values(101,'java');
+
+					1 row created.
+
+					SQL> insert into lib_tbl values(102,'html');
+
+					1 row created.
+
+					SQL>
+
+			step5: see table of lib_tbl 
+
+
+					SQL> select * from lib_tbl;
+
+					        ID BOOKNAME
+					---------- ----------
+					       100 c lang
+					       101 java
+					       102 html
+
+					SQL>
+
+		OUTPUT FOR UNIQUE TABLE Constraint
+
+			step1: create a table with table constraint 
+
+
+					SQL> create table lib_tbl2(id number(3),name varchar(10),constraint uk1 unique(id,name));
+
+					Table created.
+
+					SQL>
+
+			step2: Lets insert some values
+
+
+					SQL> insert into lib_tbl2 values(100,'oracle');
+
+					1 row created.
+
+					SQL> insert into lib_tbl2 values(101,'java');
+
+					1 row created.
+
+					SQL>
+
+
+					SQL> insert into lib_tbl2 values(101,'c lang');
+
+					1 row created.
+
+					SQL>
+
+				Note: observe above output and see the table any one rows  changes that  is fine 
+
+
+					SQL> select * from lib_tbl2;
+
+					        ID NAME
+					---------- ----------
+					       100 oracle
+					       101 java
+					       101 c lang
+
+					SQL>
+

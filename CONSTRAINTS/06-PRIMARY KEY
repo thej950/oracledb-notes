@@ -1,0 +1,101 @@
+PRIMARY KEY 
+-------------
+ - The PRIMARY KEY is Oracle is the combination of UNIQUE and NOT NULL Constraint
+ - it means it will not allow either NULL or DUPLICATE values into a columns on which the primary key constraints is applied 
+ - using the primary key we can enforce the entity integrity using the primary key we can iniquely identify each record in a table 
+ - In oracle a table can containe only one primary key which can be either in a single column or multiple columns that is composite primary key
+ - the primary key constraint in oracle can be applied to numeric and string data types such as INT, VARCHAR, rtc...
+ - the primary key constraint can be applied either at the column level or at the table level 
+ - as it is allowing the primary key to be applied at the table level, so we have option to create a composite primary key that is primary key based on multiple columns
+
+ 	UNIQUE + NOT NULL = PRIMARY KEY
+
+
+ 	OUTPUT PRACTICLES FOR PRIMARY KEY
+
+ 			step1: create a table with using primary key 
+
+
+					SQL> create  table dept(dno number(3) primary key,dname varchar2(10),location varchar2(10));
+
+					Table created.
+
+					SQL>
+
+ 					SQL> desc dept;
+					Name                                      Null?    Type
+					----------------------------------------- -------- ----------------------------
+					DNO                                       NOT NULL NUMBER(3)
+					DNAME                                              VARCHAR2(10)
+					LOCATION                                           VARCHAR2(10)
+  				
+  				SQL>
+
+  			- from above output we applied primary key to id then automatically it will get NOT NULL constraint here 
+  			- when NOT NULL column definitly need to be any content inside columnt it should not emty 
+
+  		step2: insert some values into table 
+
+  				SQL> insert into dept values(10,'sales','hyd');
+
+					1 row created.
+
+					SQL>
+					
+					SQL> desc dept;
+
+					Name                                      Null?    Type
+					----------------------------------------- -------- ----------------------------
+					DNO                                       NOT NULL NUMBER(3)
+					DNAME                                              VARCHAR2(10)
+					LOCATION                                           VARCHAR2(10)
+
+					SQL>
+
+					SQL> select * from dept;
+
+					       DNO DNAME      LOCATION
+					---------- ---------- ----------
+					        10 sales      hyd
+
+					SQL>
+
+			step2: lets not add id number into table it will throw an below error 
+
+					SQL> insert into dept(dname,location) values('purchase','vizag');
+					insert into dept(dname,location) values('purchase','vizag')
+					*
+					ERROR at line 1:
+					ORA-01400: cannot insert NULL into ("SYSTEM"."DEPT"."DNO")
+
+
+					SQL>
+
+				Note: id number should be filed because there specified NOT NULL when we use PRIMARY KEY over there 
+
+			step3: To remove PRIMARY KEY from dept table using ALTER statement
+
+
+					SQL> alter table dept drop primary key;
+
+					Table altered.
+
+					SQL>
+
+
+			step4: again add primary key into dept table 
+
+					SQL> alter table dept add primary key(dno,dname);
+
+					Table altered.
+
+					SQL> desc dept;
+					 Name                                      Null?    Type
+					 ----------------------------------------- -------- ----------------------------
+					 DNO                                       NOT NULL NUMBER(3)
+					 DNAME                                     NOT NULL VARCHAR2(10)
+					 LOCATION                                           VARCHAR2(10)
+
+					SQL>
+
+				- from above we specified primary key to two fields again using alter statement 
