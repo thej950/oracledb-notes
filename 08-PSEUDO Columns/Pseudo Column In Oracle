@@ -1,0 +1,338 @@
+Pseudo Column In Oracle 
+------------------------
+ - A pseudo column Behaves like a Table column but it is not actually stored in the table 
+ - we can select from pseudo columns, But we cannot insert, update or delete their values 
+ - A seudo column is also similar to a Function without arguments 
+
+ 	Pseudo Column Functions are below
+ 	 1. SYSDATE and SYSTIMESTAMP
+ 	 2. UID and USER
+ 	 3. CURRVAL and NEXTVAL
+ 	 4. LEVEL
+ 	 5. ROWID
+ 	 6. ROWNUM
+ 	 7. ORA ROWSCN 
+
+ 		1. SYSDATE and SYSTIMESTAMP
+ 		 - it will return the current date and timestamp of system
+ 		 	
+ 		 	+++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 		 	SQL> select sysdate, systimestamp from dual;
+
+				SYSDATE
+				---------
+				SYSTIMESTAMP
+				---------------------------------------------------------------------------
+				10-MAR-24
+				10-MAR-24 01.27.02.330000 PM +05:30
+
+
+				SQL>
+				+++++++++++++++++++++++++++++++++++++++++++++++++++
+
+ 		2. UID and USER
+ 		 - it will return the UID and name of the user
+ 		 - From current user andn id of that user
+
+				++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 		 
+				SQL> select user,uid from dual;
+
+				USER
+				--------------------------------------------------------------------------------
+				       UID
+				----------
+				SYSTEM
+				         9
+
+
+				SQL> 
+				++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+				- from above output currently i am using system user and its ID
+
+ 		3. CURRVAL and NEXTVAL
+ 		 - A sequence is a schema object that will generate sequential numbers 
+ 		 - When we create a sequence we can specify its initial value and an increment 
+ 		 - CURRVAL returns the current value in a specified sequence 
+ 		 - before we use or reference a CURRVAL in a session we must use NEXTVAL to generate a number 
+ 		 - A reference to NEXTVAL stores the current sequence of number in CURRVAL 
+ 		 - NEXTVAL increments the sequence and returns the next value 
+ 		 - To get or obtain the current or next value in a sequence, we must use dot notation, as below follows 
+
+ 		 	sequence_name.CURRVAL
+ 		 	sequence_name.NEXTVAL
+
+ 		 - Sequece (autonumber) in Oracle
+ 		 	- In oracle we can create a autonumber field by using this sequence 
+ 		 	- A sequence is an object that is used to generate a number sequence 
+ 		 	- This will usefule or helpfull when we need to create a unique number to act as a primary key 
+
+ 		 		Syntax:
+
+ 		 			CREATE SEQUENCE sequence_name <MINVALUE value>  <MAXVALUE value>  < START WITH value> <INCREMENT BY value> <Cycle> <CACHE value>;
+
+ 		 	Note: In simple words we used to create a sequence_name to store some values into it we used that into table to autogenerate numbers like we use NEXTVAL and CURRVAL
+
+
+Practicles of OUTPUT
+-----------------------
+step1: lets create a table 
+	
+
+	SQL> create table products_tbl(pid number(3), pname varchar2(10));
+
+	Table created.
+
+	SQL>
+
+step2: Now I want create a sequence for pid to auto generate numbers here in products_tbl  sequence name is "pnoseq" this name can be anything 
+	
+
+	SQL> create sequence pnoseq minvalue 1 maxvalue 5 start with 1 increment by 1 ;
+
+	Sequence created.
+
+	SQL>
+
+step3: Checking our created pnoseq working or not 
+	
+
+	SQL> select pnoseq.nextval from dual;
+
+	   NEXTVAL
+	----------
+	         1
+
+	SQL> select pnoseq.nextval from dual;
+
+	   NEXTVAL
+	----------
+	         2
+
+	SQL> select pnoseq.nextval from dual;
+
+	   NEXTVAL
+	----------
+	         3
+
+	SQL> select pnoseq.nextval from dual;
+
+	   NEXTVAL
+	----------
+	         4
+
+	SQL> select pnoseq.nextval from dual;
+
+	   NEXTVAL
+	----------
+	         5
+
+	SQL> select pnoseq.nextval from dual;
+	select pnoseq.nextval from dual
+	*
+	ERROR at line 1:
+	ORA-08004: sequence PNOSEQ.NEXTVAL exceeds MAXVALUE and cannot be instantiated
+
+
+	SQL>
+
+	Note: from above out it is perfectvely Running fine but from above last error was we already excuted all five times thats its get error if we specify 10 maxvalue then after 10 lines it will throw an error "if we specify cycle over there then it will again start with 1 to 5 everytime excuted"
+
+	Note: we can also drop that sequence using "drop sequence pnoseq" statment
+
+			++++++++++++++++++++++++++++		
+			SQL> drop sequence pnoseq;
+
+			Sequence dropped.
+
+			SQL>
+			++++++++++++++++++++++++++++
+	
+	Note: if we want current value then excute like select "pnoseq.currtval from dual;"
+	
+step4: Now lets use that sequence in table in column pno in products_tbl
+	
+	
+		SQL> create sequence pnoseq minvalue 1 maxvalue 5 start with 1 increment by 1 cache 2 cycle;
+
+		Sequence created.
+
+		SQL>
+
+
+		SQL> insert into products_tbl values(pnoseq.nextval,'radio');
+
+		1 row created.
+
+		SQL> insert into products_tbl values(pnoseq.nextval,'desktop');
+
+		1 row created.
+
+		SQL> insert into products_tbl values(pnoseq.nextval,'laptop');
+
+		1 row created.
+
+		SQL> insert into products_tbl values(pnoseq.nextval,'phone');
+
+		1 row created.
+
+		SQL> insert into products_tbl values(pnoseq.nextval,'headphone');
+
+		1 row created.
+
+		SQL> select * from products_tbl;
+
+		       PID PNAME
+		---------- ----------
+		         1 radio
+		         2 desktop
+		         3 laptop
+		         4 phone
+		         5 headphone
+
+		SQL> insert into products_tbl values(pnoseq.nextval,'watch');
+
+		1 row created.
+
+		SQL> select * from products_tbl;
+
+		       PID PNAME
+		---------- ----------
+		         1 radio
+		         2 desktop
+		         3 laptop
+		         4 phone
+		         5 headphone
+		         1 watch
+
+		6 rows selected.
+
+		SQL>
+
+		Note: Observe above output we specify cycle thats why it generates latest products with 1 to 5 again 
+
+
+		Note: Observer from below output using CURRVAL 
+
+		SQL> select * from products_tbl;
+
+		       PID PNAME
+		---------- ----------
+		         1 radio
+		         2 desktop
+		         3 laptop
+		         4 phone
+		         5 headphone
+		         1 watch
+		         1 speaker
+
+		7 rows selected.
+
+		SQL>
+
+
+LEVEL
+-----
+ - this level will show tables rows in a tree strucher in a orderwise
+ - level with select connect by statement To oraganise ROWS from a database table into a tre strucher 
+ - level returs the number of a node in a tree strucher 
+ - the root is level one 
+ - level 2 is grand childrens 
+ - level 3 is and so on 
+
+ 	this LEVEL is used in the statment 
+
+ 		SQL> select level,empno,mgr,job from employee_tbl start with empno=7839 connect by prior empno=mgr;
+
+ 			- from above statment it will show a tree strucher from manager to analyst and clerk of its strucher in order way 
+
+
+
+
+
+ROWNUM and ROWID
+------------------
+ - ROWNUM -> Oracle engine maintains the number of each record inserted by users in a table By Help of the ROWNUM clause we can access the data according to inserted 
+
+ - ROWID -> For each Row in the database, the ROWID pseudocolumn returns a rows address the rowid containe 3 informations abot row address
+ 	1. File No -> FileNo means Table Number
+ 	2. DataBlockNo -> DataBloackNo means the space assigned by the oracle SQL engine to save the record 
+ 	3. RecordNo -> Oracle engines maintains the record number for each record 
+
+ 	output
+ 	-------
+ 	SQL> select rownum,rowid,pid from products_tbl;
+
+	    ROWNUM ROWID                     PID
+	---------- ------------------ ----------
+	         1 AAASBtAABAAAcKxAAA          1
+	         2 AAASBtAABAAAcKxAAB          2
+	         3 AAASBtAABAAAcKxAAC          3
+	         4 AAASBtAABAAAcKxAAD          4
+	         5 AAASBtAABAAAcKxAAE          5
+	         6 AAASBtAABAAAcKxAAF          1
+	         7 AAASBtAABAAAcKxAAG          1
+
+	7 rows selected.
+
+	SQL>
+
+	Note: it will maintain 3 information for a row it will be in Hexadecimal numbers 
+
+
+
+ORA_ROWSCN
+--------------
+ - ROWSCN means row system change number 
+ - it shows row last changed block inside in row in a table 
+ - it shows the last modification of the row if the table is created with the option ROWDEPENDENCIES ( default is NOROWDEPENDENCIES) 
+ - The Function SCN_TO_TIMESTAMP allow you to convert SCN to  timestamp 
+
+
+	SQL> select * from products_tbl;
+
+	       PID PNAME
+	---------- ----------
+	         1 radio
+	         2 desktop
+	         3 laptop
+	         4 phone
+	         5 headphone
+	         1 watch
+	         1 speaker
+
+	7 rows selected.
+
+	SQL>
+
+
+	SQL> select pname, ORA_ROWSCN from products_tbl where pid=2;
+
+	PNAME      ORA_ROWSCN
+	---------- ----------
+	desktop       2494336
+
+	SQL>
+
+	 - above output is ROWSCN number lets convert into timestamp To understand
+
+	 
+	SQL> select pname, ORA_ROWSCN, SCN_TO_TIMESTAMP(ORA_ROWSCN) from products_tbl where pid=2;
+
+	PNAME      ORA_ROWSCN
+	---------- ----------
+	SCN_TO_TIMESTAMP(ORA_ROWSCN)
+	---------------------------------------------------------------------------
+	desktop       2494336
+	10-MAR-24 02.05.05.000000000 PM
+
+
+	SQL> 
+
+	Note: from above output we get (ROWSCN) row system change number which is 2494336 that i want to convert into timestamp using "SCN_TO_TIMESTAMP(ORA_ROWSCN)" To get 10-MAR-24 02.05.05.000000000 PM
+
+
+
+
+
+
+

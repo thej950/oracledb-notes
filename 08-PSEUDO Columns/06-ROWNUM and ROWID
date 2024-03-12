@@ -1,0 +1,29 @@
+ROWNUM and ROWID
+------------------
+ - ROWNUM -> Oracle engine maintains the number of each record inserted by users in a table By Help of the ROWNUM clause we can access the data according to inserted 
+
+ - ROWID -> For each Row in the database, the ROWID pseudocolumn returns a rows address the rowid containe 3 informations abot row address
+ 	1. File No -> FileNo means Table Number
+ 	2. DataBlockNo -> DataBloackNo means the space assigned by the oracle SQL engine to save the record 
+ 	3. RecordNo -> Oracle engines maintains the record number for each record 
+
+ 	output
+ 	-------
+ 	SQL> select rownum,rowid,pid from products_tbl;
+
+	    ROWNUM ROWID                     PID
+	---------- ------------------ ----------
+	         1 AAASBtAABAAAcKxAAA          1
+	         2 AAASBtAABAAAcKxAAB          2
+	         3 AAASBtAABAAAcKxAAC          3
+	         4 AAASBtAABAAAcKxAAD          4
+	         5 AAASBtAABAAAcKxAAE          5
+	         6 AAASBtAABAAAcKxAAF          1
+	         7 AAASBtAABAAAcKxAAG          1
+
+	7 rows selected.
+
+	SQL>
+
+	Note: it will maintain 3 information for a row it will be in Hexadecimal numbers 
+

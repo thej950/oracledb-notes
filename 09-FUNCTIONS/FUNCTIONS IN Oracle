@@ -1,0 +1,1005 @@
+FUNCTIONS IN Oracle
+--------------------
+ - A Function In Oracle is a subprogram that is used to perform an action 
+ - Such as complex calculations and return the result of the action of a value 
+ - There are two types of function in Oracle 
+ 	1. User Defined Function Or Pre-Defined Function Or Built-In Functions
+ 	2. User Defined Functions
+
+Pre-Defined Functions Or Built_in Functions In Oracle
+------------------------------------------------------
+ - This Function which are already defined by Oracle system 
+ - They are Ready to be used by user or Developed or called system defined functions 
+ - These are again classified into Two Ways
+
+ 	1. Single Row Functions (Scalar Functions)
+ 	2. Multiple Row Functions (Grouping Functions)
+
+ 	Single Row Functions In Oracle 
+ 	-------------------------------
+ 	 - Single Row Functions are returning a single Row Or a Single value
+ 	 	1. Numeric Or Math Calculations 
+ 	 	2. String Or Char Functions
+ 	 	3. Date Or Time Functions
+ 	 	4. Conversion Functions
+ 	 	5. Analytics Functions 
+ 	 	6. Advanced Functions 
+ 	 	7. Miscellaneous Functions
+
+ 	 How To call a Function In Oracle
+
+ 	 	Syntax:
+
+ 	 		SELECT <function_name> <values> From Dual;
+
+ 	 	What is Dual In Oracle
+ 	 	 - It is a Predefined Table in Oracle
+ 	 	 - It is Having sigle Column and Single Row
+ 	 	 - It is called a Dummy Table In Oracle
+ 	 	 - It is Mainly used for testing (user and pre-define) Functionalities
+
+ 	 	Stucher Of Dual Table
+ 	 	 - DESC DUAL;
+
+ 	 	To See Data of Dual Table
+ 	 	 - SELECT * FROM DUAL;
+ 
+	Note: From above Capital Letters and small Letters ASCII will Different
+	Note: In System Every charecter has some Unique Number starts with 0 To 255
+	Note: even space have one ASCII code like 32
+
+
+
+String Or Char Functions
+-------------------------
+ ASCII
+  - It will Return the number code that will represents the specified Charecter
+  Syntax:
+
+  	ASCII<single_charecter>
+
+  		+++++++++++++++++++++++++++++++++
+	  	SQL> select ascii('a') from dual;
+
+		ASCII('A')
+		----------
+		        97
+
+		SQL>
+		++++++++++++++++++++++++++++++++++++
+		SQL> select ascii('A') from dual;
+
+		ASCII('A')
+		----------
+		        65
+
+		SQL>
+		++++++++++++++++++++++++++++++++++++++
+
+ ASCIISTR
+  - It will converts a string to any charecter set to an ASCII 
+  - string using the database charecter set
+  Syntax:
+
+  	ASCIISTR<string_name>
+
+
+		SQL> select asciistr('hello') from dual;
+
+		ASCII
+		-----
+		hello
+
+		SQL>
+
+
+ CHR
+  - It will Return the charecter Based on the Number code
+  - It is opposite to ASCII 
+  Syntax:
+
+  	CHR<number_code>
+
+
+		SQL> select chr(65) from dual;
+
+		C
+		-
+		A
+
+		SQL>
+
+ 
+ COMPOSE
+  - It will Returns a Unicode string
+  Syntax:
+
+  	COMPOSE <string_name>
+
+	  	SQL> select compose('o' || unistr('\0308')) from dual;
+
+		C
+		-
+		÷
+
+		SQL>
+
+  Note: ASCII stands for American Standard Code For Information Interchange
+
+ 
+ CONCAT
+  - It will combine Two strings 
+  Syntax:
+
+  	CONCAT(string_1,string_2)
+
+
+		SQL> select concat('hello ','world') from dual;
+
+		CONCAT('HEL
+		-----------
+		hello world
+
+		SQL>
+
+	- we can concat with name columns also available in the table
+
+		SQL>  select concat('hello..',name) from hdfc_tbl;
+
+		CONCAT('HELLO..',NAME)
+		---------------------------
+		hello..janu
+		hello..babu
+		hello..nani
+		hello..raju
+		hello..kiran
+
+		SQL>
+
+ CONVERT 
+  - Using convert we able to convert One charecter set to another charecter set 
+  - To convert One language to another language which means in international wise there are different standards is available like US7ASCII (us 7 bit charecter set0 and WE8DEC (west european 8-bit charecter set) like many more 
+  - using this we able to change one ASCII charecter set to another charecter set 
+  Syntax:
+
+  	CONVERT(string_1,char_set_to [,char_set_from])
+ 
+ DECOMPOSE
+  - It will accept a string return to unicode 
+  Syntax:
+
+  	DECOMPOSE(string)
+
+ DUMP
+  - it will return a carchar2 value that might be includes the datatype code, and the length in bytes and internal representation
+  - every datatype has code it will return that code 
+  Syntax:
+
+  	DUMP(expression[,return_format] [,start_position] [,length])
+
+ INITCAP
+  - sets the first charecter in each word to uppercase and the rest to lowercase
+  Syntax:
+
+  	INITCAP(string_1)
+
+	  	SQL> select initcap('education lerning') from dual;
+
+		INITCAP('EDUCATIO
+		-----------------
+		Education Lerning
+
+		SQL>
+
+ INSTR
+  - To find charecter search in the string in which position
+ Syntax:
+
+ 	INSTR(string,substring [,start_position [,th_appearace]])
+
+		SQL> select instr('education lerning', 'd') from dual;
+
+		INSTR('EDUCATIONLERNING','D')
+		-----------------------------
+		                            2
+
+		SQL>
+
+ LENGTH
+  - it will returns length of the specified string
+  Syntax:
+
+  	LENGTH(string_1)
+
+ LOWERCASE
+  - converts all letters into specified lowercase
+  SYNTAX:
+
+  	LOWER(string_1)
+
+ LPAD
+  - pads the left side of a string with a specific set of charecters (when string_1 is not null)
+  Syntax:
+
+  	LPAD(string_1,padded_length [,pad_string])
+
+ LTRIM
+  - remove all specified charecters from the left hand side of a string
+  Syntax:
+
+  	LTRIM(string_1 [,trim_string])
+
+ REPLACE
+  - it will replace some values 
+
+
+		SQL> select replace('raju is bad','bad','good') from dual;
+
+		REPLACE('RAJ
+		------------
+		raju is good
+
+		SQL>
+
+ RPAD
+  - it means right padding
+  Syntax:
+
+  	RPAD(string_1,padded_length [,pad_string])
+
+ RTRIM
+  - it means right side trim same like LTRIM
+
+ SOUNDEX
+  - it will returns a phonetic representation (the way it sounds) of a string
+  Syntax:
+
+  	SOUNDEX(string_1)
+
+ SUBSTR
+  - it will run substring
+  - allow to extract a substring from string
+  Syntax:
+
+  	SUBSTR(string,start_position [,length])
+
+
+ TRANSLATE
+  - replace a sequence of a charecter in a string with another set of charecters however it represents a sigle charecter at single time 
+  Syntax:
+
+  	TRANSLATE(string_1,string_to_replace,replacement_string)
+
+ TRIM
+  - it will removes all specified charecters either from the beginig or ed of a string
+  Syntax:
+
+  	TRIM([[LEADING | TRAILING | BOTH ]]) trim_charecter FROM ] string_1)
+
+ UPPERCASE
+  - converts all letters in the specified string to uppercase
+  Syntax:
+
+  	UPPER(string_1)
+
+ VSIZE
+  - it will retur the number of bytes in the international representation of an expression
+  Syntax:
+
+  	VSIZE(expression)
+
+
+ REGEXP_REPLACE
+  - REGEXP_REPLACE it is a extension of replace function
+  - this regexp_replace function introduced in 10g 
+  - it will allow to replace a sequence of charecters in a string with another set of charecters using regular expression pattern matching
+
+  	Syntax:
+
+  		REGEXP_REPLACE(string, pattern [,replacement_string [,start_position [,nth_appearance [,match_parametr]]]])
+
+
+ REGEXP_SUBSTR
+  - REGEXP_SUBSTR it is an extension of the SUBSTR function 
+  - this function introduced in Oracle 10g 
+  - this will allow you to extract a substring from a string using regular expression pattern matching 
+
+  	Syntax:
+
+  		REGEXP_SUBSTR(string, pattern [,start_position [,nth_appearance [,match_parameter [,sub_expression]]]])
+
+
+ REGEXP_INSTR
+  - REGEXP_INSTR function it is a extension for INSTR function 
+  - It will returns the location of regular expression pattern in a string 
+  - This Function, Introduced in Oracle 10g
+  - It will allow you to find a substring in a string using regular expression pattern matching 
+
+  	Syntax:
+
+  		REGEXP_INSTR(string, pattern [,start_position [,nth_appearance [,return_option [,match_parameter [,sub_expression]]]]])
+
+
+ Patterns Of Regular Expressions
+ -------------------------------
+ Value	Description
+ --------------------------------
+ 1. ^		It will Matches the Begining of a string If we used with a match_parameter of 'm' it matches the start of a line anywhere 
+ 2. $ 		Matches the end of a string if used with a match_parameter of 'm' it matches the end of a line anywhere 
+ 3. *   	Matches zero Or more occurences 
+ 4. +   	Matches one or more occurences
+ 5. ?		Matches Zero Or One occurances
+ 6. .		Matchs any charecter except NULL
+ 7. | 		Used Like an "OR" To specify more than one alternative
+ 8. []		used to specify a matching list where you are trying to match any one of the charecters in the list 
+ 9. [^ ]	Used To specify a non matching list where you are trying to match any charecter except for the ones in the list 
+ 10. () 	Used To group the expression as a subexpression
+ 11. {m}	Matches m times
+ 12. {m,}	Matches the at least m times
+ 13. {m,n} 	Matches atleast m times but no more than n times
+ 14. \n 	n is a number between 1 and 9 Matches the nth subexpression found within () before encountering \n
+ 15. [..]	Matches one collation element that can be more than one charecter 
+ 16. [::]	Matches charecter classes
+ 17. [==]	Matches equivalance classes
+ 18. \d 	Matches a digit charecter 
+ 19. \D 	Matches a Non Digit charecter
+ 20. \w 	Matches a word charecter
+ 21. \W 	Matches a Non word charecter
+ 22. \s 	Matches a whitespace charecter
+ 23. \S 	Matches a Non Whitespec charecter
+ 24. \A 	Matches the begining of a string or matches at the end of a string before a newline charecter
+ 25. \Z 	Matches at the end of a string
+ 26. *?		Matches the preceding pattern zero or more occurances
+ 27. +?		Matches the preceding pattern one or more occurances
+ 28. ??		Matches the preceding pattern zero or one occurance
+ 29. {n}?	Matches the preceding pattern n times
+ 30. {n,}?	Matches the preceding pattern atleast n times
+ 31. {n,m}?	Matches the preceding pattern at least n times but not more than m times
+
+
+ Match parameter
+ ----------------
+ value 		Description
+ ------------------------
+ 1. 'c'		Perform case-sensitive matching
+ 2. 'i'		Perform case-insentive matching
+ 3. 'n'		Allow the period charecter (.) to match the newline charecter. By default the period is a wildcard
+ 4. 'm'		Expression is assumed to be multiple lines where ^ is the start of a line and $ is the end of a line, regardless of the position of those charecters in expression. By default, expression is assumed to be a single line 
+ 5. 'X' 	Whitespace charecter are ignored. By default, whitespace charecters are matched like any other charecter
+
+
+Nemeric Or Match Functions
+---------------------------
+ ABS 
+  - This ABS functions will returns value of a number
+  Syntax: ABS(number)
+
+ ACOS
+  - this ACOS function will return the arc cosine of a number
+  syntax: ACOS(number)
+
+ ASIN
+  - this asin function returns the atc sine of a number
+  syntax: ASIN(number)
+
+ ATAN 
+  - atan function returns the atc tangant of a number
+  syntax: ATAN(number)
+
+ ATAN2
+  - this atan2 function will return the arc tangant of n and m 
+  syntax: ATAN2(n,m)
+
+ BITAND
+  - it will returns the integer representating an AND operation on the bits of expr1 and expr2
+  syntax: bitand(expr1,expr2)
+ 
+ CEIL
+  - this function returns a value that is greater than or equal to a number
+  syntax: CEIL(number)
+
+ COS 
+  - This function returns the cosine of a number
+  syntax: COSH(number)
+
+ EXP 
+  - this function returns e raised to the nth power,where e = 2.71828183
+  syntax: EXP(number)
+
+ FLOOR
+  - This function returns the largest integer value that is equal to or less than a number
+  syntax: FLOOR(number)
+
+ GREATEST
+  - This function returns the greatest value in a list of expressions
+  syntax: GREATEST(expr_1 [,expr_2,...expr_n])
+
+ LEAST
+  - This function will resturn the smallest value in a list of expressions
+  syntax: LEAST(expr1[,expr2,...expr_n])
+
+ LN
+  - This function will return the natural logarithm of a number
+  syntax: LN(number)
+
+ LOG 
+  - This function will return the logarithm of n base of m 
+ syntax: LOG(m,n)
+
+ MOD
+  - This function will return the reminder of m devided by n.
+  syntax: MOD(m,n)
+
+ POWER
+  - This function returns the m raised to the nth power 
+  syntax: POWER(m,n)
+
+ REMAINDER 
+  - this remainder function returns the remainder of m devided by n.
+  syntax: REMAINDER(m,n)
+
+ ROUND
+  - This function will returns a number rounded to a certain number of decimal places
+  syntax: ROUND(number[,decimal_places])
+
+ SIGN
+  - This function returns a value indicating a sign of a number
+  syntax: SIGN(number)
+  
+  	Returns:
+  	 - if number < 0, then the SIGN function returns-1.
+  	 - if number = 0, then the SIGN function returns 0.
+  	 - if number > 0, then the SIGN function returns 1.
+ 
+ SIN
+  - this function sin retirns the sin of n
+  syntax: SINH(n)
+
+ SQRT
+  - this function will return the square root of n
+  syntax: SQRT(n)
+
+ TAN
+  - This Function returns the tangent of n
+  syntax: TAN(n)
+
+ TANH
+  - this function returns the hyperbolic tangent n
+  syntax: TANH(n)
+ 
+ TRUNC
+  - function returns a number truncated to a certain number of decimal places
+  syntax: TRUNC(number[,decimal_places])
+
+
+Date and Time Functions
+-------------------------
+ ADD_MONTHS
+  - this will returns a date with a specified number of months added
+  syntax: ADD_MONTHS(date1,number_months)
+
+ CURRENT_DATE
+  - this function will returns the current date in the time zone of the current sql session as set by the alter session command
+  syntax: CURRENT_DATE
+
+ CURRENT_TIMESTAMP
+  - this function returns the current date and time in the timeone of current sql session as set by the alster session command 
+  - it will returns with TIMESTAMP with TIME ZONE value 
+  syntax: CURRENT_TIMESTAMP
+
+ DBTIMEZONE
+  - this function will returns the database timezone as a time zone offset (in the following format:'[+|-]TZH:TZM') or a time zone region name 
+  syntax: DBTIMEZONE
+
+ EXTRACT
+  - this function will extract a value from a date or interval value 
+  syntax:
+    EXTRACT(
+        { YEAR | MONTH | DAY | HOUR | MINUTE | SECOND }
+        | { TOMEZONE_HOUR | TIMEZONE_MINUTE }
+        | { TIMEZONE_REGION | TIMEZONE_ABBR }
+        FROM { date_value | interval_value }
+    )
+    Note:
+     - You can only extract year,month, and day from a date and you can only extract timezone_hour and timezone_minute from a timestamp with time zone  datatype
+    Returns:
+     - The extract function returns a numeric value when the following parameters are provided like (year,month,dat,hour,minute,second,timezone_hour,timezone_minute,timezone_region,timeone_minute.)
+     - the extract function returns a varchar2 when timezone or region or timezone_abbr parameters are provided (because the timezone name or abbreviation information is returned )
+
+ LAST_DAY
+  - this function returns the last day of the month based on a date value
+  syntax: LAST_DAY(date)
+
+ LOCALTIMESTAMP
+  - this function will returns the current date and time zone of the current sql session as set by the alter session command 
+  - it will returns a timestamp value
+  syntax: LOCALTIMESTAMP
+
+   Note: 
+    - A similar function to the LOCALTIMESTAMP function is the CURRENT TIMESTAMP function 
+    - the difference between these two functions are that the local timestamp function returns a timestamp value while the curret timestamp function returns a timestamp with timezone value 
+
+
+ MONTHS_BETWEEN
+  - this function returns the number of months between date1 and date2
+  syntax: MONTHS_BETWEEN(date1,date2)
+
+ NEW_TIME
+  - This function converts a date from time zone1 to a date in time zone2 
+  - the new time function returns a date value
+  syntax: NEW_TIME(date,zone1,zone2)
+
+    value       Description
+    ------------------------
+    AST         Atlantic standard time
+    ADT         Atlantic daylight time
+    BST         Bering standard time
+    CST         Central standard time
+    CDT         central daylight time
+    EST         Eastern standard time
+    EDT         Eastern daylight time
+    GMT         Greenwich mean time
+    HST         Alaska Hawai standard time
+    HDT         Alaska Hawai standard time
+    MST         Mountain standard time
+    MDT         Mountain Daylight time
+    NST         Newfounded standard time
+    PST         Pacific standard time
+    PDT         Pacific daylight time
+    YST         Youkon standard time
+    YDT         Yukon Daylight time
+
+
+ NEXT_DAY
+  - it will returns a first weekday that is greater than a date
+  syntax: NEXT_DAY(date,weekday)
+
+ ROUND
+  - it will returns a date rounded to a specific unit of measure 
+  syntax: ROUND(date[,format])
+  ----------------------------------------------------------------------------------------------------------------------------------------
+  unit                      valid format parameters                     Rounding Rul
+  ----------------------------------------------------------------------------------------------------------------------------------------
+  1. year                   SYYYY, YYYY, YEAR, SYEAR, YYY, YY, Y        Rounds up on July 1st
+  2. ISO Year               IYYY, IY, I                                 
+  3. Quarter                Q                                           Rounds up on the 16th day of second month of the quarter
+  4. Month                  MONTH, MON, NM, RM                          Rounds up on the 16th day of the month
+  5. Week                   WW                                          Same day of the week as the first day of the year
+  6. IW                     IW                                          Same day of the week as the first day of ISO year
+  7. Day                    DDD, DD, J                                  
+  8. start day of the week  DAY, DY, D                                  
+  9. Hour                   HH, HH12, HH24
+  10. Minute                MI    
+  ----------------------------------------------------------------------------------------------------------------------------------
+
+ SESSIONTIMEZONE
+  - it will return current session time zone as a time zone offset (in the following format: '[+|-]TZH:TZM') or a time zone region name
+  syntax: SESSIONTIMEZONE
+
+ SYSDATE
+  - this function returns the current system date and time on your local database
+  syntax: SYSDATE
+
+ SYSTIMESTAMP
+  - it will functions returns the current system date and time (including fractional seconds and time zone ) on your local database
+  syntax: SYSTIMESTAMP
+
+ TRUNC
+  - this function returns a date truncated to a specific unit of measure 
+  syntax: TRUNC
+
+ TZ_OFFSET
+  - this function returns the time zone offset of a value 
+  syntax: TZ_OFFSET(timezone)
+
+
+  TIMEZONE
+  ---------
+   - A valid timezone name, a timezone offset from UTC, The session timezone function, or the DBTIMEZONE function 
+   - some of the more commonly used time zones name are below
+
+      Canada/Atlantic
+      Canada/Central
+      Canada/East-Saskatchewan
+      Canada/Eastern
+      Canada/Mountain
+      Canada/Newfoundland
+      Canada/Pacific
+      Canada/Saskatchewan
+      Canada/Yukon
+      Europe/Dublin
+      Europe/Istanbul
+      Europe/Lisbon
+      Europe/London
+      Europe/Moscow
+      Europe/Warsaw
+      Greenwich
+      Pacific/Auckland
+      Pacific/Chatham
+      Pacific/Easter
+      Pacific/Honolulu
+      Pacific/Kwajalein
+      Pacific/Pago_Pago
+      Pacific/Samoa
+      US/Alaska
+      US/Aleutian
+      US/Arizona
+      US/Central
+      US/East-Indiana
+      US/Eastern
+      US/Hawaii
+      US/Michigan
+      US/Mountain
+      US/Pacific
+      US/Pacific-New
+      US/Samoa
+         
+
+Conversion Function
+--------------------
+ BIN_TO_NUM 
+  - it will convert binary to number 
+  syntax: BIN_TO_NUM(expr1,expr2,...exprn)
+
+ CAST
+  - it will convert one datatype to another 
+  syntax: CAST ({ expr | (subquery) | MULTISET (subquery)} AS type_name)
+
+    Allowed Casts
+    posibility to change one datatype to another datatype
+    ------------------------------------------------------
+     - From char,varchar2 datatype To nchar,nvarchar2
+     - From number datatype To datetime/interval or raw and rowid, urowid
+     - From datetime/interval To number and raw and rowid, urowid
+     - From raw To number and datetime/interval and rowid, urowid
+     - From rowid, urowid To number and datetime/interval and raw
+     - From nchar,nvarchar2 To char,varchar2 and number and datetime/interval, raw and rowid,urowid 
+
+ CHARTOROWID
+  - this function converts a char, varchar2 or nchar or nvarcha2 to rowid
+  syntax: CHARTOROWID(value1)
+
+ FROM_TZ 
+  - This function converts a TIMESTAMP value (given a TIMEZONE) to a TIMESTAMP with TIME ZONE value 
+  syntax: FROM_TZ (timestamp_value,time_zone_value)
+
+ HEXTORAW
+  - this function converts a hexadecimal value into a raw value 
+  syntax: HEXTORAW(char)
+
+ NUMTODSINTERVAL
+  - this function converts a number to an INTERVAL DAY TO SECOND literal 
+  syntax: NUMTODSINTERAL(number,expression)
+
+    number
+     - the number to convert to an interval 
+    expression
+     - the uit to convert to, it must be one of the following values: DAY, HOUR, MINUTE, or SECOND 
+
+
+ NUMTOYMINTERVAL
+  - this function converts a number to an INTERVAL YEAR TO MONTH literal 
+  syntax: NUMTOYMINTERVAL(number,expression)
+
+    number
+     - the number to convert to an interval
+    expression
+     - The usint to convert to. it must be one of the following values YEAR or MONTH
+
+ RAWTOHEX
+  - this function will convert to raw value to an hexadecimal value 
+  - One of our viewers says that this function comes in handy to move a varchar value to a blob field 
+  stntax: RAWTOHEX(raw)
+
+ TO_CHAR
+  - this function will convert a number or date to a string
+  syntax: TO_CHAR(value[,format_mask] [,nls_language])
+   value
+    - A number or date that will be converted to a string 
+    format_mask
+     - Optional. this is format that will be used to convert value to a string 
+    nls_language
+     - Optional. this is the nls language used to convert value to a string 
+
+ 
+ TO_CLOB
+  - this function converts a LOB value from the national charecter set to the database charecter set 
+  syntax: TO_CLOB(expression)
+
+    expression:
+     - A lob_column, char, varchar2, nchar, nvarchar2, clob or nclob value
+
+ TO_DATE
+  - this function will convert string to a date
+  syntax: TO_DATE(string1 [,format_mask] [,nls_language])
+
+ TO_DSINTERVAL
+  - this function converts a tring to an INTERVAL DAY TO SECOND type
+  syntax: TO_DISINTERVAL(charecter [nls_parameter])
+
+ TO_LOB
+  - this function converts LONG or LONG RAW values to LOB values
+  syntax: TO_LOB(long_column)
+
+ TO_MULTI_BYTE
+  - This function returns a charecter value will all of the single byte charecters converted to multibyte charecters
+  - To use this functions, your database charecter set contains both single byte and multibyte charaters 
+  syntax: TO_MULTI_BYTE(char)
+
+ TO_NCLOB
+  - This function converts a LOB value to a NCLOB value
+  sytax: TO_NCLOB( expression ) 
+
+ TO_NUMBER
+  - this function will convert string to number
+  syntax: TO_NUMBER(string1 [,format_task] [,nls_language])
+
+ TO_SINGLE_BYTE
+  - this function returs a charecter value with all the multi byte charecters converted to single byte charecters 
+  - To use this function your database charecter set contains both single byte and multibyte charecters 
+  syntax: TO_SINGLE_BYTE(char)
+
+ TO_TIMESTAMP
+  - this function converts a string to a timestamp
+  syntax: TO_TIMESTAMP(strin1 [,format_mask] ['nlsparam'])
+
+ TO_TIMESTAMP_TZ 
+  - this function converts strings to timestamp with time zone 
+  syntax: TO_TIMESTAMP_TZ(string1 [,format_task] ['nlsparam'])
+
+ TO_YMINTERVAL 
+  - this function converts a string to an INTERVAL YEAR TO MONTH type 
+  syntax: TO_YMINTERVAL( charecter )
+
+
+Aggregate or Group Functions
+------------------------------
+ - In Oracle aggregate function is a type of function which operates on specified column and it will returns a single row result 
+ - Thses functions are mostly used in QUERY which contains GROUP BY clause in a SELECT statement where GROUP BY clause groups the rows as per specfied condition and AGGREGATE function performs aggregation on the groupe data 
+  - It will returns a single row result based on groups of rows conditions 
+  - Aggregate functions can be used in SELECT statement 
+  - Aggregate functions can be used in HAVING clause as a condition 
+  - it will returns one result per group as an output 
+  - the group of rows can be the whole table or the rows split into many groups 
+
+  Syntax of Oracle Aggregate Functions:
+  -------------------------------------
+
+    GroupFunctionName (DISTINCT/ALL ColumnName)
+
+   Guidelines to use
+   -----------------
+    - DISTINCT keyword is used to ignore duplicate values and function consider only non-duplicate values
+    - ALL keyword is used to consider all values for the aggregate operation including duplicates 
+    - CHAR, VARCHAR2, NUMBER, or DATE data types can be used for argument 
+    - All group function except COUNT(*) function ignore NULLs. the NVL function can be a better option to substitute a value for NULLs.
+    - No single row columns should be used with group functions in SELECT statment without GROUP BY clause. 
+
+    Important aggregate functions
+    ---------------------------------------------------------------------
+     FUNCTIONS      DESCRIPTION   
+    ---------------------------------------------------------------------
+     1. AVG()     It returns an avarage value of give expression
+     2. SUM()     it returns the sum of value of give expression
+     3. MAX()     it returns maximum value of give expression
+     4. MIN()     it returns minimum value of given expression
+     5. COUNT()     it returns total number of rows for the given expression
+     6. STDDEV()    it returns the standard deviation of the column 
+     7. VARIANCE()    it returns the variances 
+    --------------------------------------------------------------------------
+
+    Lets Do Practicles of using employee table
+    --------------------------------------------------------
+
+    step1: lets create a table of employee and insert some values into that table 
+
+        CREATE TABLE employee (
+          EMPNO   NUMBER(4) PRIMARY KEY,
+          ENAME   VARCHAR2(30),
+          JOB     VARCHAR2(30),
+          MGR     NUMBER(4),
+          HIREDATE DATE,
+          SAL     NUMBER(7,2),
+          COMM    NUMBER(7,2),
+          DEPTNO  NUMBER(2)
+      );
+
+      -- Inserting data into the employee table
+      INSERT INTO employee VALUES (7369, 'SMITH', 'CLERK', 7902, TO_DATE('17-DEC-80', 'DD-MON-YY'), 800, NULL, 20);
+      INSERT INTO employee VALUES (7499, 'ALLEN', 'SALESMAN', 7698, TO_DATE('20-FEB-81', 'DD-MON-YY'), 1600, 300, 30);
+      INSERT INTO employee VALUES (7521, 'WARD', 'SALESMAN', 7698, TO_DATE('22-FEB-81', 'DD-MON-YY'), 1250, 500, 30);
+      INSERT INTO employee VALUES (7566, 'JONES', 'MANAGER', 7839, TO_DATE('02-APR-81', 'DD-MON-YY'), 2975, NULL, 20);
+      INSERT INTO employee VALUES (7654, 'MARTIN', 'SALESMAN', 7698, TO_DATE('28-SEP-81', 'DD-MON-YY'), 1250, 1400, 30);
+      INSERT INTO employee VALUES (7698, 'BLAKE', 'MANAGER', 7839, TO_DATE('01-MAY-81', 'DD-MON-YY'), 2850, NULL, 30);
+      INSERT INTO employee VALUES (7782, 'CLARK', 'MANAGER', 7839, TO_DATE('09-JUN-81', 'DD-MON-YY'), 2450, NULL, 10);
+      INSERT INTO employee VALUES (7788, 'SCOTT', 'ANALYST', 7566, TO_DATE('09-DEC-82', 'DD-MON-YY'), 3000, NULL, 20);
+      INSERT INTO employee VALUES (7839, 'KING', 'PRESIDENT', NULL, TO_DATE('17-NOV-81', 'DD-MON-YY'), 5000, NULL, 10);
+      INSERT INTO employee VALUES (7844, 'TURNER', 'SALESMAN', 7698, TO_DATE('08-SEP-81', 'DD-MON-YY'), 1500, NULL, 30);
+      INSERT INTO employee VALUES (7876, 'ADAMS', 'CLERK', 7788, TO_DATE('12-JAN-83', 'DD-MON-YY'), 1100, NULL, 20);
+      INSERT INTO employee VALUES (7900, 'JAMES', 'CLERK', 7698, TO_DATE('03-DEC-81', 'DD-MON-YY'), 950, NULL, 30);
+      INSERT INTO employee VALUES (7902, 'FORD', 'ANALYST', 7566, TO_DATE('03-DEC-81', 'DD-MON-YY'), 3000, NULL, 20);
+      INSERT INTO employee VALUES (7934, 'MILLER', 'CLERK', 7782, TO_DATE('23-JAN-82', 'DD-MON-YY'), 1300, NULL, 10);
+
+  step2: check that table 
+
+      SQL> select * from employee;
+
+           EMPNO ENAME                          JOB                                   MGR HIREDATE         SAL       COMM     DEPTNO
+      ---------- ------------------------------ ------------------------------ ---------- --------- ---------- ---------- ----------
+            7369 SMITH                          CLERK                                7902 17-DEC-80        800                    20
+            7499 ALLEN                          SALESMAN                             7698 20-FEB-81       1600        300         30
+            7521 WARD                           SALESMAN                             7698 22-FEB-81       1250        500         30
+            7566 JONES                          MANAGER                              7839 02-APR-81       2975                    20
+            7654 MARTIN                         SALESMAN                             7698 28-SEP-81       1250       1400         30
+            7698 BLAKE                          MANAGER                              7839 01-MAY-81       2850                    30
+            7782 CLARK                          MANAGER                              7839 09-JUN-81       2450                    10
+            7788 SCOTT                          ANALYST                              7566 09-DEC-82       3000                    20
+            7839 KING                           PRESIDENT                                 17-NOV-81       5000                    10
+            7844 TURNER                         SALESMAN                             7698 08-SEP-81       1500                    30
+            7876 ADAMS                          CLERK                                7788 12-JAN-83       1100                    20
+
+           EMPNO ENAME                          JOB                                   MGR HIREDATE         SAL       COMM     DEPTNO
+      ---------- ------------------------------ ------------------------------ ---------- --------- ---------- ---------- ----------
+            7900 JAMES                          CLERK                                7698 03-DEC-81        950                    30
+            7902 FORD                           ANALYST                              7566 03-DEC-81       3000                    20
+            7934 MILLER                         CLERK                                7782 23-JAN-82       1300                    10
+
+      14 rows selected.
+
+      SQL>
+
+
+  step3: To get total average salary of employess here [select avg (sal) from employee;]
+
+        SQL> select avg (sal) from employee;
+
+          AVG(SAL)
+        ----------
+        2073.21429
+
+        SQL>
+
+  step4: To get avg sal from table using DISTINCT (which means filter out duplicate sal)
+
+        SQL> select avg (distinct sal) from employee;
+
+        AVG(DISTINCTSAL)
+        ----------------
+              2064.58333
+
+        SQL>
+  step5: To perform avg to comm column 
+
+      SQL> select avg (comm) from employee;
+
+       AVG(COMM)
+      ----------
+      733.333333
+
+      SQL>
+    - which means from above output there in table comm column may containe only 3 persons have values so them its combine all of the values and by 3 (which means 300+500+1400=2200 so 2200/3)
+  step6: To dedivide with 4 value for comm columns values
+
+
+      SQL> select sum(comm)/4 from employee;
+
+      SUM(COMM)/4
+      -----------
+              550
+
+      SQL>
+
+  step7: To make total of comm column [select sum(comm) from employee;]
+
+  step8: To see maximum salary and minimum salary from table [select max(sal),min(sal) from employee; ] 
+
+
+
+      SQL> select max(sal),min(sal) from employee;
+
+        MAX(SAL)   MIN(SAL)
+      ---------- ----------
+            5000        800
+
+      SQL> 
+
+  step9: To see how many dept from above tables perticularly on dept only 
+
+      SQL> select count(distinct deptno) from employee;
+
+      COUNT(DISTINCTDEPTNO)
+      ---------------------
+                          3
+
+      SQL>
+
+  step10: To check in the employee table commision is null or commission is not null
+
+      SQL> select count(*) from employee where comm is null;
+
+        COUNT(*)
+      ----------
+              11
+
+      SQL> select count(*) from employee where comm is not null;
+
+        COUNT(*)
+      ----------
+               3
+
+      SQL>
+
+  step11: To see from above table standard deviation from salary and commision
+
+      SQL>  select stddev(sal),stddev(comm) from employee;
+
+      STDDEV(SAL) STDDEV(COMM)
+      ----------- ------------
+       1182.50322   585.946528
+
+      SQL>
+
+  step12: To see from above table variances from salary and commision
+
+
+
+      SQL> select variance(sal),variance(comm) from employee;
+
+      VARIANCE(SAL) VARIANCE(COMM)
+      ------------- --------------
+         1398313.87     343333.333
+
+      SQL>
+
+  step13: To get department wise avg salary
+
+      SQL> select deptno,avg(sal) from employee group by deptno;
+
+          DEPTNO   AVG(SAL)
+      ---------- ----------
+              30 1566.66667
+              10 2916.66667
+              20       2175
+
+      SQL>
+      - from above table we have 3 departments with average salary of each departments
+
+  step14: Now i want to get only 10,20 departments only using having clause
+
+
+      SQL> select deptno,avg(sal) from employee group by deptno having deptno in(10,20);
+
+          DEPTNO   AVG(SAL)
+      ---------- ----------
+              10 2916.66667
+              20       2175
+
+      SQL>
+
+      
+      - to see in orderwise 
+
+
+      SQL> select deptno,avg(sal) from employee group by deptno having deptno in(10,20) order by deptno;
+
+          DEPTNO   AVG(SAL)
+      ---------- ----------
+              10 2916.66667
+              20       2175
+
+      SQL>
+
+      - if salary greater than 1500 hundred 
+
+      
+      SQL> select deptno,avg(sal) from employee where sal>=1500 group by deptno having deptno in(10,20) order by deptno;
+
+          DEPTNO   AVG(SAL)
+      ---------- ----------
+              10       3725
+              20 2991.66667
+
+      SQL>
+
+
+

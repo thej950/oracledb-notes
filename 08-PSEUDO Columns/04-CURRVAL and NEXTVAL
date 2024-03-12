@@ -1,0 +1,182 @@
+CURRVAL and NEXTVAL
+---------------------------
+ - A sequence is a schema object that will generate sequential numbers 
+ - When we create a sequence we can specify its initial value and an increment 
+ - CURRVAL returns the current value in a specified sequence 
+ - before we use or reference a CURRVAL in a session we must use NEXTVAL to generate a number 
+ - A reference to NEXTVAL stores the current sequence of number in CURRVAL 
+ - NEXTVAL increments the sequence and returns the next value 
+ - To get or obtain the current or next value in a sequence, we must use dot notation, as below follows 
+
+ 	sequence_name.CURRVAL
+ 	sequence_name.NEXTVAL
+
+ - Sequece (autonumber) in Oracle
+ 	- In oracle we can create a autonumber field by using this sequence 
+ 	- A sequence is an object that is used to generate a number sequence 
+ 	- This will usefule or helpfull when we need to create a unique number to act as a primary key 
+
+ 		Syntax:
+
+ 			CREATE SEQUENCE sequence_name <MINVALUE value>  <MAXVALUE value>  < START WITH value> <INCREMENT BY value> <Cycle> <CACHE value>;
+
+ 	Note: In simple words we used to create a sequence_name to store some values into it we used that into table to autogenerate numbers like we use NEXTVAL and CURRVAL
+
+
+Practicles of OUTPUT
+-----------------------
+step1: lets create a table 
+
+
+SQL> create table products_tbl(pid number(3), pname varchar2(10));
+
+Table created.
+
+SQL>
+
+step2: Now I want create a sequence for pid to auto generate numbers here in products_tbl  sequence name is "pnoseq" this name can be anything 
+
+
+SQL> create sequence pnoseq minvalue 1 maxvalue 5 start with 1 increment by 1 ;
+
+Sequence created.
+
+SQL>
+
+step3: Checking our created pnoseq working or not 
+
+
+SQL> select pnoseq.nextval from dual;
+
+NEXTVAL
+----------
+ 1
+
+SQL> select pnoseq.nextval from dual;
+
+NEXTVAL
+----------
+ 2
+
+SQL> select pnoseq.nextval from dual;
+
+NEXTVAL
+----------
+ 3
+
+SQL> select pnoseq.nextval from dual;
+
+NEXTVAL
+----------
+ 4
+
+SQL> select pnoseq.nextval from dual;
+
+NEXTVAL
+----------
+ 5
+
+SQL> select pnoseq.nextval from dual;
+select pnoseq.nextval from dual
+*
+ERROR at line 1:
+ORA-08004: sequence PNOSEQ.NEXTVAL exceeds MAXVALUE and cannot be instantiated
+
+
+SQL>
+
+Note: from above out it is perfectvely Running fine but from above last error was we already excuted all five times thats its get error if we specify 10 maxvalue then after 10 lines it will throw an error "if we specify cycle over there then it will again start with 1 to 5 everytime excuted"
+
+Note: we can also drop that sequence using "drop sequence pnoseq" statment
+
+++++++++++++++++++++++++++++		
+SQL> drop sequence pnoseq;
+
+Sequence dropped.
+
+SQL>
+++++++++++++++++++++++++++++
+
+Note: if we want current value then excute like select "pnoseq.currtval from dual;"
+
+step4: Now lets use that sequence in table in column pno in products_tbl
+
+
+SQL> create sequence pnoseq minvalue 1 maxvalue 5 start with 1 increment by 1 cache 2 cycle;
+
+Sequence created.
+
+SQL>
+
+
+SQL> insert into products_tbl values(pnoseq.nextval,'radio');
+
+1 row created.
+
+SQL> insert into products_tbl values(pnoseq.nextval,'desktop');
+
+1 row created.
+
+SQL> insert into products_tbl values(pnoseq.nextval,'laptop');
+
+1 row created.
+
+SQL> insert into products_tbl values(pnoseq.nextval,'phone');
+
+1 row created.
+
+SQL> insert into products_tbl values(pnoseq.nextval,'headphone');
+
+1 row created.
+
+SQL> select * from products_tbl;
+
+   PID PNAME
+---------- ----------
+     1 radio
+     2 desktop
+     3 laptop
+     4 phone
+     5 headphone
+
+SQL> insert into products_tbl values(pnoseq.nextval,'watch');
+
+1 row created.
+
+SQL> select * from products_tbl;
+
+   PID PNAME
+---------- ----------
+     1 radio
+     2 desktop
+     3 laptop
+     4 phone
+     5 headphone
+     1 watch
+
+6 rows selected.
+
+SQL>
+
+Note: Observe above output we specify cycle thats why it generates latest products with 1 to 5 again 
+
+
+Note: Observer from below output using CURRVAL 
+
+SQL> select * from products_tbl;
+
+   PID PNAME
+---------- ----------
+     1 radio
+     2 desktop
+     3 laptop
+     4 phone
+     5 headphone
+     1 watch
+     1 speaker
+
+7 rows selected.
+
+SQL>
+
+

@@ -1,0 +1,50 @@
+FUNCTIONS IN Oracle
+--------------------
+ - A Function In Oracle is a subprogram that is used to perform an action 
+ - Such as complex calculations and return the result of the action of a value 
+ - There are two types of function in Oracle 
+ 	1. User Defined Function Or Pre-Defined Function Or Built-In Functions
+ 	2. User Defined Functions
+
+Pre-Defined Functions Or Built_in Functions In Oracle
+------------------------------------------------------
+ - This Function which are already defined by Oracle system 
+ - They are Ready to be used by user or Developed or called system defined functions 
+ - These are again classified into Two Ways
+
+ 	1. Single Row Functions (Scalar Functions)
+ 	2. Multiple Row Functions (Grouping Functions)
+
+ 	Single Row Functions In Oracle 
+ 	-------------------------------
+ 	 - Single Row Functions are returning a single Row Or a Single value
+ 	 	1. Numeric Or Math Calculations 
+ 	 	2. String Or Char Functions
+ 	 	3. Date Or Time Functions
+ 	 	4. Conversion Functions
+ 	 	5. Analytics Functions 
+ 	 	6. Advanced Functions 
+ 	 	7. Miscellaneous Functions
+
+ 	 How To call a Function In Oracle
+
+ 	 	Syntax:
+
+ 	 		SELECT <function_name> <values> From Dual;
+
+ 	 	What is Dual In Oracle
+ 	 	 - It is a Predefined Table in Oracle
+ 	 	 - It is Having sigle Column and Single Row
+ 	 	 - It is called a Dummy Table In Oracle
+ 	 	 - It is Mainly used for testing (user and pre-define) Functionalities
+
+ 	 	Stucher Of Dual Table
+ 	 	 - DESC DUAL;
+
+ 	 	To See Data of Dual Table
+ 	 	 - SELECT * FROM DUAL;
+ 
+	Note: From above Capital Letters and small Letters ASCII will Different
+	Note: In System Every charecter has some Unique Number starts with 0 To 255
+	Note: even space have one ASCII code like 32
+

@@ -1,0 +1,46 @@
+ Patterns Of Regular Expressions
+ -------------------------------
+ Value	Description
+ --------------------------------
+ 1. ^		It will Matches the Begining of a string If we used with a match_parameter of 'm' it matches the start of a line anywhere 
+ 2. $ 		Matches the end of a string if used with a match_parameter of 'm' it matches the end of a line anywhere 
+ 3. *   	Matches zero Or more occurences 
+ 4. +   	Matches one or more occurences
+ 5. ?		Matches Zero Or One occurances
+ 6. .		Matchs any charecter except NULL
+ 7. | 		Used Like an "OR" To specify more than one alternative
+ 8. []		used to specify a matching list where you are trying to match any one of the charecters in the list 
+ 9. [^ ]	Used To specify a non matching list where you are trying to match any charecter except for the ones in the list 
+ 10. () 	Used To group the expression as a subexpression
+ 11. {m}	Matches m times
+ 12. {m,}	Matches the at least m times
+ 13. {m,n} 	Matches atleast m times but no more than n times
+ 14. \n 	n is a number between 1 and 9 Matches the nth subexpression found within () before encountering \n
+ 15. [..]	Matches one collation element that can be more than one charecter 
+ 16. [::]	Matches charecter classes
+ 17. [==]	Matches equivalance classes
+ 18. \d 	Matches a digit charecter 
+ 19. \D 	Matches a Non Digit charecter
+ 20. \w 	Matches a word charecter
+ 21. \W 	Matches a Non word charecter
+ 22. \s 	Matches a whitespace charecter
+ 23. \S 	Matches a Non Whitespec charecter
+ 24. \A 	Matches the begining of a string or matches at the end of a string before a newline charecter
+ 25. \Z 	Matches at the end of a string
+ 26. *?		Matches the preceding pattern zero or more occurances
+ 27. +?		Matches the preceding pattern one or more occurances
+ 28. ??		Matches the preceding pattern zero or one occurance
+ 29. {n}?	Matches the preceding pattern n times
+ 30. {n,}?	Matches the preceding pattern atleast n times
+ 31. {n,m}?	Matches the preceding pattern at least n times but not more than m times
+
+
+ Match parameter
+ ----------------
+ value 		Description
+ ------------------------
+ 1. 'c'		Perform case-sensitive matching
+ 2. 'i'		Perform case-insentive matching
+ 3. 'n'		Allow the period charecter (.) to match the newline charecter. By default the period is a wildcard
+ 4. 'm'		Expression is assumed to be multiple lines where ^ is the start of a line and $ is the end of a line, regardless of the position of those charecters in expression. By default, expression is assumed to be a single line 
+ 5. 'X' 	Whitespace charecter are ignored. By default, whitespace charecters are matched like any other charecter

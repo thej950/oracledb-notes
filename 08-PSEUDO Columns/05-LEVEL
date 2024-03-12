@@ -1,0 +1,17 @@
+LEVEL
+-----
+ - this level will show tables rows in a tree strucher in a orderwise
+ - level with select connect by statement To oraganise ROWS from a database table into a tre strucher 
+ - level returs the number of a node in a tree strucher 
+ - the root is level one 
+ - level 2 is grand childrens 
+ - level 3 is and so on 
+
+ 	this LEVEL is used in the statment 
+
+ 		SQL> select level,empno,mgr,job from employee_tbl start with empno=7839 connect by prior empno=mgr;
+
+ 			- from above statment it will show a tree strucher from manager to analyst and clerk of its strucher in order way 
+
+
+

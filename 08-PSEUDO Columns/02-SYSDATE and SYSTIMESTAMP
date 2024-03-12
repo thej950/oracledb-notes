@@ -1,0 +1,17 @@
+SYSDATE and SYSTIMESTAMP
+--------------------------
+ - it will return the current date and timestamp of system
+ 	
+ 	+++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 	SQL> select sysdate, systimestamp from dual;
+
+	SYSDATE
+	---------
+	SYSTIMESTAMP
+	---------------------------------------------------------------------------
+	10-MAR-24
+	10-MAR-24 01.27.02.330000 PM +05:30
+
+
+	SQL>
+	+++++++++++++++++++++++++++++++++++++++++++++++++++

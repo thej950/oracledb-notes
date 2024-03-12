@@ -1,0 +1,115 @@
+Conversion Function
+--------------------
+ BIN_TO_NUM 
+  - it will convert binary to number 
+  syntax: BIN_TO_NUM(expr1,expr2,...exprn)
+
+ CAST
+  - it will convert one datatype to another 
+  syntax: CAST ({ expr | (subquery) | MULTISET (subquery)} AS type_name)
+
+  	Allowed Casts
+  	posibility to change one datatype to another datatype
+  	------------------------------------------------------
+  	 - From char,varchar2 datatype To nchar,nvarchar2
+  	 - From number datatype To datetime/interval or raw and rowid, urowid
+  	 - From datetime/interval To number and raw and rowid, urowid
+  	 - From raw To number and datetime/interval and rowid, urowid
+  	 - From rowid, urowid To number and datetime/interval and raw
+  	 - From nchar,nvarchar2 To char,varchar2 and number and datetime/interval, raw and rowid,urowid 
+
+ CHARTOROWID
+  - this function converts a char, varchar2 or nchar or nvarcha2 to rowid
+  syntax: CHARTOROWID(value1)
+
+ FROM_TZ 
+  - This function converts a TIMESTAMP value (given a TIMEZONE) to a TIMESTAMP with TIME ZONE value 
+  syntax: FROM_TZ (timestamp_value,time_zone_value)
+
+ HEXTORAW
+  - this function converts a hexadecimal value into a raw value 
+  syntax: HEXTORAW(char)
+
+ NUMTODSINTERVAL
+  - this function converts a number to an INTERVAL DAY TO SECOND literal 
+  syntax: NUMTODSINTERAL(number,expression)
+
+  	number
+  	 - the number to convert to an interval 
+  	expression
+  	 - the uit to convert to, it must be one of the following values: DAY, HOUR, MINUTE, or SECOND 
+
+
+ NUMTOYMINTERVAL
+  - this function converts a number to an INTERVAL YEAR TO MONTH literal 
+  syntax: NUMTOYMINTERVAL(number,expression)
+
+  	number
+  	 - the number to convert to an interval
+  	expression
+  	 - The usint to convert to. it must be one of the following values YEAR or MONTH
+
+ RAWTOHEX
+  - this function will convert to raw value to an hexadecimal value 
+  - One of our viewers says that this function comes in handy to move a varchar value to a blob field 
+  stntax: RAWTOHEX(raw)
+
+ TO_CHAR
+  - this function will convert a number or date to a string
+  syntax: TO_CHAR(value[,format_mask] [,nls_language])
+   value
+    - A number or date that will be converted to a string 
+    format_mask
+     - Optional. this is format that will be used to convert value to a string 
+    nls_language
+     - Optional. this is the nls language used to convert value to a string 
+
+
+ TO_CLOB
+  - this function converts a LOB value from the national charecter set to the database charecter set 
+  syntax: TO_CLOB(expression)
+
+    expression:
+     - A lob_column, char, varchar2, nchar, nvarchar2, clob or nclob value
+
+ TO_DATE
+  - this function will convert string to a date
+  syntax: TO_DATE(string1 [,format_mask] [,nls_language])
+
+ TO_DSINTERVAL
+  - this function converts a tring to an INTERVAL DAY TO SECOND type
+  syntax: TO_DISINTERVAL(charecter [nls_parameter])
+
+ TO_LOB
+  - this function converts LONG or LONG RAW values to LOB values
+  syntax: TO_LOB(long_column)
+
+ TO_MULTI_BYTE
+  - This function returns a charecter value will all of the single byte charecters converted to multibyte charecters
+  - To use this functions, your database charecter set contains both single byte and multibyte charaters 
+  syntax: TO_MULTI_BYTE(char)
+
+ TO_NCLOB
+  - This function converts a LOB value to a NCLOB value
+  sytax: TO_NCLOB( expression ) 
+
+ TO_NUMBER
+  - this function will convert string to number
+  syntax: TO_NUMBER(string1 [,format_task] [,nls_language])
+
+ TO_SINGLE_BYTE
+  - this function returs a charecter value with all the multi byte charecters converted to single byte charecters 
+  - To use this function your database charecter set contains both single byte and multibyte charecters 
+  syntax: TO_SINGLE_BYTE(char)
+
+ TO_TIMESTAMP
+  - this function converts a string to a timestamp
+  syntax: TO_TIMESTAMP(strin1 [,format_mask] ['nlsparam'])
+
+ TO_TIMESTAMP_TZ 
+  - this function converts strings to timestamp with time zone 
+  syntax: TO_TIMESTAMP_TZ(string1 [,format_task] ['nlsparam'])
+
+ TO_YMINTERVAL 
+  - this function converts a string to an INTERVAL YEAR TO MONTH type 
+  syntax: TO_YMINTERVAL( charecter )

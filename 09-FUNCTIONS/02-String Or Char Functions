@@ -1,0 +1,268 @@
+String Or Char Functions
+-------------------------
+ ASCII
+  - It will Return the number code that will represents the specified Charecter
+  Syntax:
+
+  	ASCII<single_charecter>
+
+  		+++++++++++++++++++++++++++++++++
+	  	SQL> select ascii('a') from dual;
+
+		ASCII('A')
+		----------
+		        97
+
+		SQL>
+		++++++++++++++++++++++++++++++++++++
+		SQL> select ascii('A') from dual;
+
+		ASCII('A')
+		----------
+		        65
+
+		SQL>
+		++++++++++++++++++++++++++++++++++++++
+
+ ASCIISTR
+  - It will converts a string to any charecter set to an ASCII 
+  - string using the database charecter set
+  Syntax:
+
+  	ASCIISTR<string_name>
+
+
+		SQL> select asciistr('hello') from dual;
+
+		ASCII
+		-----
+		hello
+
+		SQL>
+
+
+ CHR
+  - It will Return the charecter Based on the Number code
+  - It is opposite to ASCII 
+  Syntax:
+
+  	CHR<number_code>
+
+
+		SQL> select chr(65) from dual;
+
+		C
+		-
+		A
+
+		SQL>
+
+ 
+ COMPOSE
+  - It will Returns a Unicode string
+  Syntax:
+
+  	COMPOSE <string_name>
+
+	  	SQL> select compose('o' || unistr('\0308')) from dual;
+
+		C
+		-
+		÷
+
+		SQL>
+
+  Note: ASCII stands for American Standard Code For Information Interchange
+
+ 
+ CONCAT
+  - It will combine Two strings 
+  Syntax:
+
+  	CONCAT(string_1,string_2)
+
+
+		SQL> select concat('hello ','world') from dual;
+
+		CONCAT('HEL
+		-----------
+		hello world
+
+		SQL>
+
+	- we can concat with name columns also available in the table
+
+		SQL>  select concat('hello..',name) from hdfc_tbl;
+
+		CONCAT('HELLO..',NAME)
+		---------------------------
+		hello..janu
+		hello..babu
+		hello..nani
+		hello..raju
+		hello..kiran
+
+		SQL>
+
+ CONVERT 
+  - Using convert we able to convert One charecter set to another charecter set 
+  - To convert One language to another language which means in international wise there are different standards is available like US7ASCII (us 7 bit charecter set0 and WE8DEC (west european 8-bit charecter set) like many more 
+  - using this we able to change one ASCII charecter set to another charecter set 
+  Syntax:
+
+  	CONVERT(string_1,char_set_to [,char_set_from])
+ 
+ DECOMPOSE
+  - It will accept a string return to unicode 
+  Syntax:
+
+  	DECOMPOSE(string)
+
+ DUMP
+  - it will return a carchar2 value that might be includes the datatype code, and the length in bytes and internal representation
+  - every datatype has code it will return that code 
+  Syntax:
+
+  	DUMP(expression[,return_format] [,start_position] [,length])
+
+ INITCAP
+  - sets the first charecter in each word to uppercase and the rest to lowercase
+  Syntax:
+
+  	INITCAP(string_1)
+
+	  	SQL> select initcap('education lerning') from dual;
+
+		INITCAP('EDUCATIO
+		-----------------
+		Education Lerning
+
+		SQL>
+
+ INSTR
+  - To find charecter search in the string in which position
+ Syntax:
+
+ 	INSTR(string,substring [,start_position [,th_appearace]])
+
+		SQL> select instr('education lerning', 'd') from dual;
+
+		INSTR('EDUCATIONLERNING','D')
+		-----------------------------
+		                            2
+
+		SQL>
+
+ LENGTH
+  - it will returns length of the specified string
+  Syntax:
+
+  	LENGTH(string_1)
+
+ LOWERCASE
+  - converts all letters into specified lowercase
+  SYNTAX:
+
+  	LOWER(string_1)
+
+ LPAD
+  - pads the left side of a string with a specific set of charecters (when string_1 is not null)
+  Syntax:
+
+  	LPAD(string_1,padded_length [,pad_string])
+
+ LTRIM
+  - remove all specified charecters from the left hand side of a string
+  Syntax:
+
+  	LTRIM(string_1 [,trim_string])
+
+ REPLACE
+  - it will replace some values 
+
+
+		SQL> select replace('raju is bad','bad','good') from dual;
+
+		REPLACE('RAJ
+		------------
+		raju is good
+
+		SQL>
+
+ RPAD
+  - it means right padding
+  Syntax:
+
+  	RPAD(string_1,padded_length [,pad_string])
+
+ RTRIM
+  - it means right side trim same like LTRIM
+
+ SOUNDEX
+  - it will returns a phonetic representation (the way it sounds) of a string
+  Syntax:
+
+  	SOUNDEX(string_1)
+
+ SUBSTR
+  - it will run substring
+  - allow to extract a substring from string
+  Syntax:
+
+  	SUBSTR(string,start_position [,length])
+
+
+ TRANSLATE
+  - replace a sequence of a charecter in a string with another set of charecters however it represents a sigle charecter at single time 
+  Syntax:
+
+  	TRANSLATE(string_1,string_to_replace,replacement_string)
+
+ TRIM
+  - it will removes all specified charecters either from the beginig or ed of a string
+  Syntax:
+
+  	TRIM([[LEADING | TRAILING | BOTH ]]) trim_charecter FROM ] string_1)
+
+ UPPERCASE
+  - converts all letters in the specified string to uppercase
+  Syntax:
+
+  	UPPER(string_1)
+
+ VSIZE
+  - it will retur the number of bytes in the international representation of an expression
+  Syntax:
+
+  	VSIZE(expression)
+
+
+ REGEXP_REPLACE
+  - REGEXP_REPLACE it is a extension of replace function
+  - this regexp_replace function introduced in 10g 
+  - it will allow to replace a sequence of charecters in a string with another set of charecters using regular expression pattern matching
+
+  	Syntax:
+
+  		REGEXP_REPLACE(string, pattern [,replacement_string [,start_position [,nth_appearance [,match_parametr]]]])
+
+
+ REGEXP_SUBSTR
+  - REGEXP_SUBSTR it is an extension of the SUBSTR function 
+  - this function introduced in Oracle 10g 
+  - this will allow you to extract a substring from a string using regular expression pattern matching 
+
+  	Syntax:
+
+  		REGEXP_SUBSTR(string, pattern [,start_position [,nth_appearance [,match_parameter [,sub_expression]]]])
+
+
+ REGEXP_INSTR
+  - REGEXP_INSTR function it is a extension for INSTR function 
+  - It will returns the location of regular expression pattern in a string 
+  - This Function, Introduced in Oracle 10g
+  - It will allow you to find a substring in a string using regular expression pattern matching 
+
+  	Syntax:
+
+  		REGEXP_INSTR(string, pattern [,start_position [,nth_appearance [,return_option [,match_parameter [,sub_expression]]]]])

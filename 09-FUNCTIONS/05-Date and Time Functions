@@ -1,0 +1,162 @@
+Date and Time Functions
+-------------------------
+ ADD_MONTHS
+  - this will returns a date with a specified number of months added
+  syntax: ADD_MONTHS(date1,number_months)
+
+ CURRENT_DATE
+  - this function will returns the current date in the time zone of the current sql session as set by the alter session command
+  syntax: CURRENT_DATE
+
+ CURRENT_TIMESTAMP
+  - this function returns the current date and time in the timeone of current sql session as set by the alster session command 
+  - it will returns with TIMESTAMP with TIME ZONE value 
+  syntax: CURRENT_TIMESTAMP
+
+ DBTIMEZONE
+  - this function will returns the database timezone as a time zone offset (in the following format:'[+|-]TZH:TZM') or a time zone region name 
+  syntax: DBTIMEZONE
+
+ EXTRACT
+  - this function will extract a value from a date or interval value 
+  syntax:
+  	EXTRACT(
+  		{ YEAR | MONTH | DAY | HOUR | MINUTE | SECOND }
+  		| { TOMEZONE_HOUR | TIMEZONE_MINUTE }
+  		| { TIMEZONE_REGION | TIMEZONE_ABBR }
+  		FROM { date_value | interval_value }
+  	)
+  	Note:
+  	 - You can only extract year,month, and day from a date and you can only extract timezone_hour and timezone_minute from a timestamp with time zone  datatype
+  	Returns:
+  	 - The extract function returns a numeric value when the following parameters are provided like (year,month,dat,hour,minute,second,timezone_hour,timezone_minute,timezone_region,timeone_minute.)
+  	 - the extract function returns a varchar2 when timezone or region or timezone_abbr parameters are provided (because the timezone name or abbreviation information is returned )
+
+ LAST_DAY
+  - this function returns the last day of the month based on a date value
+  syntax: LAST_DAY(date)
+
+ LOCALTIMESTAMP
+  - this function will returns the current date and time zone of the current sql session as set by the alter session command 
+  - it will returns a timestamp value
+  syntax: LOCALTIMESTAMP
+
+   Note: 
+    - A similar function to the LOCALTIMESTAMP function is the CURRENT TIMESTAMP function 
+    - the difference between these two functions are that the local timestamp function returns a timestamp value while the curret timestamp function returns a timestamp with timezone value 
+
+
+ MONTHS_BETWEEN
+  - this function returns the number of months between date1 and date2
+  syntax: MONTHS_BETWEEN(date1,date2)
+
+ NEW_TIME
+  - This function converts a date from time zone1 to a date in time zone2 
+  - the new time function returns a date value
+  syntax: NEW_TIME(date,zone1,zone2)
+
+  	value 		Description
+  	------------------------
+  	AST 		Atlantic standard time
+  	ADT 		Atlantic daylight time
+  	BST 		Bering standard time
+  	CST   		Central standard time
+  	CDT 		central daylight time
+  	EST 		Eastern standard time
+  	EDT 		Eastern daylight time
+  	GMT 		Greenwich mean time
+  	HST 		Alaska Hawai standard time
+  	HDT 		Alaska Hawai standard time
+  	MST 		Mountain standard time
+  	MDT 		Mountain Daylight time
+  	NST 		Newfounded standard time
+  	PST 		Pacific standard time
+  	PDT 		Pacific daylight time
+  	YST 		Youkon standard time
+  	YDT 		Yukon Daylight time
+
+
+ NEXT_DAY
+  - it will returns a first weekday that is greater than a date
+  syntax: NEXT_DAY(date,weekday)
+
+ ROUND
+  - it will returns a date rounded to a specific unit of measure 
+  syntax: ROUND(date[,format])
+  ----------------------------------------------------------------------------------------------------------------------------------------
+  unit 						valid format parameters 					Rounding Rul
+  ----------------------------------------------------------------------------------------------------------------------------------------
+  1. year 					SYYYY, YYYY, YEAR, SYEAR, YYY, YY, Y 		Rounds up on July 1st
+  2. ISO Year 				IYYY, IY, I 								
+  3. Quarter 				Q 											Rounds up on the 16th day of second month of the quarter
+  4. Month 					MONTH, MON, NM, RM 							Rounds up on the 16th day of the month
+  5. Week 					WW 											Same day of the week as the first day of the year
+  6. IW 					IW 											Same day of the week as the first day of ISO year
+  7. Day 					DDD, DD, J 									
+  8. start day of the week 	DAY, DY, D 									
+  9. Hour 					HH, HH12, HH24
+  10. Minute 				MI 	  
+  ----------------------------------------------------------------------------------------------------------------------------------
+
+ SESSIONTIMEZONE
+  - it will return current session time zone as a time zone offset (in the following format: '[+|-]TZH:TZM') or a time zone region name
+  syntax: SESSIONTIMEZONE
+
+ SYSDATE
+  - this function returns the current system date and time on your local database
+  syntax: SYSDATE
+
+ SYSTIMESTAMP
+  - it will functions returns the current system date and time (including fractional seconds and time zone ) on your local database
+  syntax: SYSTIMESTAMP
+
+ TRUNC
+  - this function returns a date truncated to a specific unit of measure 
+  syntax: TRUNC
+
+ TZ_OFFSET
+  - this function returns the time zone offset of a value 
+  syntax: TZ_OFFSET(timezone)
+
+
+TIMEZONE
+---------
+ - A valid timezone name, a timezone offset from UTC, The session timezone function, or the DBTIMEZONE function 
+ - some of the more commonly used time zones name are below
+
+	Canada/Atlantic
+	Canada/Central
+	Canada/East-Saskatchewan
+	Canada/Eastern
+	Canada/Mountain
+	Canada/Newfoundland
+	Canada/Pacific
+	Canada/Saskatchewan
+	Canada/Yukon
+	Europe/Dublin
+	Europe/Istanbul
+	Europe/Lisbon
+	Europe/London
+	Europe/Moscow
+	Europe/Warsaw
+	Greenwich
+	Pacific/Auckland
+	Pacific/Chatham
+	Pacific/Easter
+	Pacific/Honolulu
+	Pacific/Kwajalein
+	Pacific/Pago_Pago
+	Pacific/Samoa
+	US/Alaska
+	US/Aleutian
+	US/Arizona
+	US/Central
+	US/East-Indiana
+	US/Eastern
+	US/Hawaii
+	US/Michigan
+	US/Mountain
+	US/Pacific
+	US/Pacific-New
+	US/Samoa
+	 

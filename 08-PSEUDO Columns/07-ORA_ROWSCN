@@ -1,0 +1,50 @@
+ORA_ROWSCN
+--------------
+ - ROWSCN means row system change number 
+ - it shows row last changed block inside in row in a table 
+ - it shows the last modification of the row if the table is created with the option ROWDEPENDENCIES ( default is NOROWDEPENDENCIES) 
+ - The Function SCN_TO_TIMESTAMP allow you to convert SCN to  timestamp 
+
+
+	SQL> select * from products_tbl;
+
+	       PID PNAME
+	---------- ----------
+	         1 radio
+	         2 desktop
+	         3 laptop
+	         4 phone
+	         5 headphone
+	         1 watch
+	         1 speaker
+
+	7 rows selected.
+
+	SQL>
+
+
+	SQL> select pname, ORA_ROWSCN from products_tbl where pid=2;
+
+	PNAME      ORA_ROWSCN
+	---------- ----------
+	desktop       2494336
+
+	SQL>
+
+	 - above output is ROWSCN number lets convert into timestamp To understand
+
+	 
+	SQL> select pname, ORA_ROWSCN, SCN_TO_TIMESTAMP(ORA_ROWSCN) from products_tbl where pid=2;
+
+	PNAME      ORA_ROWSCN
+	---------- ----------
+	SCN_TO_TIMESTAMP(ORA_ROWSCN)
+	---------------------------------------------------------------------------
+	desktop       2494336
+	10-MAR-24 02.05.05.000000000 PM
+
+
+	SQL> 
+
+	Note: from above output we get (ROWSCN) row system change number which is 2494336 that i want to convert into timestamp using "SCN_TO_TIMESTAMP(ORA_ROWSCN)" To get 10-MAR-24 02.05.05.000000000 PM
+

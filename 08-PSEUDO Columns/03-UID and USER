@@ -1,0 +1,19 @@
+UID and USER
+--------------------
+ - it will return the UID and name of the user
+ - From current user andn id of that user
+
+	++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 		 
+	SQL> select user,uid from dual;
+
+	USER
+	--------------------------------------------------------------------------------
+	       UID
+	----------
+	SYSTEM
+	         9
+
+
+	SQL> 
+	++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	- from above output currently i am using system user and its ID

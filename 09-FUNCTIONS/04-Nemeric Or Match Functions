@@ -1,0 +1,104 @@
+Nemeric Or Match Functions
+---------------------------
+ ABS 
+  - This ABS functions will returns value of a number
+  Syntax: ABS(number)
+
+ ACOS
+  - this ACOS function will return the arc cosine of a number
+  syntax: ACOS(number)
+
+ ASIN
+  - this asin function returns the atc sine of a number
+  syntax: ASIN(number)
+
+ ATAN 
+  - atan function returns the atc tangant of a number
+  syntax: ATAN(number)
+
+ ATAN2
+  - this atan2 function will return the arc tangant of n and m 
+  syntax: ATAN2(n,m)
+
+ BITAND
+  - it will returns the integer representating an AND operation on the bits of expr1 and expr2
+  syntax: bitand(expr1,expr2)
+ 
+ CEIL
+  - this function returns a value that is greater than or equal to a number
+  syntax: CEIL(number)
+
+ COS 
+  - This function returns the cosine of a number
+  syntax: COSH(number)
+
+ EXP 
+  - this function returns e raised to the nth power,where e = 2.71828183
+  syntax: EXP(number)
+
+ FLOOR
+  - This function returns the largest integer value that is equal to or less than a number
+  syntax: FLOOR(number)
+
+ GREATEST
+  - This function returns the greatest value in a list of expressions
+  syntax: GREATEST(expr_1 [,expr_2,...expr_n])
+
+ LEAST
+  - This function will resturn the smallest value in a list of expressions
+  syntax: LEAST(expr1[,expr2,...expr_n])
+
+ LN
+  - This function will return the natural logarithm of a number
+  syntax: LN(number)
+
+ LOG 
+  - This function will return the logarithm of n base of m 
+ syntax: LOG(m,n)
+
+ MOD
+  - This function will return the reminder of m devided by n.
+  syntax: MOD(m,n)
+
+ POWER
+  - This function returns the m raised to the nth power 
+  syntax: POWER(m,n)
+
+ REMAINDER 
+  - this remainder function returns the remainder of m devided by n.
+  syntax: REMAINDER(m,n)
+
+ ROUND
+  - This function will returns a number rounded to a certain number of decimal places
+  syntax: ROUND(number[,decimal_places])
+
+ SIGN
+  - This function returns a value indicating a sign of a number
+  syntax: SIGN(number)
+  
+  	Returns:
+  	 - if number < 0, then the SIGN function returns-1.
+  	 - if number = 0, then the SIGN function returns 0.
+  	 - if number > 0, then the SIGN function returns 1.
+ 
+ SIN
+  - this function sin retirns the sin of n
+  syntax: SINH(n)
+
+ SQRT
+  - this function will return the square root of n
+  syntax: SQRT(n)
+
+ TAN
+  - This Function returns the tangent of n
+  syntax: TAN(n)
+
+ TANH
+  - this function returns the hyperbolic tangent n
+  syntax: TANH(n)
+ 
+ TRUNC
+  - function returns a number truncated to a certain number of decimal places
+  syntax: TRUNC(number[,decimal_places])
+
+  

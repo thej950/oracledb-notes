@@ -1,0 +1,14 @@
+Pseudo Column In Oracle 
+------------------------
+ - A pseudo column Behaves like a Table column but it is not actually stored in the table 
+ - we can select from pseudo columns, But we cannot insert, update or delete their values 
+ - A seudo column is also similar to a Function without arguments 
+
+ 	Pseudo Column Functions are below
+ 	 1. SYSDATE and SYSTIMESTAMP
+ 	 2. UID and USER
+ 	 3. CURRVAL and NEXTVAL
+ 	 4. LEVEL
+ 	 5. ROWID
+ 	 6. ROWNUM
+ 	 7. ORA ROWSCN 
