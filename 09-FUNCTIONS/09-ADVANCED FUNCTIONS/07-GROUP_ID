@@ -1,0 +1,18 @@
+GROUP_ID
+ - this group_id function will return 0 
+ - when a duplicated group is found the group_id function will reurn a value > 0
+
+ syntax: 
+
+ 	SELECT column1,column2,....column_n, GROUP_ID()
+ 	FROM tables
+ 	WHERE conditions
+ 	GROUP BY column1,column2,...column_n;
+
+  examples:
+  -----------
+
+  	select sum(sal), deptno, group_id() from employee group by deptno;
+  	select sum(sal), deptno, job,group_id() from employee group by deptno,ROLLUP (deptno,job);
+  	select sum(sal), deptno, job,group_id() from employee group by deptnoROLLUP (deptno,job) having group_id()=1;
+

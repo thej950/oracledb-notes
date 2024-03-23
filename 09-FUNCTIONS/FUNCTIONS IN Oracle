@@ -1003,3 +1003,449 @@ Aggregate or Group Functions
 
 
 
+
+Analytic Functions in Oracle
+-----------------------------
+ - Analytical functions are used to do analyze data over multiple rows and return the result in the current row 
+ - aggregate functions group the rows and return the output for the entire result set
+ - However, analytical functions return the aggregated output but they do not group the result set. they return the value for each row in the result set 
+
+  The general syntax of the analytic function is:
+  ------------------------------------------------
+   Function(arg1,....argn) OVER ( [PARTITION BY<...>] [ORDERED BY <...>] [window_clause>] )
+
+  OVER:
+    - The scoope of analytical function is defined in an OVER clause. OVER is compulsory for all analytical functions
+    - If we do not give any arguments after OVER, It will assume scoope as ALL
+
+  PARTITION BY:
+    - as the aggregate function use GROUP BY to group rows
+    - this analytical function use PARTITION BY
+
+  ORDER BY:
+    - It is used to specify the order of records in the selected partition. this is different from the ORDER BY clause of the main query which comes after WHERE 
+
+
+      step1: To check employee table ad practice using this table 
+
+      SQL> select * from employee;
+
+           EMPNO ENAME                          JOB                                   MGR HIREDATE         SAL       COMM     DEPTNO
+      ---------- ------------------------------ ------------------------------ ---------- --------- ---------- ---------- ----------
+            7369 SMITH                          CLERK                                7902 17-DEC-80        800                    20
+            7499 ALLEN                          SALESMAN                             7698 20-FEB-81       1600        300         30
+            7521 WARD                           SALESMAN                             7698 22-FEB-81       1250        500         30
+            7566 JONES                          MANAGER                              7839 02-APR-81       2975                    20
+            7654 MARTIN                         SALESMAN                             7698 28-SEP-81       1250       1400         30
+            7698 BLAKE                          MANAGER                              7839 01-MAY-81       2850                    30
+            7782 CLARK                          MANAGER                              7839 09-JUN-81       2450                    10
+            7788 SCOTT                          ANALYST                              7566 09-DEC-82       3000                    20
+            7839 KING                           PRESIDENT                                 17-NOV-81       5000                    10
+            7844 TURNER                         SALESMAN                             7698 08-SEP-81       1500                    30
+            7876 ADAMS                          CLERK                                7788 12-JAN-83       1100                    20
+
+           EMPNO ENAME                          JOB                                   MGR HIREDATE         SAL       COMM     DEPTNO
+      ---------- ------------------------------ ------------------------------ ---------- --------- ---------- ---------- ----------
+            7900 JAMES                          CLERK                                7698 03-DEC-81        950                    30
+            7902 FORD                           ANALYST                              7566 03-DEC-81       3000                    20
+            7934 MILLER                         CLERK                                7782 23-JAN-82       1300                    10
+
+      14 rows selected.
+
+      SQL>
+
+
+
+    step2: lets see group wise data to show 
+
+        SQL> select deptno,sum(sal) from employee group by deptno;
+
+            DEPTNO   SUM(SAL)
+        ---------- ----------
+                30       9400
+                10       8750
+                20      10875
+
+        SQL>
+
+      - lets using over() instead of group by
+
+        SQL> select deptno,sum(sal) over(partition by deptno) from employee;
+
+            DEPTNO SUM(SAL)OVER(PARTITIONBYDEPTNO)
+        ---------- -------------------------------
+                10                            8750
+                10                            8750
+                10                            8750
+                20                           10875
+                20                           10875
+                20                           10875
+                20                           10875
+                20                           10875
+                30                            9400
+                30                            9400
+                30                            9400
+
+            DEPTNO SUM(SAL)OVER(PARTITIONBYDEPTNO)
+        ---------- -------------------------------
+                30                            9400
+                30                            9400
+                30                            9400
+
+        14 rows selected.
+
+        SQL>
+
+      - in order by 
+
+          SQL> select deptno,sum(sal) over(partition by deptno order by sal) from employee;
+
+            DEPTNO SUM(SAL)OVER(PARTITIONBYDEPTNOORDERBYSAL)
+        ---------- -----------------------------------------
+                10                                      1300
+                10                                      3750
+                10                                      8750
+                20                                       800
+                20                                      1900
+                20                                      4875
+                20                                     10875
+                20                                     10875
+                30                                       950
+                30                                      3450
+                30                                      3450
+
+            DEPTNO SUM(SAL)OVER(PARTITIONBYDEPTNOORDERBYSAL)
+        ---------- -----------------------------------------
+                30                                      4950
+                30                                      6550
+                30                                      9400
+
+        14 rows selected.
+
+        SQL>
+
+
+
+     
+    CORR:
+      
+      - this is a function it will returns the coefficient of correlation of set of number pairs 
+        syntax: CORR(n,m) [over (analytical_clause)]
+
+        step1: correlate of salary and commision 
+
+          SQL> select corr(sal,comm) from employee;
+
+      CORR(SAL,COMM)
+      --------------
+          -.64046403
+
+      SQL>
+
+    step2: To seche co relation between system date and hiredate
+
+        SQL> select empno,ename,deptno,sal,job, corr(sysdate - hiredate, sal) over () as corr_val from employee;
+
+             EMPNO ENAME                              DEPTNO        SAL JOB                              CORR_VAL
+        ---------- ------------------------------ ---------- ---------- ------------------------------ ----------
+              7369 SMITH                                  20        800 CLERK                          -.09305547
+              7499 ALLEN                                  30       1600 SALESMAN                       -.09305547
+              7521 WARD                                   30       1250 SALESMAN                       -.09305547
+              7566 JONES                                  20       2975 MANAGER                        -.09305547
+              7654 MARTIN                                 30       1250 SALESMAN                       -.09305547
+              7698 BLAKE                                  30       2850 MANAGER                        -.09305547
+              7782 CLARK                                  10       2450 MANAGER                        -.09305547
+              7788 SCOTT                                  20       3000 ANALYST                        -.09305547
+              7839 KING                                   10       5000 PRESIDENT                      -.09305547
+              7844 TURNER                                 30       1500 SALESMAN                       -.09305547
+              7876 ADAMS                                  20       1100 CLERK                          -.09305547
+
+             EMPNO ENAME                              DEPTNO        SAL JOB                              CORR_VAL
+        ---------- ------------------------------ ---------- ---------- ------------------------------ ----------
+              7900 JAMES                                  30        950 CLERK                          -.09305547
+              7902 FORD                                   20       3000 ANALYST                        -.09305547
+              7934 MILLER                                 10       1300 CLERK                          -.09305547
+
+        14 rows selected.
+
+        SQL>
+
+      - To see partition by 
+
+
+        SQL> select empno,ename,deptno,sal,job, corr(sysdate - hiredate, sal) over (partition by deptno) as corr_val from employee;
+
+             EMPNO ENAME                              DEPTNO        SAL JOB                              CORR_VAL
+        ---------- ------------------------------ ---------- ---------- ------------------------------ ----------
+              7782 CLARK                                  10       2450 MANAGER                        .074769211
+              7839 KING                                   10       5000 PRESIDENT                      .074769211
+              7934 MILLER                                 10       1300 CLERK                          .074769211
+              7566 JONES                                  20       2975 MANAGER                        -.10124149
+              7902 FORD                                   20       3000 ANALYST                        -.10124149
+              7876 ADAMS                                  20       1100 CLERK                          -.10124149
+              7369 SMITH                                  20        800 CLERK                          -.10124149
+              7788 SCOTT                                  20       3000 ANALYST                        -.10124149
+              7521 WARD                                   30       1250 SALESMAN                       .417964304
+              7844 TURNER                                 30       1500 SALESMAN                       .417964304
+              7499 ALLEN                                  30       1600 SALESMAN                       .417964304
+
+             EMPNO ENAME                              DEPTNO        SAL JOB                              CORR_VAL
+        ---------- ------------------------------ ---------- ---------- ------------------------------ ----------
+              7900 JAMES                                  30        950 CLERK                          .417964304
+              7698 BLAKE                                  30       2850 MANAGER                        .417964304
+              7654 MARTIN                                 30       1250 SALESMAN                       .417964304
+
+        14 rows selected.
+
+        SQL>
+
+    COVAR_POP:
+      - this function returns the population covariance after discarding nulls. this function perform the following calculations 
+      syntax: COVAR_POP(expr1,expr2) [OVER (analytic_clause)]
+
+        step1: to see using covar_pop
+
+
+        SQL> select empno,ename,deptno,sal,job,covar_pop(sysdate - hiredate, sal) over (partition by job) as covar_pop_val_by_job from employee;
+
+             EMPNO ENAME                              DEPTNO        SAL JOB                            COVAR_POP_VAL_BY_JOB
+        ---------- ------------------------------ ---------- ---------- ------------------------------ --------------------
+              7788 SCOTT                                  20       3000 ANALYST                                           0
+              7902 FORD                                   20       3000 ANALYST                                           0
+              7934 MILLER                                 10       1300 CLERK                                    -30515.625
+              7900 JAMES                                  30        950 CLERK                                    -30515.625
+              7369 SMITH                                  20        800 CLERK                                    -30515.625
+              7876 ADAMS                                  20       1100 CLERK                                    -30515.625
+              7698 BLAKE                                  30       2850 MANAGER                                  6102.77778
+              7566 JONES                                  20       2975 MANAGER                                  6102.77778
+              7782 CLARK                                  10       2450 MANAGER                                  6102.77778
+              7839 KING                                   10       5000 PRESIDENT                                         0
+              7844 TURNER                                 30       1500 SALESMAN                                       3325
+
+             EMPNO ENAME                              DEPTNO        SAL JOB                            COVAR_POP_VAL_BY_JOB
+        ---------- ------------------------------ ---------- ---------- ------------------------------ --------------------
+              7654 MARTIN                                 30       1250 SALESMAN                                       3325
+              7521 WARD                                   30       1250 SALESMAN                                       3325
+              7499 ALLEN                                  30       1600 SALESMAN                                       3325
+
+        14 rows selected.
+
+        SQL>
+
+
+
+
+    COVAR_SAMP
+      - this function will return the sample covariance after discarding nulls
+      - if there are no records in the set after discarding nulls, the return value is NULL.
+      syntax: COAVR_SAMP(expr1,expr2) [OVER (analytic_clause)]
+
+    CUME_DIST
+      - aggregate function is predictive, returning the cumulative distribution of the specified value in a set 
+      - the CUME_DIST analytic function is order sensitive so the ORDER BY clause is mandatory 
+      - Ommiting a partitioning clause from the OVER clause means the whole result set is treated as a single partition 
+      Syntax: CUME_DIST() OVER ([query_partition_clause] order_by_clause)
+
+
+        SQL> select deptno,cume_dist(2000) within group (order by sal) as cume_dist_sal_by_dept from employee group by deptno order by deptno;
+
+            DEPTNO CUME_DIST_SAL_BY_DEPT
+        ---------- ---------------------
+                10                    .5
+                20                    .5
+                30            .857142857
+
+        SQL>
+
+
+
+
+  DENSE_RANK 
+     - this function return the rank of row in a group of rows. it is very similar to rank function however the RANK function can cause non-consective rankings if the tested values are the same whereas, the DENSE_RANK function will always result in consecutive rankings
+
+      DENSE_RANK Function Syntax #1 - used to aggregate function 
+
+       DENSE_RANK(expression1,..expression_n) WITHIN GROUP (ORDER BY expression1,..expression_n)
+
+      DENSE_RANK Funtion Syntax2 #2 - Used as an Analytic Function 
+
+       DENSE_RANK() OVER ( [ query_partition_clause] ORDER BY clause )
+
+       practicles:
+       ----------
+
+          SQL> select empno,ename,deptno,sal,dense_rank() over (partition by deptno order by sal) from employee;
+
+            EMPNO ENAME                              DEPTNO        SAL DENSE_RANK()OVER(PARTITIONBYDEPTNOORDERBYSAL)
+      ---------- ------------------------------ ---------- ---------- ---------------------------------------------
+            7934 MILLER                                 10       1300                                             1
+            7782 CLARK                                  10       2450                                             2
+            7839 KING                                   10       5000                                             3
+            7369 SMITH                                  20        800                                             1
+            7876 ADAMS                                  20       1100                                             2
+            7566 JONES                                  20       2975                                             3
+            7788 SCOTT                                  20       3000                                             4
+            7902 FORD                                   20       3000                                             4
+            7900 JAMES                                  30        950                                             1
+            7654 MARTIN                                 30       1250                                             2
+            7521 WARD                                   30       1250                                             2
+
+           EMPNO ENAME                              DEPTNO        SAL DENSE_RANK()OVER(PARTITIONBYDEPTNOORDERBYSAL)
+      ---------- ------------------------------ ---------- ---------- ---------------------------------------------
+            7844 TURNER                                 30       1500                                             3
+            7499 ALLEN                                  30       1600                                             4
+            7698 BLAKE                                  30       2850                                             5
+
+        14 rows selected.
+
+        SQL>
+
+  FIRST_VALUE
+     - this function returns the first value in an ordered set of values from an analytic window 
+     - it is similar to the LAST_VALUE and NTH_VALUE function 
+
+        Syntax:
+
+          FIRST_VALLUE
+            { (expr) [{RESPECT | IGNORE}]
+            | (expr [{RESPECT | IGNORE} NULLS])
+            }
+            OVER (analytic_clause)
+
+          practicles 
+          ------------
+
+
+          SQL> select empno,deptno,sal,first_value(sal) ignore nulls over (partition by deptno order by sal) AS lowest_in_dept from employee;
+
+               EMPNO     DEPTNO        SAL LOWEST_IN_DEPT
+          ---------- ---------- ---------- --------------
+                7934         10       1300           1300
+                7782         10       2450           1300
+                7839         10       5000           1300
+                7369         20        800            800
+                7876         20       1100            800
+                7566         20       2975            800
+                7788         20       3000            800
+                7902         20       3000            800
+                7900         30        950            950
+                7654         30       1250            950
+                7521         30       1250            950
+
+               EMPNO     DEPTNO        SAL LOWEST_IN_DEPT
+          ---------- ---------- ---------- --------------
+                7844         30       1500            950
+                7499         30       1600            950
+                7698         30       2850            950
+
+          14 rows selected.
+
+          SQL>
+
+
+
+
+
+
+  LAG
+   - it is an analytical function that lets you query more than one row in a table at a time without having to join the table itself 
+   - it returns values from a previous row in the table 
+
+    syntax:
+
+      LAG(expression [,offset [,default]])
+      OVER([query_partition_clause] order_by_clause)
+
+    practicles
+    ----------
+
+      SQL> select empno,ename,job,sal,lag(sal, 1, 0) over (order by sal) as sal_prev,sal - lag(sal, 1, 0) over (order by sal) as sal_diff from employee;
+
+           EMPNO ENAME                          JOB                                   SAL   SAL_PREV   SAL_DIFF
+      ---------- ------------------------------ ------------------------------ ---------- ---------- ----------
+            7369 SMITH                          CLERK                                 800          0        800
+            7900 JAMES                          CLERK                                 950        800        150
+            7876 ADAMS                          CLERK                                1100        950        150
+            7521 WARD                           SALESMAN                             1250       1100        150
+            7654 MARTIN                         SALESMAN                             1250       1250          0
+            7934 MILLER                         CLERK                                1300       1250         50
+            7844 TURNER                         SALESMAN                             1500       1300        200
+            7499 ALLEN                          SALESMAN                             1600       1500        100
+            7782 CLARK                          MANAGER                              2450       1600        850
+            7698 BLAKE                          MANAGER                              2850       2450        400
+            7566 JONES                          MANAGER                              2975       2850        125
+
+           EMPNO ENAME                          JOB                                   SAL   SAL_PREV   SAL_DIFF
+      ---------- ------------------------------ ------------------------------ ---------- ---------- ----------
+            7788 SCOTT                          ANALYST                              3000       2975         25
+            7902 FORD                           ANALYST                              3000       3000          0
+            7839 KING                           PRESIDENT                            5000       3000       2000
+
+      14 rows selected.
+
+      SQL>
+
+    
+    LAST_VALUE
+     - This function returns the last value in an ordered set of values from an analytic window. 
+     - it is similar to the FIRTS_VALUE and NTH_VALUE finctions
+
+        syntax: 
+
+          LAST_VALUE
+            { (expr) [{RESPECT | IGNORE} NULLS]
+            | (expr) [{RESPECT | IGNORE} NULLS])
+            OVER (analytic_clause)
+            }  
+
+    LEAD
+     - this function is an analytic function that will lets you query more than one row in a table at a time without having to join the table to itself 
+     - it will returns the value from the next row in the table 
+
+      syntax:
+
+         LEAD(expression[,offset [,default]])
+         OVER ([query_partition_clause ] order_by_clause)
+
+    LISTAGG 
+     - this function concatenates values of the measure_column for each GROUP based on the order_by_clause.
+
+    Syntax:
+
+      LISTAGG (measure_column [, 'delimiter'])
+
+      WITHIN GROUP (order_by_clause) [OVER (query_partition_clause)]
+
+  NTH_VALUE 
+   - this function returns the nth value in an ordered set of values from an analytic window. It is similar to the FIRST VALUE and LAST VALUE functions except the NTH_VALUE lets you find a specific position in the analytic window such as 2nd, 3rd, or 4th value.
+
+    Syntax:
+
+      NTH_VALUE (measure_column, n)
+
+      [FROM FIRST | FROM LAST]
+
+      [RESPECT NULLS | IGNORE NULLS]
+
+      OVER ([query_partition_clause partition_clause] [order_by_clause])
+
+
+
+ Possible values fo start point and end point are:
+ --------------------------------------------------
+  UNBOUNDED PRECEDING:
+   - the windows starts at the first row at the position or whole result set if no partitioning clause is used only available for start points
+
+  UNBOUNDED FOLLOWING:
+   - the windows ends at the last row of the partition, or the whole result set of no partitioning clause is used only available for end poits
+
+  CURRENT ROW: 
+   - the window start and ends at the current row. can be used as start or ennd point 
+
+  value_expr_PRECEDING:
+   - A physical or logical offset before the current row using a constant or expression that evaluates to a positive numerical value 
+   - when used with RANGE, it can also be an interval literal if the order_by_clause uses a DATE column 
+
+  value_expr FOLLOWING: 
+   - As above, but an offset after the current row 
+

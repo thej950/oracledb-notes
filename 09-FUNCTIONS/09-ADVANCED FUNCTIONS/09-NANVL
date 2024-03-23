@@ -1,0 +1,11 @@
+NANVL
+ - nanvl is a function lets you substitute a value for a floating point number such as BINARY_FLOAT or BINARY_DOUBLE, when a Nan (Not a number) value is encountered 
+ - this is most commonly to convert Nan (Not a Number) values into either NULL or 0
+
+ 	syntax: NANVL(value,replace_with)
+
+ value
+ 	- the BINAR_FLOAT or BINARY_NUMBER to test for a Nan (Not a Number)
+ replace_with
+ 	- The value returned if value is Nan (Not a Number)
+

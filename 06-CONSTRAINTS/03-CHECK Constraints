@@ -4,7 +4,7 @@ CHECK Constraints
  - Domain intigrity means the values that are going to store in a table column must be followed by some defined rules such as range, types, and format.
  - In simple words we can say that Constraints ensures Valid entities for a given column value by restricting the type of value, the format data, or the range of possible values. 
  - The check constraints in Oracle can be applied to a single or multiple columns of a table 
- - The CHEK Constraints ca be defined while creating a new table or using ALTER TABLE statement for the already existing table 
+ - The CHEK Constraints can be defined while creating a new table or using ALTER TABLE statement for the already existing table 
 
  - check constraints in oracle can be implemeted in two ways 
  	1. Column level Constraints

@@ -1,0 +1,320 @@
+Advanced Functions In Oracle
+-----------------------------
+1.BFILENAME
+  - this function will returns a BFILE locater for a physical LOB binary file 
+  - this function often used in PLSQL to access the data within the BFILE 
+  syntax: BFILENAME('directory', 'filename')
+
+  Directory:
+   - this directory creation is mandatory to point to object which means alias for the actula directoy on the database server
+  filename:
+   - this is a filename is a string which is just name of the refer file which means source file 
+
+   craete a directory 
+   - the directory parameter needs to be a directory object, not a string that represents a directory 
+   syntax: CREATE DIRECTORY <directory_name> AS 'path_of_source_file'
+
+   Example:
+   --------
+    - here first create a directory object in oracle database and then inserts a BFILENAME into a table 
+
+    step1: create a table with columns and with datatypes 
+
+    	SQL> create table emp_tbl (empno number(3), resume bfile);
+
+		Table created.
+
+		SQL>
+
+	step2: create or replace a directory to point out to source file 
+
+
+		SQL> create or replace directory MY_DOC as 'C:\Docs';
+
+		Directory created.
+
+		SQL>
+		 - from above output that location 'c:\Docs' need to be available inside that folder our file_name should be there
+		 - MY_DOC it is directory in Oracle it is point out to  OR locate to 'C:\Docs' path In Oracle 
+
+	step3:  lets add values into table 
+
+		SQL> insert into emp_tbl (empno,resume) values(100, BFILENAME ('MY_DOC', 'resume.docx'));
+
+		1 row created.
+
+		SQL>
+		 - from above output we should available resume.docx file need to be in "C:\Docs" Path 
+		 - using above content we inserted into data using datatype of BFILENAME 
+
+2.CARDINALITY
+ - this function will return the number of elements in a nested table 
+ - nested table means table inside table available
+ - it shows the count of the nested table elements 
+ syntax: CARDINARY (nested_table_column)
+
+ 	examples:
+ 	---------
+
+ 		select supplier_id, CARDINALITY(location) from suppliers_tbl;
+ 		select employee_id, CARDINALITY(location) from employee;
+ 		select id, CARDINALITY (marks) from students;
+
+3.COALESE
+ - this function returns the firts non-null expression in the list 
+ - if all expressions evaluate to null then the COALESCE function will return null
+ syntax: COALESCE (expr1,expr2,...expr_n)
+
+ 	expr1,expr2,...expr_n
+ 	 - this expressions to test for non-null values. this expressions must all be the same datatype
+
+
+ 	 examples:
+ 	 ---------
+
+ 	 	SQL> select * from employee;
+
+		     EMPNO ENAME                          JOB                                   MGR HIREDATE         SAL       COMM     DEPTNO
+		---------- ------------------------------ ------------------------------ ---------- --------- ---------- ---------- ----------
+		      7369 SMITH                          CLERK                                7902 17-DEC-80        800                    20
+		      7499 ALLEN                          SALESMAN                             7698 20-FEB-81       1600        300         30
+		      7521 WARD                           SALESMAN                             7698 22-FEB-81       1250        500         30
+		      7566 JONES                          MANAGER                              7839 02-APR-81       2975                    20
+		      7654 MARTIN                         SALESMAN                             7698 28-SEP-81       1250       1400         30
+		      7698 BLAKE                          MANAGER                              7839 01-MAY-81       2850                    30
+		      7782 CLARK                          MANAGER                              7839 09-JUN-81       2450                    10
+		      7788 SCOTT                          ANALYST                              7566 09-DEC-82       3000                    20
+		      7839 KING                           PRESIDENT                                 17-NOV-81       5000                    10
+		      7844 TURNER                         SALESMAN                             7698 08-SEP-81       1500                    30
+		      7876 ADAMS                          CLERK                                7788 12-JAN-83       1100                    20
+
+		     EMPNO ENAME                          JOB                                   MGR HIREDATE         SAL       COMM     DEPTNO
+		---------- ------------------------------ ------------------------------ ---------- --------- ---------- ---------- ----------
+		      7900 JAMES                          CLERK                                7698 03-DEC-81        950                    30
+		      7902 FORD                           ANALYST                              7566 03-DEC-81       3000                    20
+		      7934 MILLER                         CLERK                                7782 23-JAN-82       1300                    10
+
+		14 rows selected.
+
+		SQL>
+
+	 - from above output comm column contain some null values we can add any value inside comm using COALESCE function
+
+
+		SQL> select coalesce(comm,100) from employee;
+
+		COALESCE(COMM,100)
+		------------------
+		               100
+		               300
+		               500
+		               100
+		              1400
+		               100
+		               100
+		               100
+		               100
+		               100
+		               100
+
+		COALESCE(COMM,100)
+		------------------
+		               100
+		               100
+		               100
+
+		14 rows selected.
+
+		SQL>
+
+	 - from above we add 100 value to empty NULL place in commission fields  
+
+	Oracle COALESCE() vs NVL()
+	  - this COALESCE() function is a part of SQL ANSI-92 standard while NVL() function is Oracle specific 
+	  - In case of two expressions, the COALESCE() function and NVL() seems to be similar but their implementation are different. 
+	  - see the following statement 
+
+	  	SELECT
+	  		COALESCE(1,NULL)
+	  	FROM
+	  		dual;
+
+	  	SELECT 
+	  		NVL(1,NULL)
+	  	FROM
+	  		dual;
+
+	  	SELECT
+	  		COALESCE(1,1/0)
+	  	FROM
+	  		dual;
+
+4.DECODE
+ - this function has the functionality of an if-then-else statement 
+
+ 	syntax: DECODE(expression,search,result[,search,result]... [,default])
+
+ 	expression:
+ 		- The value to compare. it is automatically converted to data type of the first search value before comparing 
+ 	search:
+ 		- the value that is compared against expression 
+ 		- all search values are automatically converted to the data type of the first search value before comparing 
+ 	reult:
+ 		- the value returned, if expression is equal to search 
+ 	default:
+ 		- optional if no matches are found, the decode function will return default. if default is omitted, then the DECODE function will return NULL (if no matches are found).
+
+ 	RETURN:
+ 		- the decode function will return a value that is the same datatype as the first result in the list 
+ 		- if the first result is null then the return value is converted to varchar2
+ 		- if the firts result has a datatype of char, then the return value is converted to varchar2
+ 		- if no matches are found, the default value is returned 
+ 		- if default is omitted and no matches are found, then NULL is returned 
+ 	Exaples:
+ 	--------
+
+ 		1. select ename,decode(job,'CLERK','accounts verify','MANAGER','HEAD OF THE DEPARTMENT') FROM EMPLOYEE;
+
+
+	 		SQL> select ename,decode(job,'CLERK','accounts verify','MANAGER','HEAD OF THE DEPARTMENT') FROM EMPLOYEE;
+
+			ENAME                          DECODE(JOB,'CLERK','AC
+			------------------------------ ----------------------
+			SMITH                          accounts verify
+			ALLEN
+			WARD
+			JONES                          HEAD OF THE DEPARTMENT
+			MARTIN
+			BLAKE                          HEAD OF THE DEPARTMENT
+			CLARK                          HEAD OF THE DEPARTMENT
+			SCOTT
+			KING
+			TURNER
+			ADAMS                          accounts verify
+
+			ENAME                          DECODE(JOB,'CLERK','AC
+			------------------------------ ----------------------
+			JAMES                          accounts verify
+			FORD
+			MILLER                         accounts verify
+
+			14 rows selected.
+
+			SQL>
+
+		-> from above output it is decoded from employee table instead of cleark it display accounts verify and instead of manager it shows head of the department
+
+		2. select ename,decode(job,'CLERK','accounts verify','MANAGER','HEAD OF THE DEPARTMENT','Uknown') FROM EMPLOYEE;
+
+		3. select ename,decode(job,'CLEARK','accounts verify','MANAGER','HEAD OF THE DEPARTMENT',JOB) FROM EMPLOYEE;
+
+5.EMPTY_BLOB
+ - this function can be used to initialize a LOB column to EMPTY in an INSERT statement or update statement or it can be used initialize a LOB variable
+ syntax: EMPTY_BLOB()
+
+ 	EMPTY_BLOB example:
+ 	-------------------
+
+ 		create table emp_x(empno number,photo blob);
+ 		insert into emp_x values(100,empty_blob());
+ 		select * from emp_x;
+
+6.EMPTY_CLOB
+ - this function can be used to initialize a LOB column to EMPTY in an INSERT statement or update statement or it can be used initialize a LOB variable
+ syntax: EMPTY_CLOB()
+
+	
+ 	EMPTY_CLOB example:
+ 	--------------------
+
+ 		create table emp_y(empno number,photo clob);
+ 		insert into emp_y values(100,empty_clob());
+ 		select * from emp_y;
+
+7.GROUP_ID
+ - this group_id function will return 0 
+ - when a duplicated group is found the group_id function will reurn a value > 0
+
+ syntax: 
+
+ 	SELECT column1,column2,....column_n, GROUP_ID()
+ 	FROM tables
+ 	WHERE conditions
+ 	GROUP BY column1,column2,...column_n;
+
+  examples:
+  -----------
+
+  	select sum(sal), deptno, group_id() from employee group by deptno;
+  	select sum(sal), deptno, job,group_id() from employee group by deptno,ROLLUP (deptno,job);
+  	select sum(sal), deptno, job,group_id() from employee group by deptnoROLLUP (deptno,job) having group_id()=1;
+
+8.LNNVL
+ - it is stands for logical not null function it is used in where cause of a sql statement to evaluate a condition when one of the operands may contain a NULL value 
+ syntax: LNNVL (condition)
+
+ The LNNVL function will return the Following:
+
+ 	Condition Evaluates To 			LNNVL Return Value
+ 	---------------------------------------------------
+ 	TRUE 							FALSE
+ 	FALSE							TRUE
+ 	UNKNOWN 						TRUE
+ 	---------------------------------------------------
+
+ 	examples:
+ 	----------
+
+ 		SELECT COUNT(*) FROM employee where comm>0;
+ 		SELECT COUNT(*) FROM employee where lnnvl(comm>0);
+
+9.NANVL
+ - nanvl is a function lets you substitute a value for a floating point number such as BINARY_FLOAT or BINARY_DOUBLE, when a Nan (Not a number) value is encountered 
+ - this is most commonly to convert Nan (Not a Number) values into either NULL or 0
+
+ 	syntax: NANVL(value,replace_with)
+
+ value
+ 	- the BINAR_FLOAT or BINARY_NUMBER to test for a Nan (Not a Number)
+ replace_with
+ 	- The value returned if value is Nan (Not a Number)
+
+10.NULLIF
+ - this function it will compare expr1 and expr2 
+ - if expr1 ad expr2 are equal then nullif function returns NULL othre wise it returns expr1 
+ syntax: NULLIF(expr1,expr2)
+
+ expr1
+  - firts value to compare must be either a numeric value or a value that is the same datatype as expr2
+ expr2
+  - second value to compare must be a numeric either a numeric value or a value that is the same datatype as expr1 
+
+11.NVL
+ - tis function lets you substitute a value when null value is encountered 
+ syntax: NVL(strin1,replae_with)
+
+12.NVL2
+ - this function extends the functionality found in the NVL function 
+ - let we substitute a value when a null value is encountered as well as when a non-null value is ecoutered 
+ syntax: NVL2 (strin1,value_if_not_null, value_if_null)
+ string1
+  - this string is to test for a null value 
+ value_if_not_null 
+  - the value returned if string1 is not null 
+ value_if_null
+  - the value returned if string1 is null
+
+13.SYS_CONTEXT
+ - this function used to retrieve information about the oracle environment 
+ syntax: SYS_CONTEXT(namespace,parameter,[,length])
+
+ namespace:
+  - An oracle namespace that has already created if the namespace of 'USEREV' is used attributes describing the current oracle session can be returned 
+ parameter:
+  - A valid attribute that has been set using the DBMS_SESSION.set_context procedure 
+ length
+  - optional it is the length of the return value in bytes
+  - if this parameter omitted or of an invalid entry is provided the sys_context function will to 256 bytes
+
+
+

@@ -32,7 +32,7 @@ PRIMARY KEY
   				SQL>
 
   			- from above output we applied primary key to id then automatically it will get NOT NULL constraint here 
-  			- when NOT NULL column definitly need to be any content inside columnt it should not emty 
+  			- when NOT NULL column definitly need to be any content inside column it should not emty 
 
   		step2: insert some values into table 
 

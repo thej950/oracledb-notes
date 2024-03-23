@@ -10,12 +10,12 @@ FOREIGN KEY
 
  Note: A Foreign key in one table Points to either a primary key or a Unique key in another table in Oracle The Foreign key constraints are basically used to enforce referential intigrity.
 
- How To create Foreig key constraint in Oracle
+ How To create foreign key constraint in Oracle
  ----------------------------------------------
  	- To create a foreign key constraint in oracle we require some following steps 
  	 1. we need two tables for linking with each other and those tables must have a common column for binding the tables 
- 	 2. the common column that is present in both tables need to have the same name and thire data type must be the same 
- 	 3. The common column that is present under the parent table or master table is known as the referece key column and moreover, the referece key column should not contain any duplicate values so we need to impose eithre unique or primary key constraint on that colum 
+ 	 2. the common column that is present in both tables need to have the same name and their data type must be the same 
+ 	 3. The common column that is present under the parent table or master table is known as the referece key column and moreover, the referece key column should not contain any duplicate values so we need to impose eithre unique or primary key constraint on that column 
  	 4. the common column which is present in the child or detailed table is known as foreign key column and we need to impose foreign key constraint on the column which refers to the reference key column of the master table 
  	 5. Foreign key column values should be matched with the primary key or unique key column values only. Generally, The primary key or Unique key is not allowed duplicate values whereas the Foreign key is allowed duplicate & null values 
 
@@ -38,7 +38,7 @@ FOREIGN KEY
 					 Name                                      Null?    Type
 					 ----------------------------------------- -------- ----------------------------
 					 DNO                                       NOT NULL NUMBER(3)
-					 DNAME                                     				  VARCHAR2(10)
+					 DNAME                                     			VARCHAR2(10)
 					 LOCATION                                           VARCHAR2(10)
 
 					SQL>

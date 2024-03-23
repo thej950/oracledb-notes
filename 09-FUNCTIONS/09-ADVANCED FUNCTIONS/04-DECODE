@@ -1,0 +1,59 @@
+DECODE
+ - this function has the functionality of an if-then-else statement 
+
+ 	syntax: DECODE(expression,search,result[,search,result]... [,default])
+
+ 	expression:
+ 		- The value to compare. it is automatically converted to data type of the first search value before comparing 
+ 	search:
+ 		- the value that is compared against expression 
+ 		- all search values are automatically converted to the data type of the first search value before comparing 
+ 	reult:
+ 		- the value returned, if expression is equal to search 
+ 	default:
+ 		- optional if no matches are found, the decode function will return default. if default is omitted, then the DECODE function will return NULL (if no matches are found).
+
+ 	RETURN:
+ 		- the decode function will return a value that is the same datatype as the first result in the list 
+ 		- if the first result is null then the return value is converted to varchar2
+ 		- if the firts result has a datatype of char, then the return value is converted to varchar2
+ 		- if no matches are found, the default value is returned 
+ 		- if default is omitted and no matches are found, then NULL is returned 
+ 	Exaples:
+ 	--------
+
+ 		1. select ename,decode(job,'CLERK','accounts verify','MANAGER','HEAD OF THE DEPARTMENT') FROM EMPLOYEE;
+
+
+	 		SQL> select ename,decode(job,'CLERK','accounts verify','MANAGER','HEAD OF THE DEPARTMENT') FROM EMPLOYEE;
+
+			ENAME                          DECODE(JOB,'CLERK','AC
+			------------------------------ ----------------------
+			SMITH                          accounts verify
+			ALLEN
+			WARD
+			JONES                          HEAD OF THE DEPARTMENT
+			MARTIN
+			BLAKE                          HEAD OF THE DEPARTMENT
+			CLARK                          HEAD OF THE DEPARTMENT
+			SCOTT
+			KING
+			TURNER
+			ADAMS                          accounts verify
+
+			ENAME                          DECODE(JOB,'CLERK','AC
+			------------------------------ ----------------------
+			JAMES                          accounts verify
+			FORD
+			MILLER                         accounts verify
+
+			14 rows selected.
+
+			SQL>
+
+		-> from above output it is decoded from employee table instead of cleark it display accounts verify and instead of manager it shows head of the department
+
+		2. select ename,decode(job,'CLERK','accounts verify','MANAGER','HEAD OF THE DEPARTMENT','Uknown') FROM EMPLOYEE;
+
+		3. select ename,decode(job,'CLEARK','accounts verify','MANAGER','HEAD OF THE DEPARTMENT',JOB) FROM EMPLOYEE;
+

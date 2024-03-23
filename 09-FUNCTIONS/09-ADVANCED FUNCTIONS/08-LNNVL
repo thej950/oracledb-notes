@@ -1,0 +1,19 @@
+LNNVL
+ - it is stands for logical not null function it is used in where cause of a sql statement to evaluate a condition when one of the operands may contain a NULL value 
+ syntax: LNNVL (condition)
+
+ The LNNVL function will return the Following:
+
+ 	Condition Evaluates To 			LNNVL Return Value
+ 	---------------------------------------------------
+ 	TRUE 							FALSE
+ 	FALSE							TRUE
+ 	UNKNOWN 						TRUE
+ 	---------------------------------------------------
+
+ 	examples:
+ 	----------
+
+ 		SELECT COUNT(*) FROM employee where comm>0;
+ 		SELECT COUNT(*) FROM employee where lnnvl(comm>0);
+

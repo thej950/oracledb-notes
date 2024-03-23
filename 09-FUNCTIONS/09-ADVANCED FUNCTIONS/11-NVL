@@ -1,0 +1,3 @@
+NVL
+ - tis function lets you substitute a value when null value is encountered 
+ syntax: NVL(strin1,replae_with)

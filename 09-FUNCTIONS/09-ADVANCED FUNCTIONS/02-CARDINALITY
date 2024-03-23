@@ -1,0 +1,13 @@
+02-CARDINALITY
+--------------
+ - this function will return the number of elements in a nested table 
+ - nested table means table inside table available
+ - it shows the count of the nested table elements 
+ syntax: CARDINARY (nested_table_column)
+
+ 	examples:
+ 	---------
+
+ 		select supplier_id, CARDINALITY(location) from suppliers_tbl;
+ 		select employee_id, CARDINALITY(location) from employee;
+ 		select id, CARDINALITY (marks) from students;

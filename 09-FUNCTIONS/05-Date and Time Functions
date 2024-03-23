@@ -1,19 +1,19 @@
 Date and Time Functions
 -------------------------
- ADD_MONTHS
+1.ADD_MONTHS
   - this will returns a date with a specified number of months added
   syntax: ADD_MONTHS(date1,number_months)
 
- CURRENT_DATE
+2.CURRENT_DATE
   - this function will returns the current date in the time zone of the current sql session as set by the alter session command
   syntax: CURRENT_DATE
 
- CURRENT_TIMESTAMP
+3.CURRENT_TIMESTAMP
   - this function returns the current date and time in the timeone of current sql session as set by the alster session command 
   - it will returns with TIMESTAMP with TIME ZONE value 
   syntax: CURRENT_TIMESTAMP
 
- DBTIMEZONE
+4.DBTIMEZONE
   - this function will returns the database timezone as a time zone offset (in the following format:'[+|-]TZH:TZM') or a time zone region name 
   syntax: DBTIMEZONE
 
@@ -32,11 +32,11 @@ Date and Time Functions
   	 - The extract function returns a numeric value when the following parameters are provided like (year,month,dat,hour,minute,second,timezone_hour,timezone_minute,timezone_region,timeone_minute.)
   	 - the extract function returns a varchar2 when timezone or region or timezone_abbr parameters are provided (because the timezone name or abbreviation information is returned )
 
- LAST_DAY
+5.LAST_DAY
   - this function returns the last day of the month based on a date value
   syntax: LAST_DAY(date)
 
- LOCALTIMESTAMP
+6.LOCALTIMESTAMP
   - this function will returns the current date and time zone of the current sql session as set by the alter session command 
   - it will returns a timestamp value
   syntax: LOCALTIMESTAMP
@@ -46,11 +46,11 @@ Date and Time Functions
     - the difference between these two functions are that the local timestamp function returns a timestamp value while the curret timestamp function returns a timestamp with timezone value 
 
 
- MONTHS_BETWEEN
+7.MONTHS_BETWEEN
   - this function returns the number of months between date1 and date2
   syntax: MONTHS_BETWEEN(date1,date2)
 
- NEW_TIME
+8.NEW_TIME
   - This function converts a date from time zone1 to a date in time zone2 
   - the new time function returns a date value
   syntax: NEW_TIME(date,zone1,zone2)
@@ -76,11 +76,11 @@ Date and Time Functions
   	YDT 		Yukon Daylight time
 
 
- NEXT_DAY
+9.NEXT_DAY
   - it will returns a first weekday that is greater than a date
   syntax: NEXT_DAY(date,weekday)
 
- ROUND
+10.ROUND
   - it will returns a date rounded to a specific unit of measure 
   syntax: ROUND(date[,format])
   ----------------------------------------------------------------------------------------------------------------------------------------
@@ -98,23 +98,23 @@ Date and Time Functions
   10. Minute 				MI 	  
   ----------------------------------------------------------------------------------------------------------------------------------
 
- SESSIONTIMEZONE
+11.SESSIONTIMEZONE
   - it will return current session time zone as a time zone offset (in the following format: '[+|-]TZH:TZM') or a time zone region name
   syntax: SESSIONTIMEZONE
 
- SYSDATE
+12.SYSDATE
   - this function returns the current system date and time on your local database
   syntax: SYSDATE
 
- SYSTIMESTAMP
+13.SYSTIMESTAMP
   - it will functions returns the current system date and time (including fractional seconds and time zone ) on your local database
   syntax: SYSTIMESTAMP
 
- TRUNC
+14.TRUNC
   - this function returns a date truncated to a specific unit of measure 
   syntax: TRUNC
 
- TZ_OFFSET
+15.TZ_OFFSET
   - this function returns the time zone offset of a value 
   syntax: TZ_OFFSET(timezone)
 

@@ -1,0 +1,12 @@
+SYS_CONTEXT
+ - this function used to retrieve information about the oracle environment 
+ syntax: SYS_CONTEXT(namespace,parameter,[,length])
+
+ namespace:
+  - An oracle namespace that has already created if the namespace of 'USEREV' is used attributes describing the current oracle session can be returned 
+ parameter:
+  - A valid attribute that has been set using the DBMS_SESSION.set_context procedure 
+ length
+  - optional it is the length of the return value in bytes
+  - if this parameter omitted or of an invalid entry is provided the sys_context function will to 256 bytes
+

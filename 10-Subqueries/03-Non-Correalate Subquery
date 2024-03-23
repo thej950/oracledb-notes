@@ -1,0 +1,399 @@
+Non correlated subquery
+---------------------------
+Table create with employee and insert some values
+
+    CREATE TABLE EMPLOYEE (
+        EMPNO NUMBER(4) NOT NULL,
+        ENAME VARCHAR2(10),
+        JOB VARCHAR2(9),
+        MGR NUMBER(4),
+        HIREDATE DATE,
+        SAL NUMBER(7, 2),
+        COMM NUMBER(7, 2),
+        DEPTNO NUMBER(2),
+        CONSTRAINT fk_dept FOREIGN KEY(DEPTNO) REFERENCES dept(DEPTNO)
+    );
+
+    INSERT INTO EMPLOYEE VALUES (7369, 'SMITH', 'CLERK', 7902, TO_DATE('17-DEC-1980', 'DD-MON-YYYY'), 800, NULL, 20);
+    INSERT INTO EMPLOYEE VALUES (7499, 'ALLEN', 'SALESMAN', 7698, TO_DATE('20-FEB-1981', 'DD-MON-YYYY'), 1600, 300, 30);
+    INSERT INTO EMPLOYEE VALUES (7521, 'WARD', 'SALESMAN', 7698, TO_DATE('22-FEB-1981', 'DD-MON-YYYY'), 1250, 500, 30);
+    INSERT INTO EMPLOYEE VALUES (7566, 'JONES', 'MANAGER', NULL, TO_DATE('2-APR-1981', 'DD-MON-YYYY'), 2975, NULL, 20);
+    INSERT INTO EMPLOYEE VALUES (7654, 'MARTIN', 'SALESMAN', 7698, TO_DATE('28-SEP-1981', 'DD-MON-YYYY'), 1250, 1400, 30);
+    INSERT INTO EMPLOYEE VALUES (7698, 'BLAKE', 'MANAGER', 7839, TO_DATE('1-MAY-1981', 'DD-MON-YYYY'), 2850, NULL, 30);
+    INSERT INTO EMPLOYEE VALUES (7782, 'CLARK', 'MANAGER', 7839, TO_DATE('9-JUN-1981', 'DD-MON-YYYY'), 2450, NULL, 10);
+    INSERT INTO EMPLOYEE VALUES (7788, 'SCOTT', 'ANALYST', 7566, TO_DATE('09-DEC-1982', 'DD-MON-YYYY'), 3000, NULL, 20);
+    INSERT INTO EMPLOYEE VALUES (7839, 'KING', 'PRESIDENT', NULL, TO_DATE('17-NOV-1981', 'DD-MON-YYYY'), 5000, NULL, 10);
+    INSERT INTO EMPLOYEE VALUES (7844, 'TURNER', 'SALESMAN', 7698, TO_DATE('8-SEP-1981', 'DD-MON-YYYY'), 1500, 0, 30);
+    INSERT INTO EMPLOYEE VALUES (7876, 'ADAMS', 'CLERK', 7788, TO_DATE('12-JAN-1983', 'DD-MON-YYYY'), 1100, NULL, 20);
+    INSERT INTO EMPLOYEE VALUES (7900, 'JAMES', 'CLERK', 7698, TO_DATE('3-DEC-1981', 'DD-MON-YYYY'), 950, NULL, 30);
+    INSERT INTO EMPLOYEE VALUES (7902, 'FORD', 'ANALYST', 7566, TO_DATE('3-DEC-1981', 'DD-MON-YYYY'), 3000, NULL, 20);
+    INSERT INTO EMPLOYEE VALUES (7934, 'MILLER', 'CLERK', 7782, TO_DATE('23-JAN-1982', 'DD-MON-YYYY'), 1300, NULL, 10);
+
+
+
+
+Single Row Subquery
+--------------------
+ - When practicing single row subsquery it will return only single row subquery 
+ - In single row subquery we can use operators like =,<,>,<=,>=,!=
+
+
+     1.  who is getting more salary then manager from employee table 
+          SQL> select * from employee where sal>all(select sal from employee where job='MANAGER');
+
+               EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+          ---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+                7788 SCOTT      ANALYST         7566 09-DEC-82       3000                    20
+                7902 FORD       ANALYST         7566 03-DEC-81       3000                    20
+                7839 KING       PRESIDENT            17-NOV-81       5000                    10
+
+          SQL>
+
+     2. find out who has more salary in the employee table
+
+
+          SQL> select max(sal) from employee;
+
+            MAX(SAL)
+          ----------
+                5000
+       - where we can get maximum salary from employee but we want complete row of that person details also so here we excute subquery from below output
+               
+          SQL> select * from employee where sal=(select max(sal) from employee);
+
+               EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+          ---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+                7839 KING       PRESIDENT            17-NOV-81       5000                    10
+
+          SQL>
+
+
+     3. Display whose employee job is the same job of SMITH
+
+
+          SQL>  select * from employee where job=(select job from employee where ename='SMITH');
+
+               EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+          ---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+                7369 SMITH      CLERK           7902 17-DEC-80        800                    20
+                7876 ADAMS      CLERK           7788 12-JAN-83       1100                    20
+                7900 JAMES      CLERK           7698 03-DEC-81        950                    30
+                7934 MILLER     CLERK           7782 23-JAN-82       1300                    10
+
+          SQL> 
+       - from above first we want see how many persons in the employee table same job as smith so here we excute in the subquery find out column job of smith then later that main query will excute job=(select job from employee where ename='SMITH') it will find how many members have job=(out_put_of_subquery) here it will display all members who has same job has smith
+
+
+     4. Display whose salary is more than the max salary of the job is "SALESMAN"
+
+
+          SQL> select * from employee where sal>(select max(sal) from employee where job='SALESMAN');
+
+               EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+          ---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+                7566 JONES      MANAGER              02-APR-81       2975                    20
+                7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30
+                7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10
+                7788 SCOTT      ANALYST         7566 09-DEC-82       3000                    20
+                7839 KING       PRESIDENT            17-NOV-81       5000                    10
+                7902 FORD       ANALYST         7566 03-DEC-81       3000                    20
+
+          6 rows selected.
+
+          SQL>
+
+     5. Display whose employee job is same as the job of "BLAKE" and who are earning salary more than "BLAKE" salary
+
+
+          SQL> select * from employee where job=(select job from employee where ename='BLAKE') and sal>(select sal from employee where ename='BLAKE');
+
+               EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+          ---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+                7566 JONES      MANAGER              02-APR-81       2975                    20
+
+          SQL>
+
+
+     6. Display senior employee
+
+          SQL> select * from employee where hiredate=(select min(hiredate) from employee);
+
+               EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+          ---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+                7369 SMITH      CLERK           7902 17-DEC-80        800                    20
+
+          SQL>
+
+     7. Find the second highest salary from the employee table
+
+               SQL> select max(sal) from employee where sal<(select max(sal) from employee);
+
+                 MAX(SAL)
+               ----------
+                     3000
+
+               SQL>
+          - from the above output find who is second hihest salary in the table 
+
+     8. Display employee details who are getting the second highest salary in the employee table
+
+
+          SQL>  select * from employee where sal=(select max(sal) from employee where sal<(select max(sal) from employee));
+
+               EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+          ---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+                7788 SCOTT      ANALYST         7566 09-DEC-82       3000                    20
+                7902 FORD       ANALYST         7566 03-DEC-81       3000                    20
+
+          SQL>
+
+     9. Display employee details who are getting 3rd highest salary in employee details 
+
+               SQL> select * from employee where sal=(select max(sal) from employee where sal<(select max(sal) from employee where sal<(select max(sal) from employee)));
+
+                    EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+               ---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+                     7566 JONES      MANAGER              02-APR-81       2975                    20
+
+               SQL>
+
+     10. Display employee who are in sales department
+
+          SQL> select * from employee where deptno=(select deptno from dept where dname='SALES');
+
+               EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+          ---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+                7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30
+                7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30
+                7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30
+                7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30
+                7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30
+                7900 JAMES      CLERK           7698 03-DEC-81        950                    30
+
+          6 rows selected.
+
+          SQL>
+       - from above output we are searching sales eployee information from employee table but in employee table dont have sales information so that sales is availabe in dept table from above output 30 deptno details 
+
+     11. Display the total salary in purchase department
+
+
+          SQL> select sum(sal) from employee where deptno=(select deptno from dept where dname='PURCHASE');
+
+            SUM(SAL)
+          ----------
+               10875
+
+          SQL>
+
+     12. To update employee salary with max salary of employee table whose empno is 7900
+
+
+          SQL> update employee set sal=(select max(sal) from employee) where empno=7900;
+
+          1 row updated.
+
+     13. Delete employee details from employee table whose job is the same as the job of scott
+
+
+          SQL> delete from employee where job=(select job from employee where ename='SCOTT');
+
+          2 rows deleted.
+
+          SQL>
+
+
+MULTIPLE ROW Subquery in Oracle
+---------------------------------------
+ - When subquery returns more than one value is called a Multiple Row subquery in Oracle 
+ - In this multiple row subquery we can use the operators such as IN,ANY,ALL
+
+     1. To display employee job is same as the job of the employee SMITH and CLARK
+
+
+          SQL> select * from employee where job in(select job from employee where ename='SMITH' OR ename='CLARK');
+
+               EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+          ---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+                7369 SMITH      CLERK           7902 17-DEC-80        800                    20
+                7876 ADAMS      CLERK           7788 12-JAN-83       1100                    20
+                7900 JAMES      CLERK           7698 03-DEC-81        950                    30
+                7934 MILLER     CLERK           7782 23-JAN-82       1300                    10
+                7566 JONES      MANAGER              02-APR-81       2975                    20
+                7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30
+                7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10
+
+          7 rows selected.
+
+          SQL>
+
+     2. Display employee details who are getting min, max salaries
+
+
+          SQL> select * from employee where sal in(select min(sal) from employee union select max(sal) from employee);
+
+               EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+          ---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+                7369 SMITH      CLERK           7902 17-DEC-80        800                    20
+                7839 KING       PRESIDENT            17-NOV-81       5000                    10
+
+          SQL>
+
+     3. Display all employees, whose salary is more than any salesman salary
+
+          SQL> select * from employee where sal>any(select sal from employee where job='SALESMAN');
+
+               EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+          ---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+                7839 KING       PRESIDENT            17-NOV-81       5000                    10
+                7902 FORD       ANALYST         7566 03-DEC-81       3000                    20
+                7788 SCOTT      ANALYST         7566 09-DEC-82       3000                    20
+                7566 JONES      MANAGER              02-APR-81       2975                    20
+                7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30
+                7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10
+                7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30
+                7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30
+                7934 MILLER     CLERK           7782 23-JAN-82       1300                    10
+
+          9 rows selected.
+
+          SQL>
+
+
+     4. Display all employees, whose salary is more than all salesman salaries
+
+
+          SQL> select * from employee where sal>all(select sal from employee where job='SALESMAN');
+
+               EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+          ---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+                7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10
+                7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30
+                7566 JONES      MANAGER              02-APR-81       2975                    20
+                7788 SCOTT      ANALYST         7566 09-DEC-82       3000                    20
+                7902 FORD       ANALYST         7566 03-DEC-81       3000                    20
+                7839 KING       PRESIDENT            17-NOV-81       5000                    10
+
+          6 rows selected.
+
+          SQL>
+
+
+MULTIPLE COLUMN SUBQUERY In Oracle
+------------------------------------
+ - Multiple columns values of the inner query compared with multiple columns values of the outer query is called multiple columns subquery in Oracle 
+ syntax: SELECT * FROM <TABLE_NAME> WHERE (<COLUMN_1>,<COLUMN_2>,....) IN(SELECT <COLUMN_1>,<COLUM_2>,.....FROM <TABLE_NAME);
+
+     1. Display all emloyees who are erning job wise maximum salaries 
+
+
+          SQL> select * from employee where(job,sal) IN(select job, max(sal) from employee group by job);
+
+               EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+          ---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+                7934 MILLER     CLERK           7782 23-JAN-82       1300                    10
+                7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30
+                7788 SCOTT      ANALYST         7566 09-DEC-82       3000                    20
+                7902 FORD       ANALYST         7566 03-DEC-81       3000                    20
+                7566 JONES      MANAGER              02-APR-81       2975                    20
+                7839 KING       PRESIDENT            17-NOV-81       5000                    10
+
+          6 rows selected.
+
+          SQL>
+
+     2. Display employee whose job and MGR is same as the job MGR of the employee clark
+
+          SQL> select * from employee where(JOB,MGR) IN(select JOB,MGR from employee where ename='CLARK');
+
+               EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+          ---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+                7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30
+                7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10
+
+          SQL>
+
+
+INLINE View Subquery in Oracle
+-------------------------------
+ - it is a special type subquery in oracle
+ - it will provide a select query in place of table name in select statement
+ syntax: 
+   SELECT * FROM <TABLE_NAME>;  ---> it is a SQL select query
+   SELECT * FROM (<SELECT QUERY>);  --> inline view
+
+   Note: 
+    - Generally, subquery is not allowed to use "order by" clause so that we use "inline view"
+    - Generally, Column alias names are not allowed to use in "where" clause condition so that we use "inline view"
+
+    1. Display employees whose annual salary is more than 25000?
+
+          SQL> select * from (select ename,sal, sal*12 annusal from employee) where annusal>25000;
+
+          ENAME             SAL    ANNUSAL
+          ---------- ---------- ----------
+          JONES            2975      35700
+          BLAKE            2850      34200
+          CLARK            2450      29400
+          SCOTT            3000      36000
+          KING             5000      60000
+          FORD             3000      36000
+
+          6 rows selected.
+
+          SQL>
+
+     2. Display the first five highest salaries from employee table by using ROWNUM along with inline view 
+
+
+          SQL> select * from (select * from employee order by sal desc) where rownum<=5;
+
+               EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+          ---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+                7839 KING       PRESIDENT            17-NOV-81       5000                    10
+                7788 SCOTT      ANALYST         7566 09-DEC-82       3000                    20
+                7902 FORD       ANALYST         7566 03-DEC-81       3000                    20
+                7566 JONES      MANAGER              02-APR-81       2975                    20
+                7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30
+
+          SQL>
+
+     3. Display 5th highest salary of employee from employee table by using ROWNUM along with inline view
+
+
+          SQL> select * from (select * from employee order by sal desc) where rownum<=5 minus select * from (select * from employee order by sal desc ) where  rownum<=4;
+
+               EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+          ---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+                7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30
+
+          SQL>
+
+     4. display 1st,3rd,5th,7th,9th rows from employee table by using ROWNUM alias name along with inline view 
+
+
+          SQL> select * from (select rownum R, employee.* from employee) where R in(1,3,5,7,9);
+
+                   R      EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+          ---------- ---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+                   1       7369 SMITH      CLERK           7902 17-DEC-80        800                    20
+                   3       7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30
+                   5       7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30
+                   7       7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10
+                   9       7839 KING       PRESIDENT            17-NOV-81       5000                    10
+
+          SQL>
+
+     5. Display first row and last row from employee table by using ROWNUM alias name along with inline view
+
+
+          SQL> select * from (select rownum R, employee.* from employee) where R=1 OR R=(select count(*) from employee);
+
+                   R      EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+          ---------- ---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+                   1       7369 SMITH      CLERK           7902 17-DEC-80        800                    20
+                  14       7934 MILLER     CLERK           7782 23-JAN-82       1300                    10
+
+          SQL>
+
+     

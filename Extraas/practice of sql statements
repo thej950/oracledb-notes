@@ -1,0 +1,22 @@
+extraas
+-----------
+CREATE TABLE abc_tbl (ID NUMBER(2), NAME VARCHAR2(10)); -- To create a table with primary key for id column
+INSERT INTO abc_tbl (ID,NAME) VALUES (01,'banana'); -- inserting data into table  
+INSERT INTO abc_tbl (ID,NAME) VALUES (2,'apple'); -- inserting data into table
+INSERT INTO abc_tbl (ID,NAME) VALUES (2,'apple'); -- inserting duplicate data into table
+UPDATE abc_tbl SET marks = 40; -- this statement will update all rows in column section marks 
+UPDATE abc_tbl SET marks = 40 WHERE ID=1; -- here we should where clause to specify where shoul implement carefully
+DESC abc_tbl; -- To see table strucher
+ALTER TABLE abc_tbl ADD PRIMARY KEY(ID); -- adding primary key to id column using alter statement
+ALTER TABLE abc_tbl DROP PRIMARY KEY; -- Removing primary key using alter statement
+SELECT * FROM abc_tbl; -- to check values in table 
+ALTER TABLE abc_tbl ADD PRIMARY KEY (ID,NAME); -- adding primary key to multiple columns
+DROP TABLE abc_tbl; -- this statement will remove table with content
+SELECT DISTINCT ID,NAME FROM abc_tbl; -- this command will filter all data specified in columns 
+DELETE abc_tbl; -- deleting rows or data from table 
+COMMIT; -- it will able to store specific data based on commit stages
+ROLLBACK; -- it will rollback to previouse commit
+TRUNCATE TABLE abc_tbl; -- it will erase rows or data in the table those data will not rollback 
+CL SCR; -- this will clear output screen
+ALTER TABLE abc_tbl ADD (marks NUMBER(4)); -- adding column here in abc_tbl
+

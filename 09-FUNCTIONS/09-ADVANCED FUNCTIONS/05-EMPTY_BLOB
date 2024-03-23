@@ -1,0 +1,11 @@
+EMPTY_BLOB
+ - this function can be used to initialize a LOB column to EMPTY in an INSERT statement or update statement or it can be used initialize a LOB variable
+ syntax: EMPTY_BLOB()
+
+ 	EMPTY_BLOB example:
+ 	-------------------
+
+ 		create table emp_x(empno number,photo blob);
+ 		insert into emp_x values(100,empty_blob());
+ 		select * from emp_x;
+

@@ -1,0 +1,11 @@
+NULLIF
+ - this function it will compare expr1 and expr2 
+ - if expr1 ad expr2 are equal then nullif function returns NULL othre wise it returns expr1 
+ syntax: NULLIF(expr1,expr2)
+
+ expr1
+  - firts value to compare must be either a numeric value or a value that is the same datatype as expr2
+ expr2
+  - second value to compare must be a numeric either a numeric value or a value that is the same datatype as expr1 
+
+

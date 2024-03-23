@@ -1,0 +1,89 @@
+COALESE
+ - this function returns the firts non-null expression in the list 
+ - if all expressions evaluate to null then the COALESCE function will return null
+ syntax: COALESCE (expr1,expr2,...expr_n)
+
+ 	expr1,expr2,...expr_n
+ 	 - this expressions to test for non-null values. this expressions must all be the same datatype
+
+
+ 	 examples:
+ 	 ---------
+
+ 	 	SQL> select * from employee;
+
+		     EMPNO ENAME                          JOB                                   MGR HIREDATE         SAL       COMM     DEPTNO
+		---------- ------------------------------ ------------------------------ ---------- --------- ---------- ---------- ----------
+		      7369 SMITH                          CLERK                                7902 17-DEC-80        800                    20
+		      7499 ALLEN                          SALESMAN                             7698 20-FEB-81       1600        300         30
+		      7521 WARD                           SALESMAN                             7698 22-FEB-81       1250        500         30
+		      7566 JONES                          MANAGER                              7839 02-APR-81       2975                    20
+		      7654 MARTIN                         SALESMAN                             7698 28-SEP-81       1250       1400         30
+		      7698 BLAKE                          MANAGER                              7839 01-MAY-81       2850                    30
+		      7782 CLARK                          MANAGER                              7839 09-JUN-81       2450                    10
+		      7788 SCOTT                          ANALYST                              7566 09-DEC-82       3000                    20
+		      7839 KING                           PRESIDENT                                 17-NOV-81       5000                    10
+		      7844 TURNER                         SALESMAN                             7698 08-SEP-81       1500                    30
+		      7876 ADAMS                          CLERK                                7788 12-JAN-83       1100                    20
+
+		     EMPNO ENAME                          JOB                                   MGR HIREDATE         SAL       COMM     DEPTNO
+		---------- ------------------------------ ------------------------------ ---------- --------- ---------- ---------- ----------
+		      7900 JAMES                          CLERK                                7698 03-DEC-81        950                    30
+		      7902 FORD                           ANALYST                              7566 03-DEC-81       3000                    20
+		      7934 MILLER                         CLERK                                7782 23-JAN-82       1300                    10
+
+		14 rows selected.
+
+		SQL>
+
+	 - from above output comm column contain some null values we can add any value inside comm using COALESCE function
+
+
+		SQL> select coalesce(comm,100) from employee;
+
+		COALESCE(COMM,100)
+		------------------
+		               100
+		               300
+		               500
+		               100
+		              1400
+		               100
+		               100
+		               100
+		               100
+		               100
+		               100
+
+		COALESCE(COMM,100)
+		------------------
+		               100
+		               100
+		               100
+
+		14 rows selected.
+
+		SQL>
+
+	 - from above we add 100 value to empty NULL place in commission fields  
+
+	Oracle COALESCE() vs NVL()
+	  - this COALESCE() function is a part of SQL ANSI-92 standard while NVL() function is Oracle specific 
+	  - In case of two expressions, the COALESCE() function and NVL() seems to be similar but their implementation are different. 
+	  - see the following statement 
+
+	  	SELECT
+	  		COALESCE(1,NULL)
+	  	FROM
+	  		dual;
+
+	  	SELECT 
+	  		NVL(1,NULL)
+	  	FROM
+	  		dual;
+
+	  	SELECT
+	  		COALESCE(1,1/0)
+	  	FROM
+	  		dual;
+

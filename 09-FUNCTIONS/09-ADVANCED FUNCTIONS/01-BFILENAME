@@ -1,0 +1,48 @@
+BFILENAME
+----------
+  - this function will returns a BFILE locater for a physical LOB binary file 
+  - this function often used in PLSQL to access the data within the BFILE 
+  syntax: BFILENAME('directory', 'filename')
+
+  Directory:
+   - this directory creation is mandatory to point to object which means alias for the actula directoy on the database server
+  filename:
+   - this is a filename is a string which is just name of the refer file which means source file 
+
+   craete a directory 
+   - the directory parameter needs to be a directory object, not a string that represents a directory 
+   syntax: CREATE DIRECTORY <directory_name> AS 'path_of_source_file'
+
+   Example:
+   --------
+    - here first create a directory object in oracle database and then inserts a BFILENAME into a table 
+
+    step1: create a table with columns and with datatypes 
+
+    	SQL> create table emp_tbl (empno number(3), resume bfile);
+
+		Table created.
+
+		SQL>
+
+	step2: create or replace a directory to point out to source file 
+
+
+		SQL> create or replace directory MY_DOC as 'C:\Docs';
+
+		Directory created.
+
+		SQL>
+		 - from above output that location 'c:\Docs' need to be available inside that folder our file_name should be there
+		 - MY_DOC it is directory in Oracle it is point out to  OR locate to 'C:\Docs' path In Oracle 
+
+	step3:  lets add values into table 
+
+		SQL> insert into emp_tbl (empno,resume) values(100, BFILENAME ('MY_DOC', 'resume.docx'));
+
+		1 row created.
+
+		SQL>
+		 - from above output we should available resume.docx file need to be in "C:\Docs" Path 
+		 - using above content we inserted into data using datatype of BFILENAME 
+		 

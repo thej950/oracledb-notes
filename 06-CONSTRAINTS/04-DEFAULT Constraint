@@ -1,12 +1,12 @@
 DEFAULT Constraint
 -------------------
  - Default contraint in Oracle is used to set up a default value for the data column.
- - If the value for the colum in the data Row is not specified, the default value will be added to the data row colum.
+ - If the value for the column in the data Row is not specified, the default value will be added to the data row column.
  - In simple words we can say that default constraints are used to insert a deafault value to a coumn when the user doesn't specify a value 
 
   OUTPUT PRACTICLES OF DEFAULT
 
-  		step1: lets create a tablle with DEFAULT constraint
+  		step1: lets create a table with DEFAULT constraint
 
 
 					SQL> create table exam_tbl(id number(2),name varchar2(10),pass number(2) default 35);

@@ -1,7 +1,7 @@
 NOT NULL Constraints:
 ---------------------
 	- By default the database stores NULL value means no value in the data Row.
-	- By defining NOT NULL to the column, the default behaviour of the database colum changes and it does not accept NULL VALUES.
+	- By defining NOT NULL to the column, the default behaviour of the database column changes and it does not accept NULL VALUES.
 	- In Oracle, A Table can containe any number of NOT NULL Constraints
 	- The NOT NULL Constraints can be defined to string as well as Numeric data types also such as INT, VARCHAR, etc...
 	- The NOT NULL Constraints Does not support "Table Level" it can be only applicable to Column level

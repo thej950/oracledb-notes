@@ -1,0 +1,76 @@
+Correalte Subquery
+--------------------
+ - A Correlated subquery is evaluated once for each row processed by the parent statement 
+ - A correlated subquery is one way of reading every row in a table and comparing values in each row against related data 
+ - it is used whenever a subquery must return a different result or set of results for each candidate row considered by the main query 
+ - In other words  we can use correlated subquery to answer a multipart question whose answer depends on the value in each row processed by the parent statement
+ 	
+ 	syntax:
+
+ 		SELECT column1,column2,...
+ 			FROM table1 outer 
+ 			WHERE column1 operator
+ 				(SELECT column1,column2
+ 				FROM table2
+ 				WHERE expr1 = 
+ 					outer expr2);
+
+
+ 	1. Find all the employees who are earn more than the average salary in their department
+
+ 		SQL> select ename,sal,deptno from employee outer where sal>(select avg(sal) from employee where deptno=outer.deptno);
+
+		ENAME             SAL     DEPTNO
+		---------- ---------- ----------
+		ALLEN            1600         30
+		JONES            2975         20
+		BLAKE            2850         30
+		SCOTT            3000         20
+		KING             5000         10
+		FORD             3000         20
+
+		6 rows selected.
+
+		SQL>
+
+	2. find the employees who have at least one person reporting them using EXIST operator
+
+
+		SQL> select empno,ename,job,deptno from employee outer where exists(select 'x' from employee where mgr=outer.empno);
+
+		     EMPNO ENAME      JOB           DEPTNO
+		---------- ---------- --------- ----------
+		      7902 FORD       ANALYST           20
+		      7698 BLAKE      MANAGER           30
+		      7839 KING       PRESIDENT         10
+		      7566 JONES      MANAGER           20
+		      7788 SCOTT      ANALYST           20
+		      7782 CLARK      MANAGER           10
+
+		6 rows selected.
+
+		SQL>
+
+	3. find all departments that do not have any employee using NOT EXISTS operator
+
+
+		SQL> select deptno,dname from dept d where not exists(select 'x' from employee where deptno=d.deptno);
+
+		no rows selected
+
+		SQL>
+
+	 - from above there is no other employee thats why its no rows there 
+	 - lets add new row 
+
+		SQL>  insert into dept values(40,'marketing','vizag');
+
+		1 row created.
+
+		SQL> select deptno,dname from dept d where not exists(select 'x' from employee where deptno=d.deptno);
+
+		    DEPTNO DNAME
+		---------- ----------
+		        40 marketing
+
+		SQL>

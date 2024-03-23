@@ -1,0 +1,38 @@
+Subqueries in Oracle
+---------------------
+ - In Oracle subquery is a query within a query 
+ - we can create subqueries within our SQL statements 
+ - These subqueries can resides in the WHERE clause, in the form of clause, or SELECT clause 
+ - A query inside query is called a subquery or nested query in Oracle 
+ - the subquery having two more queries Thses are as follows
+ 	1. Innser Or Child Or subnquery
+ 	2. Outer Or Parent Or Main query
+
+ 	syntax: SELECT * FROM <TBALE_NAME> WHERE CONDITION (SELECT * FROM......);
+
+ As per the excution process of subquery it is again classified into two categorised 
+  1. Non-Correlated Subqueries 
+   - In Non-Correlated subqueries, first the inner query will excute and return value and later outer query will excute 
+
+  2. Correlated Subqueries 
+   - In Correlated subqueries first outer query will excute and return value and later inner query will excute 
+
+  The Non-correlated suqueries again classified into 4 types there in below 
+   1. single row subquery
+   2. multiple row subquery
+   3. multiple column subquery
+   4. Inline view subquery
+
+   Oracle Single Row Subquery
+   	- when a subquery returns a single value that is called "Single Row Subquery"
+   	- In Single Row Subquery we can use operators as "=,<,>,<=,>=,!="
+
+   Multiple Row Subqueries
+    - When a subquery returns more than one value is called a Multiple Row Subquery in Oracle 
+    - In this multiple row subquery, we can use the operators such as "IN,ANY,ALL"
+
+
+
+
+
+      

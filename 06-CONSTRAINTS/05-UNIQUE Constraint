@@ -1,7 +1,7 @@
 UNIQUE Constraint 
 -------------------
  - This UNIQUE Constraint will avoid Duplicate valuse into the table
- - when we want a column or columns it will not to accept any duplicate values there we need to use UNIQUE Constraint i Oracle is useful to storing of duplicate data row values in a given column or combination of columns.
+ - when we want a column or columns it will not to accept any duplicate values there we need to use UNIQUE Constraint in Oracle is useful to storing of duplicate data row values in a given column or combination of columns.
  - But it will accepts NULL values in that column 
 
  - Multiple Columns in a single table can have UNIQUE Constraint 

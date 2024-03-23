@@ -1,0 +1,101 @@
+Synonyms in Oracle
+----------------------
+ - using synonym we able to give alternate name to all objects in SQL
+ - This Synonyms is a alternative object such as tables, views, sequences, stored procedures, and other database ojects 
+ - we generally use synonyms when we are granting access to an object from another schema and we dont want the users have to worry about knowing which schema owns the object 
+
+ 	syntax: 
+ 		CREATE OR <REPLACE> <PUBLIC> SYNONYM <schema.> synonym_name FOR <schema.> object_name;
+
+  PUBLIC
+   - it means that the synonym is a public synonym and it is accessible to all users 
+  schema
+   - the appropriate schema. if this phrase is omitted, oracle assumes that you are referring to your own schema 
+  object_name
+   - The name of the object for which you are creating the syonym. it can be one of the following 
+
+   		1. Table
+   		2. view
+   		3. sequence
+   		4. stored procedure 
+   		5. function
+   		6. package
+   		7. materialized view 
+   		8. java class schema object 
+   		9. user-defined object 
+   		10. synonym 
+
+
+   DROP Synonym 
+    - To drop a existing synonyms 
+    syntax: 
+
+    	DROP <PUBLIC> SYNONYM <schema.> synonym_name <force>
+
+    	PUBLIC
+    	 - allow you to drop a public synonym. if we have specified PUBLIC, then you dont specify a schema 
+    	force
+    	 - it will force oracle to drop the synonym even if it has dependencies 
+    	 - it is not recomended to use force it will cause a invalidation of oracle objects 
+
+
+    1. here lets create a synonym for dept table 
+
+		SQL> select * from dept;
+
+		    DEPTNO DNAME      LOC
+		---------- ---------- ---------------
+		        10 PRODUCTION HYD
+		        20 PURCHASE   CHENNAI
+		        30 SALES      BANGALORE
+
+		SQL> create synonym abcd_tbl for dept;
+
+		Synonym created.
+
+		SQL> select * from abcd_tbl;
+
+		    DEPTNO DNAME      LOC
+		---------- ---------- ---------------
+		        10 PRODUCTION HYD
+		        20 PURCHASE   CHENNAI
+		        30 SALES      BANGALORE
+
+		SQL> drop synonym abcd_tbl;
+
+		Synonym dropped.
+
+		SQL> select * from abcd_tbl;
+		select * from abcd_tbl
+		              *
+		ERROR at line 1:
+		ORA-00942: table or view does not exist
+
+
+		SQL> 
+
+	2. lets create a synonym for SEQUENCE (first create a sequence then add synonym for sequence)
+
+
+		SQL>  create sequence my_sq minvalue 1 maxvalue 5 start with 1 increment by 1;
+
+		Sequence created.
+
+		SQL> create synonym sq for my_sq;
+
+		Synonym created.
+
+
+		SQL> select sq.nextval from dual;
+
+		   NEXTVAL
+		----------
+		         1
+
+		SQL> select sq.nextval from dual;
+
+		   NEXTVAL
+		----------
+		         2
+
+Note: From above objects table and sequence are two objects this synonym will all objects in SQL from above objects 

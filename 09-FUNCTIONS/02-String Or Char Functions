@@ -1,6 +1,6 @@
 String Or Char Functions
 -------------------------
- ASCII
+1. ASCII
   - It will Return the number code that will represents the specified Charecter
   Syntax:
 
@@ -24,7 +24,7 @@ String Or Char Functions
 		SQL>
 		++++++++++++++++++++++++++++++++++++++
 
- ASCIISTR
+2. ASCIISTR
   - It will converts a string to any charecter set to an ASCII 
   - string using the database charecter set
   Syntax:
@@ -40,8 +40,7 @@ String Or Char Functions
 
 		SQL>
 
-
- CHR
+3. CHR
   - It will Return the charecter Based on the Number code
   - It is opposite to ASCII 
   Syntax:
@@ -56,9 +55,8 @@ String Or Char Functions
 		A
 
 		SQL>
-
  
- COMPOSE
+4. COMPOSE
   - It will Returns a Unicode string
   Syntax:
 
@@ -73,9 +71,8 @@ String Or Char Functions
 		SQL>
 
   Note: ASCII stands for American Standard Code For Information Interchange
-
  
- CONCAT
+5. CONCAT
   - It will combine Two strings 
   Syntax:
 
@@ -104,7 +101,7 @@ String Or Char Functions
 
 		SQL>
 
- CONVERT 
+6. CONVERT 
   - Using convert we able to convert One charecter set to another charecter set 
   - To convert One language to another language which means in international wise there are different standards is available like US7ASCII (us 7 bit charecter set0 and WE8DEC (west european 8-bit charecter set) like many more 
   - using this we able to change one ASCII charecter set to another charecter set 
@@ -112,20 +109,20 @@ String Or Char Functions
 
   	CONVERT(string_1,char_set_to [,char_set_from])
  
- DECOMPOSE
+7. DECOMPOSE
   - It will accept a string return to unicode 
   Syntax:
 
   	DECOMPOSE(string)
 
- DUMP
+8. DUMP
   - it will return a carchar2 value that might be includes the datatype code, and the length in bytes and internal representation
   - every datatype has code it will return that code 
   Syntax:
 
   	DUMP(expression[,return_format] [,start_position] [,length])
 
- INITCAP
+9. INITCAP
   - sets the first charecter in each word to uppercase and the rest to lowercase
   Syntax:
 
@@ -139,9 +136,9 @@ String Or Char Functions
 
 		SQL>
 
- INSTR
+10. INSTR
   - To find charecter search in the string in which position
- Syntax:
+  Syntax:
 
  	INSTR(string,substring [,start_position [,th_appearace]])
 
@@ -153,31 +150,31 @@ String Or Char Functions
 
 		SQL>
 
- LENGTH
+11. LENGTH
   - it will returns length of the specified string
   Syntax:
 
   	LENGTH(string_1)
 
- LOWERCASE
+12. LOWERCASE
   - converts all letters into specified lowercase
   SYNTAX:
 
   	LOWER(string_1)
 
- LPAD
+13. LPAD
   - pads the left side of a string with a specific set of charecters (when string_1 is not null)
   Syntax:
 
   	LPAD(string_1,padded_length [,pad_string])
 
- LTRIM
+14. LTRIM
   - remove all specified charecters from the left hand side of a string
   Syntax:
 
   	LTRIM(string_1 [,trim_string])
 
- REPLACE
+15. REPLACE
   - it will replace some values 
 
 
@@ -189,55 +186,53 @@ String Or Char Functions
 
 		SQL>
 
- RPAD
+16. RPAD
   - it means right padding
   Syntax:
 
   	RPAD(string_1,padded_length [,pad_string])
 
- RTRIM
+17. RTRIM
   - it means right side trim same like LTRIM
 
- SOUNDEX
+18. SOUNDEX
   - it will returns a phonetic representation (the way it sounds) of a string
   Syntax:
 
   	SOUNDEX(string_1)
 
- SUBSTR
+19. SUBSTR
   - it will run substring
   - allow to extract a substring from string
   Syntax:
 
   	SUBSTR(string,start_position [,length])
 
-
- TRANSLATE
+20.TRANSLATE
   - replace a sequence of a charecter in a string with another set of charecters however it represents a sigle charecter at single time 
   Syntax:
 
   	TRANSLATE(string_1,string_to_replace,replacement_string)
 
- TRIM
+21. TRIM
   - it will removes all specified charecters either from the beginig or ed of a string
   Syntax:
 
   	TRIM([[LEADING | TRAILING | BOTH ]]) trim_charecter FROM ] string_1)
 
- UPPERCASE
+22. UPPERCASE
   - converts all letters in the specified string to uppercase
   Syntax:
 
   	UPPER(string_1)
 
- VSIZE
+23. VSIZE
   - it will retur the number of bytes in the international representation of an expression
   Syntax:
 
   	VSIZE(expression)
 
-
- REGEXP_REPLACE
+24. REGEXP_REPLACE
   - REGEXP_REPLACE it is a extension of replace function
   - this regexp_replace function introduced in 10g 
   - it will allow to replace a sequence of charecters in a string with another set of charecters using regular expression pattern matching
@@ -246,8 +241,7 @@ String Or Char Functions
 
   		REGEXP_REPLACE(string, pattern [,replacement_string [,start_position [,nth_appearance [,match_parametr]]]])
 
-
- REGEXP_SUBSTR
+25. REGEXP_SUBSTR
   - REGEXP_SUBSTR it is an extension of the SUBSTR function 
   - this function introduced in Oracle 10g 
   - this will allow you to extract a substring from a string using regular expression pattern matching 
@@ -256,8 +250,7 @@ String Or Char Functions
 
   		REGEXP_SUBSTR(string, pattern [,start_position [,nth_appearance [,match_parameter [,sub_expression]]]])
 
-
- REGEXP_INSTR
+26. REGEXP_INSTR
   - REGEXP_INSTR function it is a extension for INSTR function 
   - It will returns the location of regular expression pattern in a string 
   - This Function, Introduced in Oracle 10g
@@ -266,3 +259,4 @@ String Or Char Functions
   	Syntax:
 
   		REGEXP_INSTR(string, pattern [,start_position [,nth_appearance [,return_option [,match_parameter [,sub_expression]]]]])
+

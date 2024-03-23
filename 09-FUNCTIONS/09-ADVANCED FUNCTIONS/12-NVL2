@@ -1,0 +1,10 @@
+NVL2
+ - this function extends the functionality found in the NVL function 
+ - let we substitute a value when a null value is encountered as well as when a non-null value is ecoutered 
+ syntax: NVL2 (strin1,value_if_not_null, value_if_null)
+ string1
+  - this string is to test for a null value 
+ value_if_not_null 
+  - the value returned if string1 is not null 
+ value_if_null
+  - the value returned if string1 is null

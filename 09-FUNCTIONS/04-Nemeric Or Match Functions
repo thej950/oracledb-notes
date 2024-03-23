@@ -1,78 +1,78 @@
 Nemeric Or Match Functions
 ---------------------------
- ABS 
+1.ABS 
   - This ABS functions will returns value of a number
   Syntax: ABS(number)
 
- ACOS
+2.ACOS
   - this ACOS function will return the arc cosine of a number
   syntax: ACOS(number)
 
- ASIN
+3.ASIN
   - this asin function returns the atc sine of a number
   syntax: ASIN(number)
 
- ATAN 
+4. ATAN 
   - atan function returns the atc tangant of a number
   syntax: ATAN(number)
 
- ATAN2
+5. ATAN2
   - this atan2 function will return the arc tangant of n and m 
   syntax: ATAN2(n,m)
 
- BITAND
+6. BITAND
   - it will returns the integer representating an AND operation on the bits of expr1 and expr2
   syntax: bitand(expr1,expr2)
  
- CEIL
+7.CEIL
   - this function returns a value that is greater than or equal to a number
   syntax: CEIL(number)
 
- COS 
+8.COS 
   - This function returns the cosine of a number
   syntax: COSH(number)
 
- EXP 
+9.EXP 
   - this function returns e raised to the nth power,where e = 2.71828183
   syntax: EXP(number)
 
- FLOOR
+10.FLOOR
   - This function returns the largest integer value that is equal to or less than a number
   syntax: FLOOR(number)
 
- GREATEST
+11.GREATEST
   - This function returns the greatest value in a list of expressions
   syntax: GREATEST(expr_1 [,expr_2,...expr_n])
 
- LEAST
+12.LEAST
   - This function will resturn the smallest value in a list of expressions
   syntax: LEAST(expr1[,expr2,...expr_n])
 
- LN
+13.LN
   - This function will return the natural logarithm of a number
   syntax: LN(number)
 
- LOG 
+14.LOG 
   - This function will return the logarithm of n base of m 
  syntax: LOG(m,n)
 
- MOD
+15.MOD
   - This function will return the reminder of m devided by n.
   syntax: MOD(m,n)
 
- POWER
+16.POWER
   - This function returns the m raised to the nth power 
   syntax: POWER(m,n)
 
- REMAINDER 
+17.REMAINDER 
   - this remainder function returns the remainder of m devided by n.
   syntax: REMAINDER(m,n)
 
- ROUND
+18.ROUND
   - This function will returns a number rounded to a certain number of decimal places
   syntax: ROUND(number[,decimal_places])
 
- SIGN
+19.SIGN
   - This function returns a value indicating a sign of a number
   syntax: SIGN(number)
   
@@ -81,23 +81,23 @@ Nemeric Or Match Functions
   	 - if number = 0, then the SIGN function returns 0.
   	 - if number > 0, then the SIGN function returns 1.
  
- SIN
+20.SIN
   - this function sin retirns the sin of n
   syntax: SINH(n)
 
- SQRT
+21.SQRT
   - this function will return the square root of n
   syntax: SQRT(n)
 
- TAN
+22.TAN
   - This Function returns the tangent of n
   syntax: TAN(n)
 
- TANH
+23.TANH
   - this function returns the hyperbolic tangent n
   syntax: TANH(n)
  
- TRUNC
+24.TRUNC
   - function returns a number truncated to a certain number of decimal places
   syntax: TRUNC(number[,decimal_places])
 

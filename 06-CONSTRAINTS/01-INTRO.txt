@@ -27,8 +27,8 @@ DATA INTEGRITY CONSTRAINTS
   		1. Entity Integrity: 
   			- it will ensure each Row is Uniquely Identified in a Table.
   			- To Implement This Mechanism we use "primary key" or "unique" constraint.
-  		2. Referential Integrity:
-
+  		
+		2. Referential Integrity:
   			- It will Ensure To create a Relationship between tables.
   			- To Implement This Mechanism we use "foreign key"
   		

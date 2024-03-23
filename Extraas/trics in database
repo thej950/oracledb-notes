@@ -1,0 +1,23 @@
+trics in database
+---------------------
+1. To insert large amount of data into database using excell
+	
+	Below are  Excell Formula
+	
+		="insert into table_name values('"&A2&"','"&B2&"','"&C2&"');"
+
+	BreakDown
+
+		This Excel formula appears to be constructing an SQL query statement using values from cells in an Excel sheet. Let's break it down:
+
+		- `"insert into table_name values('"`: This part of the formula constructs the beginning of an SQL INSERT statement, indicating that you want to insert data into a table named `table_name`. The `'` characters are used to enclose the values to be inserted in the SQL statement.
+		- `&A2&`: This part of the formula refers to the value in cell A2. The `&` operator is used for concatenation, meaning it joins the value in cell A2 with the surrounding text.
+		- `','`: This part of the formula inserts a comma followed by a single quote, separating each value in the SQL INSERT statement.
+		- `&B2&`: This part of the formula refers to the value in cell B2.
+		- `','`: Similar to the previous comma and single quote, this separates the second value being inserted.
+		- `&C2&`: This part of the formula refers to the value in cell C2.
+		- `"');"`: This concludes the SQL INSERT statement. It appends a single quote, followed by a closing parenthesis and a semicolon to complete the SQL statement.
+
+		Overall, this formula constructs an SQL INSERT statement using values from cells A2, B2, and C2 in the Excel sheet. When the formula is evaluated, it generates an SQL statement ready to be executed in a database environment.
+
+		

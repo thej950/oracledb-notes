@@ -1,0 +1,41 @@
+Oracle Joins
+------------
+ - Join is a query that is used to combine rows from two or more tables, views or materialized views 
+ - it will retrieve data from multiple tables and we can create a new table 
+ - there may be at least one join condition either in the FROM clause or in the WHERE clause for joining two tables 
+ - it compares two columns from different tables and combines pair of rows, each containing one row from each table, for which join condition is true 
+
+ 	Types of Joins
+ 	---------------
+ 	 1. Equi Joins and Non-Equi Joins 
+ 	 2. Innser Joins (simple joins)
+ 	 3. Outer Joins 
+ 	    - Left Outer Join
+ 	    - Right outer Join
+ 	    - Full Outer Join
+ 	 4. Self Join
+ 	 5. Cross Join (Cartesian Products)
+ 	 6. Natural Joins
+ 	 7. Anti Joins
+ 	 8. semi Joins
+
+
+EQUI JOIN
+----------
+ - This Oracle Equi joins return the matching column values of the associated tables 
+ - it uses a comparison operator in the WHERE clause to refer equality This is represented by (=) sign 
+ - equi Join also can be performed by using JOIN keyword followed by ON keyword and then specifying names of the columns along with their associated tables to check equality 
+
+ 	Syntax:
+
+ 		SELECT column_list FROM table_1, table_2... 
+ 		WHERE table_1.column_nanme = table_2.column_name;
+
+ 				OR
+
+ 		SELECT * FROM table_1 JOIN table2 [ON (join_condition)]
+
+
+
+Non-Equi Join
+--------------

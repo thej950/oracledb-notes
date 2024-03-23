@@ -1,0 +1,29 @@
+sql basic info
+---------
+1. to check current user 
+	
+	SELECT USER FROM DUAL;
+
+
+2. Granting DML Privileges to user 
+	
+	GRANT SELECT, INSERT, UPDATE, DELETE ON table_name TO user_name;
+
+3. Granting DDL Privileges
+	
+	GRANT CREATE TABLE, CREATE INDEX, ALTER TABLE, DROP TABLE TO user_name;
+
+4. Create a New User
+	
+	CREATE USER new_username IDENTIFIED BY new_password;
+
+5. Grant Privileges: 
+ 	- Grant the necessary privileges to the new user. This includes privileges such as CONNECT, CREATE SESSION, and any other privileges required for the user's tasks.
+
+ 	GRANT CONNECT, RESOURCE TO new_username;
+
+6. Migrate Objects and Data
+ - Transfer the objects and data from the old user to the new user. This includes tables, views, procedures, etc. You can use the ALTER USER statement to change the owner of existing objects.
+
+ 	ALTER USER old_username RENAME TO new_username;
+
