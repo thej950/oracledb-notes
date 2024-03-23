@@ -1,0 +1,48 @@
+ANTI JOIN 
+-------------
+	- Anti-Join is used to make the queries run faster 
+	- it is very powerful SQL construct Oracle Offers for faster queries 
+	- Anti-join between two tables returns rows from the first table where no matches are found in the second table 
+	- it is opposite of semi join 
+	- An anti-join returns on copy of each row in the first table for which no match is found 
+	- Anti-joins are written using the NOT EXISTS or NOT IN constructs
+
+		syntanx:
+
+			SELECT columns FROM table_1 WHERE NOT EXISTS (
+				SELECT values FROM table_2
+				WHERE table_2.column = table_1.column
+			);
+
+
+
+SQL> select D.deptno, D.dname
+  2  from dept D
+  3  where NOT EXISTS
+  4     (
+  5     select 1
+  6     from employee E
+  7     where E.deptno = D.deptno
+  8     )
+  9  ORDER BY D.deptno;
+
+    DEPTNO DNAME
+---------- ----------
+        40 accounts
+
+SQL>
+
+SQL> select empno,ename,job
+  2  from employee
+  3  where deptno NOT IN
+  4  (select deptno FROM dept);
+
+     EMPNO ENAME      JOB
+---------- ---------- ---------
+       200 kiran      CLERK
+
+SQL>
+
+
+
+

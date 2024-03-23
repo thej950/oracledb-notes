@@ -35,7 +35,487 @@ EQUI JOIN
 
  		SELECT * FROM table_1 JOIN table2 [ON (join_condition)]
 
+	
+1. Here using equi join like = operator we used to get information from parent table information with child table information to verify which user available in which department name using single statement 
+	- this called equi join here we used = operator 
+	
+SQL> select empno,ename,job,dept.deptno,dept.dname from employee,dept where employee.deptno=dept.deptno;
+     EMPNO ENAME      JOB           DEPTNO DNAME
+
+---------- ---------- --------- ---------- ----------
+      7369 SMITH      CLERK             20 PURCHASE
+      7499 ALLEN      SALESMAN          30 SALES
+      7521 WARD       SALESMAN          30 SALES
+      7654 MARTIN     SALESMAN          30 SALES
+      7566 JONES      MANAGER           20 PURCHASE
+      7698 BLAKE      MANAGER           30 SALES
+      7782 CLARK      MANAGER           10 PRODUCTION
+      7788 SCOTT      ANALYST           20 PURCHASE
+      7839 KING       PRESIDENT         10 PRODUCTION
+      7844 TURNER     SALESMAN          30 SALES
+      7876 ADAMS      CLERK             20 PURCHASE
+
+     EMPNO ENAME      JOB           DEPTNO DNAME
+---------- ---------- --------- ---------- ----------
+      7900 JAMES      CLERK             30 SALES
+      7902 FORD       ANALYST           20 PURCHASE
+      7934 MILLER     CLERK             10 PRODUCTION
+
+14 rows selected.
+
+SQL>
+
 
 
 Non-Equi Join
 --------------
+ - Here A Non equi join is an inner join statement that uses an unequal operation (i.e.: <>,>,<,!=,BETWEEN,etc...) to match rows from different tables 
+ - In simple words other than = operator using differet operator like non equi operator used is non equi join 
+
+
+SQL> select empno,ename,job,dept.deptno,dept.dname from employee,dept where employee.deptno<>dept.deptno;
+
+     EMPNO ENAME      JOB           DEPTNO DNAME
+---------- ---------- --------- ---------- ----------
+      7369 SMITH      CLERK             10 PRODUCTION
+      7499 ALLEN      SALESMAN          10 PRODUCTION
+      7521 WARD       SALESMAN          10 PRODUCTION
+      7654 MARTIN     SALESMAN          10 PRODUCTION
+      7566 JONES      MANAGER           10 PRODUCTION
+      7698 BLAKE      MANAGER           10 PRODUCTION
+      7788 SCOTT      ANALYST           10 PRODUCTION
+      7844 TURNER     SALESMAN          10 PRODUCTION
+      7876 ADAMS      CLERK             10 PRODUCTION
+      7900 JAMES      CLERK             10 PRODUCTION
+      7902 FORD       ANALYST           10 PRODUCTION
+
+     EMPNO ENAME      JOB           DEPTNO DNAME
+---------- ---------- --------- ---------- ----------
+       200 kiran      CLERK             10 PRODUCTION
+      7499 ALLEN      SALESMAN          20 PURCHASE
+      7521 WARD       SALESMAN          20 PURCHASE
+      7654 MARTIN     SALESMAN          20 PURCHASE
+      7698 BLAKE      MANAGER           20 PURCHASE
+      7782 CLARK      MANAGER           20 PURCHASE
+      7839 KING       PRESIDENT         20 PURCHASE
+      7844 TURNER     SALESMAN          20 PURCHASE
+      7900 JAMES      CLERK             20 PURCHASE
+      7934 MILLER     CLERK             20 PURCHASE
+       200 kiran      CLERK             20 PURCHASE
+
+     EMPNO ENAME      JOB           DEPTNO DNAME
+---------- ---------- --------- ---------- ----------
+      7369 SMITH      CLERK             30 SALES
+      7566 JONES      MANAGER           30 SALES
+      7782 CLARK      MANAGER           30 SALES
+      7788 SCOTT      ANALYST           30 SALES
+      7839 KING       PRESIDENT         30 SALES
+      7876 ADAMS      CLERK             30 SALES
+      7902 FORD       ANALYST           30 SALES
+      7934 MILLER     CLERK             30 SALES
+       200 kiran      CLERK             30 SALES
+      7369 SMITH      CLERK             40 accounts
+      7499 ALLEN      SALESMAN          40 accounts
+
+     EMPNO ENAME      JOB           DEPTNO DNAME
+---------- ---------- --------- ---------- ----------
+      7521 WARD       SALESMAN          40 accounts
+      7654 MARTIN     SALESMAN          40 accounts
+      7566 JONES      MANAGER           40 accounts
+      7698 BLAKE      MANAGER           40 accounts
+      7782 CLARK      MANAGER           40 accounts
+      7788 SCOTT      ANALYST           40 accounts
+      7839 KING       PRESIDENT         40 accounts
+      7844 TURNER     SALESMAN          40 accounts
+      7876 ADAMS      CLERK             40 accounts
+      7900 JAMES      CLERK             40 accounts
+      7902 FORD       ANALYST           40 accounts
+
+     EMPNO ENAME      JOB           DEPTNO DNAME
+---------- ---------- --------- ---------- ----------
+      7934 MILLER     CLERK             40 accounts
+       200 kiran      CLERK             40 accounts
+
+46 rows selected.
+
+SQL>
+ - here from above output we specify <> not equal to his information which means other than his department name it will show all department here 
+ - like in department table we have 4 department in dept table  so smith actually works in purchase department but other than smith working department it shows remaing departments 
+
+
+
+
+INNER JOIN 
+-------------
+ - Inner join is simplest and most common type of join. it is also known as simple join 
+ - it will returns all rows from multiple tables where the join condition is met 
+ - the inner join is such a join when equijoins and nonequijoins are performed, rows from the source and target tables are matched using a join condition formulated with equality and inequality operators, respectively 
+	syntax:
+		 SEELCT column FROM table1
+		 INNER JOIN table2 
+		 ON table1.column = table2.column;
+
+
+- In Oracle we performed inner join BETWEEN two tables in a common operation 
+- Lets assume we have two tables table1 and table2 
+- Here we want wo perform an inner join based on a common column 
+
+ 	Syntax:
+
+		SELECT *
+		FROM table1
+		INNER JOIN table2 ON table1.common_column = table2.common_column;
+
+ - If Want to to specify additional conditions for the join we can include them in the ON clause 
+
+		SELECT *
+		FROM table1
+		INNER JOIN table2 ON table1.common_column = table2.common_column
+		WHERE table1.other_column = 'some_value';
+
+SQL> select a.ename,a.deptno, b.dname
+  2  from employee a
+  3  inner join dept b
+  4  on a.deptno = b.deptno;
+
+ENAME          DEPTNO DNAME
+---------- ---------- ----------
+MILLER             10 PRODUCTION
+CLARK              10 PRODUCTION
+KING               10 PRODUCTION
+JONES              20 PURCHASE
+SMITH              20 PURCHASE
+SCOTT              20 PURCHASE
+FORD               20 PURCHASE
+ADAMS              20 PURCHASE
+WARD               30 SALES
+TURNER             30 SALES
+ALLEN              30 SALES
+
+ENAME          DEPTNO DNAME
+---------- ---------- ----------
+JAMES              30 SALES
+MARTIN             30 SALES
+BLAKE              30 SALES
+
+14 rows selected.
+
+SQL>
+ - from above eployee names and corresponnding there department number and department name 
+
+- Here we also use with non equi inner join also 
+	
+	select a.ename,a.deptno, b.dname
+	from employee a
+	inner join dept b
+	on a.deptno <> b.deptno;
+
+
+
+OUTER JOIN 
+----------
+ - An outer join is similar to equi join but it gets also the non-matched rows from the table 
+ - it is categorised in left outer join, right outer join and full outer join by oracle 9i ANSI/ISO 1999 standard 
+
+
+ Left Outer Join
+ ---------------
+	- left outer joins returns all rows from the left (firts) table specified in the ON condition and only those rows from the right (second) table where the join condition met 
+	syntax:
+	 	SELECT columns 
+		FROM table1 
+		LEFT [OUTER] JOIN table2
+		ON tabele1 = table2.column;
+
+
+
+SQL> select employee.empno, employee.ename, employee.deptno,dept.deptno,dept.dname
+  2  from employee
+  3  left outer join dept
+  4  on employee.deptno=dept.deptno;
+
+     EMPNO ENAME          DEPTNO     DEPTNO DNAME
+---------- ---------- ---------- ---------- ----------
+      7782 CLARK              10         10 PRODUCTION
+      7839 KING               10         10 PRODUCTION
+      7934 MILLER             10         10 PRODUCTION
+      7369 SMITH              20         20 PURCHASE
+      7566 JONES              20         20 PURCHASE
+      7788 SCOTT              20         20 PURCHASE
+      7876 ADAMS              20         20 PURCHASE
+      7902 FORD               20         20 PURCHASE
+      7499 ALLEN              30         30 SALES
+      7521 WARD               30         30 SALES
+      7654 MARTIN             30         30 SALES
+
+     EMPNO ENAME          DEPTNO     DEPTNO DNAME
+---------- ---------- ---------- ---------- ----------
+      7698 BLAKE              30         30 SALES
+      7844 TURNER             30         30 SALES
+      7900 JAMES              30         30 SALES
+       200 kiran              50
+
+15 rows selected.
+
+SQL>
+ - from above left table what it contains it shows with matching with table2 and also in left side it shows extraa rows also 
+
+
+Right Outer Join 
+-----------------
+	- The Right outer join returns all rows from the right hand table specified in the ON condition and only those rows from the other table where the join condition met 
+	
+	syntax:
+		
+		SELECT column FROM table1 
+		RIGHT [OUTER] JOIN table2
+		ON table1.column = table2.column;
+
+
+
+SQL> select employee.empno, employee.ename, employee.deptno,dept.deptno,dept.dname
+  2  from employee
+  3  right outer join dept
+  4  on employee.deptno=dept.deptno;
+
+     EMPNO ENAME          DEPTNO     DEPTNO DNAME
+---------- ---------- ---------- ---------- ----------
+      7934 MILLER             10         10 PRODUCTION
+      7782 CLARK              10         10 PRODUCTION
+      7839 KING               10         10 PRODUCTION
+      7566 JONES              20         20 PURCHASE
+      7369 SMITH              20         20 PURCHASE
+      7788 SCOTT              20         20 PURCHASE
+      7902 FORD               20         20 PURCHASE
+      7876 ADAMS              20         20 PURCHASE
+      7521 WARD               30         30 SALES
+      7844 TURNER             30         30 SALES
+      7499 ALLEN              30         30 SALES
+
+     EMPNO ENAME          DEPTNO     DEPTNO DNAME
+---------- ---------- ---------- ---------- ----------
+      7900 JAMES              30         30 SALES
+      7654 MARTIN             30         30 SALES
+      7698 BLAKE              30         30 SALES
+                                         40 accounts
+
+15 rows selected.
+
+SQL>
+ - from above righte extraa rows showing 
+
+
+
+FUll Outer Join 
+---------------
+	- the full outer join returns all rows from the left hand table and right table 
+	- it places NULL where the join condition is not met 
+		syntax:
+			SELECT columns 
+			FROM table1
+			FULL [OUTER] JOIN table2
+			ON table1.column = table2.column;
+
+SQL> select employee.empno, employee.ename, employee.deptno,dept.deptno,dept.dname
+  2  from employee
+  3  full outer join dept
+  4  on employee.deptno=dept.deptno;
+
+     EMPNO ENAME          DEPTNO     DEPTNO DNAME
+---------- ---------- ---------- ---------- ----------
+      7369 SMITH              20         20 PURCHASE
+      7499 ALLEN              30         30 SALES
+      7521 WARD               30         30 SALES
+      7654 MARTIN             30         30 SALES
+      7566 JONES              20         20 PURCHASE
+      7698 BLAKE              30         30 SALES
+      7782 CLARK              10         10 PRODUCTION
+      7788 SCOTT              20         20 PURCHASE
+      7839 KING               10         10 PRODUCTION
+      7844 TURNER             30         30 SALES
+      7876 ADAMS              20         20 PURCHASE
+
+     EMPNO ENAME          DEPTNO     DEPTNO DNAME
+---------- ---------- ---------- ---------- ----------
+      7900 JAMES              30         30 SALES
+      7902 FORD               20         20 PURCHASE
+      7934 MILLER             10         10 PRODUCTION
+       200 kiran              50
+                                         40 accounts
+
+16 rows selected.
+
+SQL>
+
+
+SELF JOIN
+---------
+ - self join is a specific type of join 
+ - in self join, a table is joined with itself (Unary relationship).
+ - A self join simply specifies that each rows of a table is combined with itself and every other row of the table 
+	
+	syntax:
+		SELECT a.column_name,b.column_name...
+		FROM table1 a, table1 b
+		WHERE a.common_field = b.common_field;
+
+
+
+SQL> select e1.ename||'works for '||e2.ename
+  2  "employees and their managers"
+  3  from employee e1, employee e2
+  4  where e1.mgr = e2.empno;
+
+employees and their managers
+------------------------------
+SCOTTworks for JONES
+FORDworks for JONES
+ALLENworks for BLAKE
+WARDworks for BLAKE
+MARTINworks for BLAKE
+TURNERworks for BLAKE
+JAMESworks for BLAKE
+MILLERworks for CLARK
+ADAMSworks for SCOTT
+BLAKEworks for KING
+CLARKworks for KING
+
+employees and their managers
+------------------------------
+SMITHworks for FORD
+
+12 rows selected.
+
+SQL>
+
+ - Below command also working same like above 
+
+	select e1.ename||'works for '||e2.ename
+	"employees and their managers"
+	from employee e1, employee e2
+	on (e1.mgr = e2.empno);
+
+
+
+
+
+
+
+
+CROSS JOIN 
+-----------
+	- The cross join specofies that all rows from first table join with the all of the rows of second table 
+	- if there are "x" rows in table1 and "y" rows in table2 then the cross join result set have x*y rows.
+	- it normally happens when no matching join columns are specified in simple words you can say that if two tables in a join query have no join condition, then the oracle returns their cartesian product 
+
+		syntax:
+
+			SELECT * FROM table1
+			CROSS JOIN table2;
+			
+				(OR)
+
+			SELECT * FROM table1,table2
+
+	
+
+
+
+ANTI JOIN 
+-------------
+	- Anti-Join is used to make the queries run faster 
+	- it is very powerful SQL construct Oracle Offers for faster queries 
+	- Anti-join between two tables returns rows from the first table where no matches are found in the second table 
+	- it is opposite of semi join 
+	- An anti-join returns on copy of each row in the first table for which no match is found 
+	- Anti-joins are written using the NOT EXISTS or NOT IN constructs
+
+		syntanx:
+
+			SELECT columns FROM table_1 WHERE NOT EXISTS (
+				SELECT values FROM table_2
+				WHERE table_2.column = table_1.column
+			);
+
+
+
+SQL> select D.deptno, D.dname
+  2  from dept D
+  3  where NOT EXISTS
+  4     (
+  5     select 1
+  6     from employee E
+  7     where E.deptno = D.deptno
+  8     )
+  9  ORDER BY D.deptno;
+
+    DEPTNO DNAME
+---------- ----------
+        40 accounts
+
+SQL>
+
+SQL> select empno,ename,job
+  2  from employee
+  3  where deptno NOT IN
+  4  (select deptno FROM dept);
+
+     EMPNO ENAME      JOB
+---------- ---------- ---------
+       200 kiran      CLERK
+
+SQL>
+
+
+
+
+
+Semi Join
+----------
+	- Semi Join is introduced in Oracle 8.0 it provides an efficient method of performing a WHERE EXISTS sub-query 
+	- A semi-join returns one copy of each row in first table for which at least one match is found 
+	- Semi-joins are written using the EXISTS construct
+
+		syntax:
+
+			SELECT columns FROM table_1 WHERE EXISTS (
+				SELECT values 
+				FROM table_2
+				WHERE table_2.column = table_1.column
+			);
+
+
+
+
+SQL> select D.deptno, D.dname
+  2  from dept D
+  3  where exists
+  4  (select 1
+  5  from employee E
+  6  where E.deptno = D.deptno)
+  7  order by D.deptno;
+
+    DEPTNO DNAME
+---------- ----------
+        10 PRODUCTION
+        20 PURCHASE
+        30 SALES
+
+SQL>
+
+
+
+
+Natural Join
+-------------
+	- The Join is based on all the columns in the two tables that have the same name and data types 
+	- The join creates, by using the NATURAL JOIN keywords 
+	- it select rows from the two tables that have equal values in all mathed columns 
+	- when specifying columns that are involved in the natuarl join, do not qualify the column name with a table name or table alias 
+
+		synatx:
+
+			SELECT table1.column, table2.column 
+			FROM table_1
+			NATURAL JOIN table2;
+			

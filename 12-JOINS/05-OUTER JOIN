@@ -1,0 +1,48 @@
+OUTER JOIN 
+----------
+ - An outer join is similar to equi join but it gets also the non-matched rows from the table 
+ - it is categorised in left outer join, right outer join and full outer join by oracle 9i ANSI/ISO 1999 standard 
+
+
+ Left Outer Join
+ ---------------
+	- left outer joins returns all rows from the left (firts) table specified in the ON condition and only those rows from the right (second) table where the join condition met 
+	syntax:
+	 	SELECT columns 
+		FROM table1 
+		LEFT [OUTER] JOIN table2
+		ON tabele1 = table2.column;
+
+
+
+SQL> select employee.empno, employee.ename, employee.deptno,dept.deptno,dept.dname
+  2  from employee
+  3  left outer join dept
+  4  on employee.deptno=dept.deptno;
+
+     EMPNO ENAME          DEPTNO     DEPTNO DNAME
+---------- ---------- ---------- ---------- ----------
+      7782 CLARK              10         10 PRODUCTION
+      7839 KING               10         10 PRODUCTION
+      7934 MILLER             10         10 PRODUCTION
+      7369 SMITH              20         20 PURCHASE
+      7566 JONES              20         20 PURCHASE
+      7788 SCOTT              20         20 PURCHASE
+      7876 ADAMS              20         20 PURCHASE
+      7902 FORD               20         20 PURCHASE
+      7499 ALLEN              30         30 SALES
+      7521 WARD               30         30 SALES
+      7654 MARTIN             30         30 SALES
+
+     EMPNO ENAME          DEPTNO     DEPTNO DNAME
+---------- ---------- ---------- ---------- ----------
+      7698 BLAKE              30         30 SALES
+      7844 TURNER             30         30 SALES
+      7900 JAMES              30         30 SALES
+       200 kiran              50
+
+15 rows selected.
+
+SQL>
+ - from above left table what it contains it shows with matching with table2 and also in left side it shows extraa rows also 
+

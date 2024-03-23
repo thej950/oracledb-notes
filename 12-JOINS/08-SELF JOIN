@@ -1,0 +1,54 @@
+SELF JOIN
+---------
+ - self join is a specific type of join 
+ - in self join, a table is joined with itself (Unary relationship).
+ - A self join simply specifies that each rows of a table is combined with itself and every other row of the table 
+	
+	syntax:
+		SELECT a.column_name,b.column_name...
+		FROM table1 a, table1 b
+		WHERE a.common_field = b.common_field;
+
+
+
+SQL> select e1.ename||'works for '||e2.ename
+  2  "employees and their managers"
+  3  from employee e1, employee e2
+  4  where e1.mgr = e2.empno;
+
+employees and their managers
+------------------------------
+SCOTTworks for JONES
+FORDworks for JONES
+ALLENworks for BLAKE
+WARDworks for BLAKE
+MARTINworks for BLAKE
+TURNERworks for BLAKE
+JAMESworks for BLAKE
+MILLERworks for CLARK
+ADAMSworks for SCOTT
+BLAKEworks for KING
+CLARKworks for KING
+
+employees and their managers
+------------------------------
+SMITHworks for FORD
+
+12 rows selected.
+
+SQL>
+
+ - Below command also working same like above 
+
+	select e1.ename||'works for '||e2.ename
+	"employees and their managers"
+	from employee e1, employee e2
+	on (e1.mgr = e2.empno);
+
+
+
+
+
+
+
+

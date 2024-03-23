@@ -1,0 +1,78 @@
+Non-Equi Join
+--------------
+ - Here A Non equi join is an inner join statement that uses an unequal operation (i.e.: <>,>,<,!=,BETWEEN,etc...) to match rows from different tables 
+ - In simple words other than = operator using differet operator like non equi operator used is non equi join 
+
+
+SQL> select empno,ename,job,dept.deptno,dept.dname from employee,dept where employee.deptno<>dept.deptno;
+
+     EMPNO ENAME      JOB           DEPTNO DNAME
+---------- ---------- --------- ---------- ----------
+      7369 SMITH      CLERK             10 PRODUCTION
+      7499 ALLEN      SALESMAN          10 PRODUCTION
+      7521 WARD       SALESMAN          10 PRODUCTION
+      7654 MARTIN     SALESMAN          10 PRODUCTION
+      7566 JONES      MANAGER           10 PRODUCTION
+      7698 BLAKE      MANAGER           10 PRODUCTION
+      7788 SCOTT      ANALYST           10 PRODUCTION
+      7844 TURNER     SALESMAN          10 PRODUCTION
+      7876 ADAMS      CLERK             10 PRODUCTION
+      7900 JAMES      CLERK             10 PRODUCTION
+      7902 FORD       ANALYST           10 PRODUCTION
+
+     EMPNO ENAME      JOB           DEPTNO DNAME
+---------- ---------- --------- ---------- ----------
+       200 kiran      CLERK             10 PRODUCTION
+      7499 ALLEN      SALESMAN          20 PURCHASE
+      7521 WARD       SALESMAN          20 PURCHASE
+      7654 MARTIN     SALESMAN          20 PURCHASE
+      7698 BLAKE      MANAGER           20 PURCHASE
+      7782 CLARK      MANAGER           20 PURCHASE
+      7839 KING       PRESIDENT         20 PURCHASE
+      7844 TURNER     SALESMAN          20 PURCHASE
+      7900 JAMES      CLERK             20 PURCHASE
+      7934 MILLER     CLERK             20 PURCHASE
+       200 kiran      CLERK             20 PURCHASE
+
+     EMPNO ENAME      JOB           DEPTNO DNAME
+---------- ---------- --------- ---------- ----------
+      7369 SMITH      CLERK             30 SALES
+      7566 JONES      MANAGER           30 SALES
+      7782 CLARK      MANAGER           30 SALES
+      7788 SCOTT      ANALYST           30 SALES
+      7839 KING       PRESIDENT         30 SALES
+      7876 ADAMS      CLERK             30 SALES
+      7902 FORD       ANALYST           30 SALES
+      7934 MILLER     CLERK             30 SALES
+       200 kiran      CLERK             30 SALES
+      7369 SMITH      CLERK             40 accounts
+      7499 ALLEN      SALESMAN          40 accounts
+
+     EMPNO ENAME      JOB           DEPTNO DNAME
+---------- ---------- --------- ---------- ----------
+      7521 WARD       SALESMAN          40 accounts
+      7654 MARTIN     SALESMAN          40 accounts
+      7566 JONES      MANAGER           40 accounts
+      7698 BLAKE      MANAGER           40 accounts
+      7782 CLARK      MANAGER           40 accounts
+      7788 SCOTT      ANALYST           40 accounts
+      7839 KING       PRESIDENT         40 accounts
+      7844 TURNER     SALESMAN          40 accounts
+      7876 ADAMS      CLERK             40 accounts
+      7900 JAMES      CLERK             40 accounts
+      7902 FORD       ANALYST           40 accounts
+
+     EMPNO ENAME      JOB           DEPTNO DNAME
+---------- ---------- --------- ---------- ----------
+      7934 MILLER     CLERK             40 accounts
+       200 kiran      CLERK             40 accounts
+
+46 rows selected.
+
+SQL>
+ - here from above output we specify <> not equal to his information which means other than his department name it will show all department here 
+ - like in department table we have 4 department in dept table  so smith actually works in purchase department but other than smith working department it shows remaing departments 
+
+
+
+

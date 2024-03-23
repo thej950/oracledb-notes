@@ -1,0 +1,45 @@
+Right Outer Join 
+-----------------
+	- The Right outer join returns all rows from the right hand table specified in the ON condition and only those rows from the other table where the join condition met 
+	
+	syntax:
+		
+		SELECT column FROM table1 
+		RIGHT [OUTER] JOIN table2
+		ON table1.column = table2.column;
+
+
+
+SQL> select employee.empno, employee.ename, employee.deptno,dept.deptno,dept.dname
+  2  from employee
+  3  right outer join dept
+  4  on employee.deptno=dept.deptno;
+
+     EMPNO ENAME          DEPTNO     DEPTNO DNAME
+---------- ---------- ---------- ---------- ----------
+      7934 MILLER             10         10 PRODUCTION
+      7782 CLARK              10         10 PRODUCTION
+      7839 KING               10         10 PRODUCTION
+      7566 JONES              20         20 PURCHASE
+      7369 SMITH              20         20 PURCHASE
+      7788 SCOTT              20         20 PURCHASE
+      7902 FORD               20         20 PURCHASE
+      7876 ADAMS              20         20 PURCHASE
+      7521 WARD               30         30 SALES
+      7844 TURNER             30         30 SALES
+      7499 ALLEN              30         30 SALES
+
+     EMPNO ENAME          DEPTNO     DEPTNO DNAME
+---------- ---------- ---------- ---------- ----------
+      7900 JAMES              30         30 SALES
+      7654 MARTIN             30         30 SALES
+      7698 BLAKE              30         30 SALES
+                                         40 accounts
+
+15 rows selected.
+
+SQL>
+ - from above righte extraa rows showing 
+
+
+

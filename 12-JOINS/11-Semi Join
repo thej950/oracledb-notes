@@ -1,0 +1,36 @@
+Semi Join
+----------
+	- Semi Join is introduced in Oracle 8.0 it provides an efficient method of performing a WHERE EXISTS sub-query 
+	- A semi-join returns one copy of each row in first table for which at least one match is found 
+	- Semi-joins are written using the EXISTS construct
+
+		syntax:
+
+			SELECT columns FROM table_1 WHERE EXISTS (
+				SELECT values 
+				FROM table_2
+				WHERE table_2.column = table_1.column
+			);
+
+
+
+
+SQL> select D.deptno, D.dname
+  2  from dept D
+  3  where exists
+  4  (select 1
+  5  from employee E
+  6  where E.deptno = D.deptno)
+  7  order by D.deptno;
+
+    DEPTNO DNAME
+---------- ----------
+        10 PRODUCTION
+        20 PURCHASE
+        30 SALES
+
+SQL>
+
+
+
+

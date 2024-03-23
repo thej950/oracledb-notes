@@ -1,0 +1,19 @@
+CROSS JOIN 
+-----------
+	- The cross join specofies that all rows from first table join with the all of the rows of second table 
+	- if there are "x" rows in table1 and "y" rows in table2 then the cross join result set have x*y rows.
+	- it normally happens when no matching join columns are specified in simple words you can say that if two tables in a join query have no join condition, then the oracle returns their cartesian product 
+
+		syntax:
+
+			SELECT * FROM table1
+			CROSS JOIN table2;
+			
+				(OR)
+
+			SELECT * FROM table1,table2
+
+	
+
+
+

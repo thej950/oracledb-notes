@@ -1,0 +1,42 @@
+FUll Outer Join 
+---------------
+	- the full outer join returns all rows from the left hand table and right table 
+	- it places NULL where the join condition is not met 
+		syntax:
+			SELECT columns 
+			FROM table1
+			FULL [OUTER] JOIN table2
+			ON table1.column = table2.column;
+
+SQL> select employee.empno, employee.ename, employee.deptno,dept.deptno,dept.dname
+  2  from employee
+  3  full outer join dept
+  4  on employee.deptno=dept.deptno;
+
+     EMPNO ENAME          DEPTNO     DEPTNO DNAME
+---------- ---------- ---------- ---------- ----------
+      7369 SMITH              20         20 PURCHASE
+      7499 ALLEN              30         30 SALES
+      7521 WARD               30         30 SALES
+      7654 MARTIN             30         30 SALES
+      7566 JONES              20         20 PURCHASE
+      7698 BLAKE              30         30 SALES
+      7782 CLARK              10         10 PRODUCTION
+      7788 SCOTT              20         20 PURCHASE
+      7839 KING               10         10 PRODUCTION
+      7844 TURNER             30         30 SALES
+      7876 ADAMS              20         20 PURCHASE
+
+     EMPNO ENAME          DEPTNO     DEPTNO DNAME
+---------- ---------- ---------- ---------- ----------
+      7900 JAMES              30         30 SALES
+      7902 FORD               20         20 PURCHASE
+      7934 MILLER             10         10 PRODUCTION
+       200 kiran              50
+                                         40 accounts
+
+16 rows selected.
+
+SQL>
+
+

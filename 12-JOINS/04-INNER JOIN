@@ -1,0 +1,67 @@
+INNER JOIN 
+-------------
+ - Inner join is simplest and most common type of join. it is also known as simple join 
+ - it will returns all rows from multiple tables where the join condition is met 
+ - the inner join is such a join when equijoins and nonequijoins are performed, rows from the source and target tables are matched using a join condition formulated with equality and inequality operators, respectively 
+	syntax:
+		 SEELCT column FROM table1
+		 INNER JOIN table2 
+		 ON table1.column = table2.column;
+
+
+- In Oracle we performed inner join BETWEEN two tables in a common operation 
+- Lets assume we have two tables table1 and table2 
+- Here we want wo perform an inner join based on a common column 
+
+ 	Syntax:
+
+		SELECT *
+		FROM table1
+		INNER JOIN table2 ON table1.common_column = table2.common_column;
+
+ - If Want to to specify additional conditions for the join we can include them in the ON clause 
+
+		SELECT *
+		FROM table1
+		INNER JOIN table2 ON table1.common_column = table2.common_column
+		WHERE table1.other_column = 'some_value';
+
+SQL> select a.ename,a.deptno, b.dname
+  2  from employee a
+  3  inner join dept b
+  4  on a.deptno = b.deptno;
+
+ENAME          DEPTNO DNAME
+---------- ---------- ----------
+MILLER             10 PRODUCTION
+CLARK              10 PRODUCTION
+KING               10 PRODUCTION
+JONES              20 PURCHASE
+SMITH              20 PURCHASE
+SCOTT              20 PURCHASE
+FORD               20 PURCHASE
+ADAMS              20 PURCHASE
+WARD               30 SALES
+TURNER             30 SALES
+ALLEN              30 SALES
+
+ENAME          DEPTNO DNAME
+---------- ---------- ----------
+JAMES              30 SALES
+MARTIN             30 SALES
+BLAKE              30 SALES
+
+14 rows selected.
+
+SQL>
+ - from above eployee names and corresponnding there department number and department name 
+
+- Here we also use with non equi inner join also 
+	
+	select a.ename,a.deptno, b.dname
+	from employee a
+	inner join dept b
+	on a.deptno <> b.deptno;
+
+
+
