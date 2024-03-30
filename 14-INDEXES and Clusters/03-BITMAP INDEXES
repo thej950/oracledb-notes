@@ -1,0 +1,18 @@
+ BITMAP INDEXES 
+ ----------------
+ 	- create a bitmap indexes on those columns which containes many repeated values and when tables are large. city column in EMP table is a good canditate fot Bitmap index because it containes many repeated values 
+ 	- to create a composite index give the following command. Oracle Bitmap index for indexing columns with low cardinality 
+
+ 		CREATE BITMAP INDEX index_name ON table_name (column_1[,column_2,...]);
+
+ 	Bitmap indexes examples
+
+ 		1. create bitmap index members_gender_i ON member(gender);
+
+ 		- here gender columns have two distict values, F for female M for male. when a column has a few distict values, we say that column has low cardinality 
+
+ 		2. create bitmap index city_ind on emp (city);
+
+
+
+ 

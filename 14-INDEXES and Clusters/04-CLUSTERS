@@ -1,0 +1,41 @@
+CLUSTERS
+----------
+	- If you have two or more tables are joined together on a single column and most of the time you issue join queries on them, then consider creating a cluster of these tables 
+	- A cluster is a group of tables that share the same data blocks i.e all the tables are physically stored together 
+	- for example EMP and DEPT table are joined on DEPTNO column if you cluster them oracle physically stores all rows for each department from both the emp and dept tables in the same data blocks 
+
+		- since cluster stores related rows of different tables in same data blocks, Disk I/O is reduced and access time improves for joins of clustered tables 
+		- Each cluster key value is stored only once each in the cluster and the cluster index, no matter how many rows of different tables containe the value 
+
+	- therefore less storage might required to store related table and index data in a cluster than is necessary in non-clustered table format 
+
+		- create clustered tables first create a cluster ad create index on it. then create table on it 
+		- for example to create cluster of EMP and DEPT tables in which the DEPTNO will be the cluster key, firts create the cluster by using below command 
+
+			create cluster emp_dept (deptno number(2));
+
+		- Now create index on it 
+
+			create index on cluster emp_dept;
+
+		Nnow cretae table in the cluster like below 
+
+			create table dept (deptno number(2),
+				name varchar2(20),
+				loc varchar2(20));
+				cluster emp_dept (deptno);
+
+			create table emp (empno number(5),
+				name varchar2(20),
+				sal number(10,2),
+				deptno number(2)) cluster emp_dept (deptno);
+
+		- To drop cluster 
+
+			drop cluster emp_dept;
+
+
+
+
+
+			

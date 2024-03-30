@@ -1,0 +1,134 @@
+IF Control statements in PL/SQL
+-----------------------------
+	- Control statements are most important in PL/SQL 
+	- Control statements are elements in a program in a program that will controll the flow of program excution
+
+	1. IF 
+		- the if condition is true then it will show output of sql statement 
+	2. IF ELSE
+		- The if sql statement is true it will show 
+		- if statement is false then it will goto else sql statement this statement show 
+	3. IF ELSEIF
+		- The IF condition is true then it will excute if sql statement 
+		- if IF sql statement is false it will goto ELSEIF sql statement 
+		- then elseif statement is true then only it will excute other wise it will goto again ELSE statement 
+		- here we able to give multiple ELSEIF statements in the End we give ELSE only 
+	
+	IF Statement
+	-------------
+		1. IF-THEN statement
+			syntax:
+				IF condition THEN
+				statement;
+				END IF;
+		
+		2. IF-THEN-ELSE Statement
+			syntax:
+				IF condition THEN 
+				[statement to excute when condition is TRUE]
+				ELSE
+				[statement to excute when condition is FALSE]
+				END IF;
+		
+		3. IF-THEN-ELSE-IF statement
+			syntax:
+				IF Condition1 THEN
+				Statements to excute when condition1 is TRUE 
+				ELSEIF condition2 THEN 
+				Statements to excute when condition2 is TRUE 
+				END IF;
+		
+		4. IF-THEN-ELSE-IF-ELSE Statement
+			syntax:
+				IF condition1 THEN
+				Statements to excute when condition1 is TRUE
+				ELSEIF condition2 THEN
+				statements to excute when condition2 is TRUE
+				ELSE
+				statement to excute when both condition1 and condition2 are FALSE
+				END IF;
+				
+			
+	1. lets create a file for practice
+		
+		SQL> edit file1.sql
+		------------------------------
+		declare
+		a number(3);
+		begin
+		a:=&a;
+		
+		if a>0 then 
+		dbms_output.put_lines('The Number is Positive');
+		end if;
+		
+		end; 
+		---------------------------------
+		Note: To run file1 excute @file1.sql  thenn type / 
+		
+	2. To check condition positive or negitive 
+		
+		SQL> edit file2
+		----------------------------------
+		declare
+		a number(3);
+		begin
+		a:=&a;
+		
+		if a>0 then 
+		dbms_output.put_line('The Number is Positive');
+		else
+		dbms_output.put_line('The Number is Negitive');
+		end if;
+		
+		end; 
+		------------------------------------------
+	
+	3. Check the number negitive or positive or zero 
+		
+		SQL> edit file3
+		-------------------------------------
+		declare
+		a number(3);
+		begin
+		a:=&a;
+		
+		if a>0 then 
+		dbms_output.put_line('The Number is Positive');
+		elseif a<0 then  
+		dbms_output.put_line('The Number is Negitive');
+		else
+		dbms_output.put_line('The Number is Zero');
+		end if;
+		
+		end; 
+		------------------------------------------
+	
+	4. find the biggest number among all numbres
+		
+		SQL> edit file4
+		---------------------------------------------
+		declare 
+		
+		a number(3);
+		b number(3);
+		c number(3);
+		
+		begin
+		
+		a:=&a;
+		b:=&b;
+		c:=&c;
+		
+		if a>b and a>c then 
+		dbms_output.put_line('a is biggest');
+		elseif b>a and b>c then 
+		dbms_output.put_line('b is biggest');
+		elseif c>a and c>b then 
+		dbms_output.put_line('c is biggets');
+		end if;
+		
+		end;
+		-------------------------------------------------
+		
+		

@@ -1,0 +1,422 @@
+Views In Oracle
+---------------
+ - Views are known as Logical tables They represent data one or more tables 
+ - A view Derive its data from the tables on which it is based. these tables are called base tables 
+ - Views can be based on actual tables or another view also 
+ - Whatever we perform DML operations on a view they actually affect the base tables of the view 
+ - we can treat views as same as any other table
+ - we can query, insert, update, or delete from views just like as any other tables 
+ - views are very powerfull and very handy since they can be treated just like any other table but do not occupy the space of a table  
+
+ Uses Of Views 
+ --------------
+ 
+  Simplyfying Data retrieval
+	   - Views are helpful and simplify data retrival significantly 
+	   - firts we need to build a complex query, test it carefully and encapsulate the query in a view then you can access the data of the underlying tables through the view instead of rewriting the whole query again and again 
+
+  
+  Maintaining Logical Data Indepence
+  	- we can expose the data from underlying tables to the externall applications via views
+  	- whenever strucher of base tables changes, we h=just need to update the view 
+  	- The interface between the database ad the external applications remains intact 
+  	- Benifit here is we dont have to change a single line of code to keep the external applications up and running 
+
+
+  Implementing Data Security
+  	- Views are allow us to implement an additional security layer they help to hide certain columns and rows from the underlying tables and expose only needed data to the appropriate users 
+  	- Here Oracle will provide some commands like Grant and Revoke on views using this we can provide and specify which user can perform what actions a user can perform against the view 
+  	- Note here we dont Grant any privillages on the underlying tables because we may not want the user to bypass the views and access the base tables directly 
+
+
+ CREATE VIEW syntax
+ ------------------
+  		Syntax: 
+  			CREATE [OR REPLACE] [FORCE] VIEW view_name [(column_aliases)] AS defining-query [WITH READ ONLY] [WITH CHECK OPTION]
+
+  		FORCE
+  		 - usually, you create a new view based on existing tables. However sometimes, you may want to create a view based on the tables that you will create later or the tables that you dont have sufficient privillages to access at the time of creating the view. in thses cases you can use the force option 
+
+  		Column-aliases
+  		 	- Typically the columns names of the view derived from the select list of the defining query However the column names of the defining query may contain functions or expressions that you cannot use for the view definition 
+  		 	- To solve this problem we have two options 
+  		 		1. Use column aliases that adhere to th naming rules in the select clause of the defining query 
+  		 		2. Explicitly specify column aliases for the views columns between the  CREATE VIEW and AS clauses
+
+  		AS defining-query
+  		 	- The defining query is a SELECT statement that defines the columns and rows of the view 
+
+  		WITH READ ONLY
+  		 	- The WITH READ ONLY clause prevents the underlying tables from changes through the view 
+
+  		WITH CHECK OPTION 
+  		 	- The WITH CHECK OPTION clause protects the view from any changes to the underlying table that would produce rows which are not included in the defining query 
+
+
+  	1. using below employee table lets create a object called view with name emp_tbl with some columns of employee 
+  		- Remember this is a logical table only 
+		SQL> select * from employee;
+
+		     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+		---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+		      7369 SMITH      CLERK           7902 17-DEC-80        800                    20
+		      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30
+		      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30
+		      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30
+		      7566 JONES      MANAGER              02-APR-81       2975                    20
+		      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30
+		      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10
+		      7788 SCOTT      ANALYST         7566 09-DEC-82       3000                    20
+		      7839 KING       PRESIDENT            17-NOV-81       5000                    10
+		      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30
+		      7876 ADAMS      CLERK           7788 12-JAN-83       1100                    20
+
+		     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+		---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+		      7900 JAMES      CLERK           7698 03-DEC-81        950                    30
+		      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20
+		      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10
+		       200 kiran      CLERK                                                        50
+
+		15 rows selected.
+
+		SQL> create view emp_tbl as select empno,ename,job from employee;
+
+		View created.
+
+		SQL> select * from emp_tbl;
+
+		     EMPNO ENAME      JOB
+		---------- ---------- ---------
+		      7369 SMITH      CLERK
+		      7499 ALLEN      SALESMAN
+		      7521 WARD       SALESMAN
+		      7654 MARTIN     SALESMAN
+		      7566 JONES      MANAGER
+		      7698 BLAKE      MANAGER
+		      7782 CLARK      MANAGER
+		      7788 SCOTT      ANALYST
+		      7839 KING       PRESIDENT
+		      7844 TURNER     SALESMAN
+		      7876 ADAMS      CLERK
+
+		     EMPNO ENAME      JOB
+		---------- ---------- ---------
+		      7900 JAMES      CLERK
+		      7902 FORD       ANALYST
+		      7934 MILLER     CLERK
+		       200 kiran      CLERK
+
+		15 rows selected.
+
+		SQL>
+
+	2. create a view for to get to know calculate months of employee in Total
+
+
+		SQL> create view employee_service as select empno,ename || ' ' || job ename_job, floor( months_between( current_date, hiredate )/ 12 ) service from employee;
+
+		View created.
+
+		SQL> select * from employee_service;
+
+		     EMPNO ENAME_JOB               SERVICE
+		---------- -------------------- ----------
+		      7369 SMITH CLERK                  43
+		      7499 ALLEN SALESMAN               43
+		      7521 WARD SALESMAN                43
+		      7654 MARTIN SALESMAN              42
+		      7566 JONES MANAGER                42
+		      7698 BLAKE MANAGER                42
+		      7782 CLARK MANAGER                42
+		      7788 SCOTT ANALYST                41
+		      7839 KING PRESIDENT               42
+		      7844 TURNER SALESMAN              42
+		      7876 ADAMS CLERK                  41
+
+		     EMPNO ENAME_JOB               SERVICE
+		---------- -------------------- ----------
+		      7900 JAMES CLERK                  42
+		      7902 FORD ANALYST                 42
+		      7934 MILLER CLERK                 42
+		       200 kiran CLERK
+
+		15 rows selected.
+
+		- To drop view object [drop view view_name]
+
+	3. To use column aliase in column query 
+	 - use latest column names instead of old column names 
+
+		
+		SQL> CREATE VIEW employee_service (employee_id, ename_job, service_of_years) AS
+		  2             SELECT
+		  3                     empno,
+		  4                     ename || ' ' || job ename_job,
+		  5                     FLOOR( months_between( CURRENT_DATE, hiredate )/12 ) service
+		  6             FROM
+		  7                     employee;
+
+		View created.
+
+		SQL> select * from employee_service;
+
+		EMPLOYEE_ID ENAME_JOB            SERVICE_OF_YEARS
+		----------- -------------------- ----------------
+		       7369 SMITH CLERK                        43
+		       7499 ALLEN SALESMAN                     43
+		       7521 WARD SALESMAN                      43
+		       7654 MARTIN SALESMAN                    42
+		       7566 JONES MANAGER                      42
+		       7698 BLAKE MANAGER                      42
+		       7782 CLARK MANAGER                      42
+		       7788 SCOTT ANALYST                      41
+		       7839 KING PRESIDENT                     42
+		       7844 TURNER SALESMAN                    42
+		       7876 ADAMS CLERK                        41
+
+		EMPLOYEE_ID ENAME_JOB            SERVICE_OF_YEARS
+		----------- -------------------- ----------------
+		       7900 JAMES CLERK                        42
+		       7902 FORD ANALYST                       42
+		       7934 MILLER CLERK                       42
+		        200 kiran CLERK
+
+		15 rows selected.
+
+		SQL>
+
+	4. using where clause in view object 
+
+
+		SQL> select * from empoyee_service where service_of_years>40;
+
+		EMPLOYEE_ID ENAME_JOB            SERVICE_OF_YEARS
+		----------- -------------------- ----------------
+		       7369 SMITH CLERK                        43
+		       7499 ALLEN SALESMAN                     43
+		       7521 WARD SALESMAN                      43
+		       7654 MARTIN SALESMAN                    42
+		       7566 JONES MANAGER                      42
+		       7698 BLAKE MANAGER                      42
+		       7782 CLARK MANAGER                      42
+		       7788 SCOTT ANALYST                      41
+		       7839 KING PRESIDENT                     42
+		       7844 TURNER SALESMAN                    42
+		       7876 ADAMS CLERK                        41
+
+		EMPLOYEE_ID ENAME_JOB            SERVICE_OF_YEARS
+		----------- -------------------- ----------------
+		       7900 JAMES CLERK                        42
+		       7902 FORD ANALYST                       42
+		       7934 MILLER CLERK                       42
+
+		14 rows selected.
+
+		SQL>
+
+	5. create view object in read only format 
+
+
+		SQL> create view v1 as select * from employee with read only;
+
+		View created.
+
+		SQL> select * from v1;
+
+		     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+		---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+		      7369 SMITH      CLERK           7902 17-DEC-80        800                    20
+		      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30
+		      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30
+		      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30
+		      7566 JONES      MANAGER              02-APR-81       2975                    20
+		      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30
+		      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10
+		      7788 SCOTT      ANALYST         7566 09-DEC-82       3000                    20
+		      7839 KING       PRESIDENT            17-NOV-81       5000                    10
+		      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30
+		      7876 ADAMS      CLERK           7788 12-JAN-83       1100                    20
+
+		     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+		---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+		      7900 JAMES      CLERK           7698 03-DEC-81        950                    30
+		      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20
+		      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10
+		       200 kiran      CLERK                                                        50
+
+		15 rows selected.
+
+		SQL>
+
+
+		SQL> delete from v1;
+		delete from v1
+		            *
+		ERROR at line 1:
+		ORA-42399: cannot perform a DML operation on a read-only view
+
+		 - Here only perform to read only we cant change or insert or update rows into v1 
+
+	6. Creating a JOIN view example
+	 - creating view from different tables using join  
+
+
+		SQL> create view emp_dept as select e.empno,e.ename,e.sal,d.deptno,d.loc from employee e,dept d where  e.deptno=d.deptno and loc in('HYD','CHENNAI');
+
+		View created.
+
+		SQL>
+
+
+		SQL> select * from emp_dept;
+
+		     EMPNO ENAME             SAL     DEPTNO LOC
+		---------- ---------- ---------- ---------- ---------------
+		      7934 MILLER           1300         10 HYD
+		      7782 CLARK            2450         10 HYD
+		      7839 KING             5000         10 HYD
+		      7566 JONES            2975         20 CHENNAI
+		      7369 SMITH             800         20 CHENNAI
+		      7788 SCOTT            3000         20 CHENNAI
+		      7902 FORD             3000         20 CHENNAI
+		      7876 ADAMS            1100         20 CHENNAI
+
+		8 rows selected.
+
+		SQL>
+
+	7. we can create a future view object using force 
+
+		SQL> CREATE FORCE VIEW V2 AS SELECT * FROM FTR_TBL;
+
+		Warning: View created with compilation errors.
+
+		SQL> CREATE TABLE FTR_TBL(NO NUMBER(2));
+
+		Table created.
+
+		SQL> DESC V2;
+		 Name                                                                                                   Null?    Type
+		 ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+		 NO                                                                                                      NUMBER(2)
+
+		SQL>
+
+
+
+ DROP VIEW statement syntax
+	- DROP VIEW schema_name.view_name [CASCADE CONSTRAINT];
+
+	CASCADE CONSTRAINT
+	 - Third. if a view has any constraint, you must specify the CASCADE CONSTRAINT clause to drop all referential integrity constraints that refer to primary key and unique keys in the view.
+	 - if you don't do so, then the DROP VIEW statement will fail in case such constraints exist.  
+
+
+
+Updatable View
+---------------
+	- A view behave like a table because you can query data from it, however you cannot always manipulate data via views 
+	- A view is updatable if the statement against the view can be translated into the corresponding statement against the underlying table 
+
+
+
+	some examples to practice
+		1. The below following sql statements create the cars and brands tables and also insert sample data into these tables 
+
+			CREATE TABLE brands(
+				brand_id NUMBER(3) GENERATED BY DEFAULT AS IDENTITY,
+				brand_name VARCHAR2(30) NOT NULL,
+				PRIMARY KEY(brand_id)
+			);
+
+			INSERT INTO brands(brand_name) VALUES('Audi');
+			INSERT INTO brands(brand_name) VALUES('BMW');
+			INSERT INTO brands(brand_name) VALUES('Ford');
+			INSERT INTO brands(brand_name) VALUES('Honda');
+
+
+			CREATE TABLE cars (
+				car_id NUMBER(3) GENERATED BY DEFAULT AS IDENTITY,
+				car_name VARCHAR2(30) NOT NULL,
+				brand_id NUMBER NOT NULL,
+				PRIMARY KEY(car_id),
+				FOREIGN KEY(brand_id) REFERENCES brands(brand_id) ON DELETE CASCADE
+			);
+
+			INSERT INTO cars (car_name,brand_id) VALUES ('Audi R8 Coupe',1);
+			INSERT INTO cars (car_name,brand_id) VALUES ('Audi Q2',1);
+			INSERT INTO cars (car_name,brand_id) VALUES ('Audi S1',1);
+			INSERT INTO cars (car_name,brand_id) VALUES ('BMW 2-series Cabrio',2);
+			INSERT INTO cars (car_name,brand_id) VALUES ('BMW i8',2);
+			INSERT INTO cars (car_name,brand_id) VALUES ('Ford Edge',3);
+			INSERT INTO cars (car_name,brand_id) VALUES ('Ford Mustang fastback',3);
+			INSERT INTO cars (car_name,brand_id) VALUES ('Honda S2000',4);
+			INSERT INTO cars (car_name,brand_id) VALUES ('Honda Legend',4);
+			INSERT INTO cars (car_name,brand_id) VALUES ('Toyota GT86',5);
+			INSERT INTO cars (car_name,brand_id) VALUES ('Toyota C-HR',5);
+
+		2. Below statement will create new view named cars master 
+
+			CREATE VIEW  cars_master AS 
+			SELECT 
+				car_id, car_name
+			FROM 
+				cars;
+
+		3. using below statement its possible to delete a row from the cars table via the cars_master view example
+
+			DELETE FROM cars_master WHERE car_id = 1;
+
+		4. Using below statement we able to update any column values exposed to the cars_master view 
+
+			UPDATE
+				cars_master
+			SET 
+				car_name = 'Audi RS7 Sportback'
+			WHERE
+				car_id = 2;
+
+			Note: We able to insert and update from the cars table via cars_master view becasue Oracle can translate the INSERT and UPDATE statements to the corresponding statements and excute them against the cars table 
+			- However insert a new row into the cars table via the cars_master view is not possible. Because the cars tables has not null column (brand_id) without a default value  
+
+			INSERT INTO cars_master VALUES ('Audi S1 Sportback');   /* error */
+
+
+
+		5. Oracle updateable join View example 
+
+			- lets create a join view named all_cars based on the cars and brands tables 
+
+				CREATE VIEW all_cars AS 
+				SELECT 
+					car_id,
+					car_name,
+					c.brand_id,
+					brand_name
+				FROM 
+					cars c
+				INNER JOIN brands b ON
+					b.brand_id = c.brand_id;
+
+			- The following command will insert a new row into the cars table via the call_cars view
+				INSERT INTO all_cars(car_name, brand_id) VALUES('Audi A5 Cabriolet',1);
+				 
+
+
+	Updating join view restrictns:
+	------------------------------
+		- The SQL statement e.g INSERT,UPDATE, and DELETE, is only allow to modify data from a single base table 
+		- For an INSERT statement, all colum listed in the INTO clause must belongs to a key-preserved table
+		- For an UPDATE statement, all columns in the SET clause must belong to a key preserved table 
+		- For DELETE statement, if the join results in more than one key-preserved table, the oracle deletes from the first table in the FROM clause 
+
+		Besides these restrictions, Orale also requires that the defining query does not contain any of the following elements:
+			- Aggregate funtions e.g AVG,COUNT,MAX,MIN, and SUM
+			- DISTINCT operator
+			- GROUP BY clause 
+			- HAVING clause 
+			- Set operators e.g UNION, UNION ALL, INTERSECT, and MINUS.
+			- START WITH or CONNECT BY clause
+			- ROWNUM pseudo-column
+

@@ -1,0 +1,22 @@
+ Function based indexes
+ -----------------------
+ 	- Function based indexes are built on expressions rather than on column values 
+ 	- A function-based index Calculates the result of a function that involves one or more columns and stores that result in the index 
+
+ 		syntax:
+
+ 			CREATE INDEX index_name
+ 			ON table_name (expression)
+
+ 		expression
+ 			- it can be an arthematic expression or an expression that contains a function such as a SQL function, PL/SQL function, and package function 
+
+
+ 		Examples of funtion based index
+
+ 		1.	create index members_last_name_fi
+ 			ON members(UPPER(last_nanme));
+
+ 		2.  create index salcomm_ind on emp (sal+comm);
+
+

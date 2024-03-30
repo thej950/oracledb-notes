@@ -1,0 +1,179 @@
+PLSQL in Oracle
+-----------------
+ - plsql is a block struchred language, The programs of PL/SQL are logical blocks that can containe any number of nested sub blocks
+ - PL/SQL stands for procedural Language extension of SQL this is used in Oracle 
+ - PLSQL is integrated with Oracle Database (since version 7) 
+ - The Functionality of PL/SQL usually extended after each release of Oracle database 
+ - Although PL/SQL is closely integrated with SQL Language yet it adds some programming constraints that are not available in SQL 
+ 
+	PL/SQL Basic Syntax:				
+	--------------------
+		DECLARE 
+		<declaration section>
+		BEGIN
+		<excuteable commands>
+		EXCEPTION
+		<exception handling>
+		END;
+
+	Example:
+	--------
+		DECLARE
+			message varchar2(20):='Hello, World!';
+		BEGIN
+			dbms_output.put_line(message);
+		END;
+		/
+		
+	Comments in PLSQL
+	-----------------------
+		- comments are used for write some content which is not excuted by sql 
+		- comments are mostly used to understand statements we write comments 
+		- PLSQL supports single line and multi line comments 
+		- the plsql single line comment start with delimeter -- (double hyphens)
+		- multiline comments are /* here multipline comments */
+		
+			PLSQL Programm Units 
+			----------------------
+				- PL/SQL block
+				- Function 
+				- Package 
+				- Package body
+				- Procedure 
+				- Trigger 
+				- Type 
+				- Type body 
+				
+		PLSQL - DNMS Output
+		---------------------
+			- The DBMS_OUTPUT is a built-in package that enable you to display output, debugging information, and send messages from PLSQL blocks, subprograms, packages, and triggers 
+			
+			DBMS_OUTPUT Subprograms 
+			------------------------
+				
+				1. DBMS_OUTPUT.DISABLE;	-- To DISABLE message output
+				2. DBMS_OUTPUT.ENABEL(buffer_size IN INTEGER DEFAULT 20000);  -- Enable message output. A NULL value of buffer_size represents unlimited buffer size 
+				3. DBMS_OUTPUT.GET_LINE (line OUT VARCHAR2, status OUT INTEGER); -- Retrieve a single line of buffered information 
+				4. DBMS_OUTPUT.GET_LINES (lines OUT CHARARR, numlines IN OUT INTEGER); -- Retrieve a array of lines from the buffer 
+				5. DBMS_OUTPUT.NEW_LINE; -- Puts an end of a line marker
+				6. DBMS_OUTPUT.PUT (item IN VARCHAR2); -- places a partial line in the buffer 
+				7. DBMS_OUTPUT.PUT_LINE (item IN VARCHAR2); -- Places a line in the buffer 
+				
+			PLSQL user input
+			-----------------
+				- In plsql user can prometed to input a value using charecter & can be used to prompt input for different data types 
+					1. Numeric Value - 
+					& is used to input numeric values from the user 
+						syntax:
+							&value
+					2. Text value - 
+					& can also be used to input text values from the user 
+						syntax:
+							'&value'
+					
+			How To write and excute plsql programming
+			-------------------------------------------
+				1. Type Your code in text editor like Notepad, Notepad++ or EditPluse etc...
+				2. save the file with .sql extension in home directory 
+				3. Launch the sql*pluse command prompt from the directory where you created your plsql file 
+				4. type @file_name at the sql*plus command prompt to excute your program
+				
+				
+		Note: To create any file in SQL < edit file_name >
+
+		Note: To Run SQL file < @file_name 
+								/  
+		Note: To see Output on Terminal < SET SERVEROUTPUT ON >
+
+	- To Pass store value in variable 
+	- To use variable in data Observe below File
+
+		SQL> edit sample_file
+		------------------------------------------
+		DECLARE 
+
+		X NUMBER(5);
+
+		BEGIN
+
+		X:=345;
+
+		DBMS_OUTPUT.PUT_LINE('The value of X is '||TO_CHAR(X));
+
+		END;
+		-------------------------------------------------
+
+			- from above DECLARE is used to declare variable with datatype
+			- X NUMBER(5); it is for storing NUMBER datatype into X variable by help of DECLARE keyword 
+			- from above BEGIN keyword from here actual sql statement started 
+			- X:=345; here we are defining 345 value for X variable so x will containe 345 value in it whenever we pass X variable it will show 345 value
+			- DBMS_OUTPUT.PUT_LINE it is used to print a line in SQL 
+			- END; this keyword will tell SQL statement is completed 
+
+		SQL> edit sample_file2
+		---------------------------------------------------
+		DECLARE
+
+		X NUMBER(5);
+		Y NUMBER(5);
+		Z NUMBER(5);
+
+		BEGIN
+
+		X:=100;
+		Y:=200;
+		Z:=X+Y;
+
+		DBMS_OUTPUT.PUT_LINE('THE VALUE OF Z IS '||TO_CHAR(Z));
+
+		END;
+		--------------------------------------------------------
+
+		- now i want to give values at the time of excution file observe below file 
+		- Give < &variable > then it will ask at the time excution of file 
+
+		SQL> edit sample_file3
+		---------------------------------------------------------------
+		DECLARE
+
+		X NUMBER(5);
+		Y NUMBER(5);
+		Z NUMBER(5);
+
+		BEGIN
+
+		X:=&X;
+		Y:=&Y;
+		Z:=X+Y;
+
+		DBMS_OUTPUT.PUT_LINE('THE VALUE OF Z IS '||TO_CHAR(Z));
+
+		END;
+		-------------------------------------------------------------------
+		- when we run above file it will ask values from user input 
+
+		- Now observer below file also for using string how we give data 
+		SQL> edit sample_file4
+		-----------------------------------------------------------------
+		DECLARE
+
+		ENO NUMBER(5);
+		ENAME VARCHAR2(25);
+		JOB VARCHAR2(15);
+		SAL NUMBER(10);
+
+		BEGIN
+
+		ENO:=&ENO;
+		ENAME:=&ENAME;
+		JOB:=&JOB;
+		SAL:=&SAL;
+
+		DBMS_OUTPUT.PUT_LINE('ENO='||TO_CHAR(ENO));
+		DBMS_OUTPUT.PUT_LINE('ENAME='||ENAME);
+		DBMS_OUTPUT.PUT_LINE('JOB='||JOB);
+		DBMS_OUTPUT.PUT_LINE('SAL='||TO_CHAR(SAL));
+
+		END;
+		------------------------------------------------------------------
+		
