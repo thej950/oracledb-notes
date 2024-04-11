@@ -1,0 +1,157 @@
+While Loop
+-----------
+  While Loop 
+   - The while loop is tested each pass through the loop 
+   - if the condition evalutes true, the loop body will excuted 
+   - If the condition evalutes to FALSE. the loop is terminated 
+   	
+   	syntax:
+   		WHILE condition 
+   		LOOP
+   			{..statement..}
+   		END LOOP;
+
+	------------
+	 - while loop example
+	 SQL> edit sample_file
+	 -------------------------------------
+	 DECLARE
+	 x number(3);
+
+	 begin
+	 x:=1;
+
+	 while x<=10
+	 loop
+
+	 dbms_output.put_line(x);
+
+	 end loop;
+
+	 end;
+	 ----------------------------------------
+
+	  - another example of usage of while loop 
+	  SQL> edit sample_file2
+	  ---------------------------------------
+	  declare 
+	  x number(3);
+	  s number(3);
+
+	  begin
+	  s:=0;
+	  x:=1
+
+	  while x<=10
+	  loop
+	  dbms_output.put_line(x);
+
+	  x:=x+1;
+	  s:=s+x;
+
+	  end loop;
+
+	  dbms_output.put_line('The sum of 1 to 10 is '||to_char(s));
+
+	  end;
+	  -----------------------------------------------
+
+	  
+
+FOR LOOP
+--------
+ - it will allow you to excute code repeatably for a fixed number of times 
+ 	syntax:
+ 		FOR loop_counter IN [REVERSE] lowest_number..highest_number
+ 		LOOP
+ 		  {..statements..}
+ 		END LOOP;
+
+
+ For Loop Examples
+ --------------------
+ 	SQL>edit sample_file3
+ 	--------------------------------------
+ 	declare
+ 	x number(3);
+
+ 	begin
+ 	for x in 1..10
+ 	loop
+
+ 	dbms_output.put_line(x);
+ 	end loop;
+ 	end;
+
+ 	----------------------------------------
+ 		or To reverse 
+ 	--------------------------------------
+ 	declare
+ 	x number(3);
+
+ 	begin
+ 	for x in reverse 1..10
+ 	loop
+
+ 	dbms_output.put_line(x);
+ 	end loop;
+ 	end;
+
+ 	----------------------------------------
+ 	
+ 	- using for loop multiplications 
+ 	SQL>edit sample_file5
+ 	--------------------------------------------
+ 	declare
+ 	x number(3);
+ 	y number(3);
+
+ 	begin
+ 	x=:&x;
+
+ 	for y in 1..10
+ 	loop
+
+ 	dbms_output.put_line(to_char(x) || '*' ||to_char(y) || '=' ||to_char(x*y));
+ 	end loop;
+ 	end;
+ 	-------------------------------------------------
+ 	
+ 	Loop
+-----
+ - Loops are iterative in control statements
+ - they are used to repeat excution of one or more statements for defined number of times 
+ synrax:
+  LOOP
+  sequence of statements;
+  END LOOP;
+
+
+EXIT LOOP
+-----------
+ - it is used to set of statements is excuted at least once before termiation of loop 
+ - there should be an EXIT sttement in the LOOP. otherwise the loop will get into an infinite number of iterations 
+ syntax:
+  LOOP
+  statements;
+  EXIT;
+  [or EXIT WHEN Condition]
+
+
+  Practicles
+  -----------
+
+  	SQL> edit file1
+  	-----------------------------------
+  	declare
+  	number(3);
+  	begin
+  	x:=1;
+  	loop
+  	dbms_output.put_line(x);
+  	x:=x+1;
+  	exit when x>10
+  	end loop;
+  	end;
+  	-------------------------
+  	

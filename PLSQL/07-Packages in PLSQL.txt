@@ -1,0 +1,265 @@
+Packages in PLSQL
+-------------------
+ - PLSQL package is a logical grouping of Related subprogram (functions/procedures) into a single element 
+ - in simple words a package consist of functions and procedures 
+ - A package is compiled and stored as a database object that can be used later 
+ 
+ Components of packages
+ -------------------------
+  - plsql package has two components
+   1. Package specifications 
+      - A package specifications consists of a declaration of all public variable,cursors,objects,procedures,functions, and exceptions 
+	 
+   2. Package body 
+	  - A package Body Consists of definition of all elements those are not declared in the specification
+	  - these elements are called private elements and these can be called only from inside the package 
+
+	Benifits of Using Packages
+	---------------------------
+	 1. REUSABILITY
+		- whenever a package got created it is compiled and stored in the database so you write the code once which can be reused by other applications 
+	 2. OVERLOADING
+		- Two or more procedures or functions can be created in package with the same name 
+	 3. CREATING MODULES
+		- A Large application can be created by simply creating modules (or subprograms) to clearly defined as easy to work 
+	 4. IMPROVES PERFORMANCE
+		- package code gets loaded inside SGA(system global area) of oracle at first call itself due to which other subsequent calls will work very fast 
+	 5. GLOABL DECLARATION
+		- If the objects (procedures, functions, variables,constants,exceptions,cursors, etc) are declared globally in a package they can easily used when required 
+		
+		
+	To create a Package in Order wise:
+		
+		1. create package with specifications or declaration
+		2. create package body with functions and procedures
+		3. create a program to call these packages 
+	
+		
+		1. Package specification or declaration Syntax:
+		------------------------------------------------
+			
+			CREATE OR REPLACE PACKAGE <package_name> IS/AS
+				FUNCTION <function_name> (<list of arguments>)
+				RETURN <datatype>;
+				PROCEDURE <procedure_name> (<list of arguments>);
+				-- code statements 
+			END <package_name>
+			
+		2. Package Body Syntax:
+		------------------------
+			
+			CREATE OR REPLACE PACKAGE BODY <package_name> IS/AS
+				
+				FUNCTION <function_name> (<list of arguments>) RETURN <datatype> IS/AS
+					-- local variable declarations;
+					BEGIN
+						-- excutable statements;
+					EXCEPTION
+						-- error handling statement;
+				END <function_name>;
+				
+				PROCEDURE <procedure_name> (<list of arguments>) IS/AS
+					-- local cariable declaration;
+					BEGIN
+						-- excutable statements;
+					EXCEPTION
+						-- error handling statements;
+				END <procedure_name;
+			
+			END <package_name>;
+	
+		3. Syntax For Reffering a package object:
+		--------------------------------------
+			package_name.object_name;
+		
+			
+			
+			
+Practicals
+-------------
+SQL>edit file1
+---------------------------------------
+ 
+ CREATE OR REPLACE PACKAGE 	pack_calc IS
+ 
+	 FUNCTION add(a number,b number) RETURN number;
+	 FUNCTION substract(a number,b number) RETURN number;
+	 FUNCTION multi(a number,b number) RETURN number;
+	 FUNCTION division(a number,b number) RETURN number;
+ 
+ END pack_calc;
+-------------------------------------------------
+	SQL>@file1 -> not above file run and specification for pack_calc package got created 
+
+SQL>edit file2
+-------------------------------------------------
+ CREATE OR REPLACE PACKAGE BODY pack_calc IS 
+	FUNCTION add(a number, b number) RETURN number IS 
+	BEGIN
+	RETURN a+b;
+	END;
+	
+	FUNCTION substract(a number, b number) RETURN number IS 
+	BEGIN
+	RETURN a-b;
+	END;
+
+	FUNCTION multi(a number, b number) RETURN number IS 
+	BEGIN
+	RETURN a*b;
+	END;
+
+	FUNCTION division(a number, b number) RETURN number IS 
+	BEGIN
+	RETURN a/b;
+	END;
+ 
+ END pack_calc;
+--------------------------------------------------------------
+	SQL>@file2 ->above file will run and package body got created 
+	
+SQL>edit file3
+------------------------------------------------------------------------
+ set serveroutput on;
+ declare 
+ x number;
+ y number;
+ begin
+	x:=&x;
+	y:=&y;
+	dbms_output.put_line('The Addtion is '||pack_calc.add(x,y));
+	dbms_output.put_line('The substract is '||pack_calc.substract(x,y));
+	dbms_output.put_line('The multi is '||pack_calc.multi(x,y));
+	dbms_output.put_line('The division is '||pack_calc.division(x,y));
+ end;
+-----------------------------------------------------------------------------------
+
+
+
+Example-1: Lets take a employee table update a record and delete a record with using employee number and employee name 
+
+SQL>edit file1
+---------------------------------
+ CREATE OR REPLACE PACKAGE pkg_emp IS
+	PROCEDURE updateRecord(eno employee.empno%type);
+	FUNCTION deleteRecord(enm employee.ename%type)
+		RETURN boolean;
+ END pkg_emp;
+----------------------------------
+ SQL>@file1 -> now package specification got created 
+
+SQL>edit file2
+--------------------------------------------
+ set serveroutput on;
+ CREATE OR REPLACE PACKAGE BODY pkg_emp IS 
+	
+	PROCEDURE updateRecord(eno employee.empno%type) IS 
+		BEGIN
+			update employee set comm=100 where empno=eno;
+			
+			IF SQL%FOUND THEN 
+				dbms_output.put_line('Recod updated');
+			ELSE
+				dbms_output.put_line('Recod not found');
+			END IF;
+		END updateRecord;
+	
+	FUNCTION deleteRecord(enm employee.ename%type) RETURN boolean IS
+		BEGIN
+			delete from employee where ename=enm;
+			RETURN SQL%FOUND;
+		END deleteRecord;
+ END pkg_name;
+--------------------------------------------------------
+ SQL>@file2 -> now package body got created 
+ 
+SQL>edit file3
+--------------------------------------------------------
+ set serveroutput on;
+ DECLARE 
+	eno employee.empno%type;
+	e_comm employee.comm%type;
+	enm employee.ename%type;
+	
+	BEGIN
+		eno :=&eno;
+		enm :=&'enm';
+		pkg_emp.updateRecord(eno);
+		IF pkg_emp.deleteRecord(enm) THEN
+			dbms_output.put_line('Recod deleted');
+		ELSE
+			dbms_output.put_line('Recod not found');
+		END IF;
+	END;
+---------------------------------------------------------------------------
+
+Example-2: To find out name and job using employee id 
+SQL> edit file1
+--------------------------------------------------------------
+ CREATE OR REPLACE PACKAGE person_info AS 
+	
+	-- to get employee name and job
+	FUNCTION get_name_job(n_emp_id NUMBER)
+		RETURN VARCHAR2;
+	
+	-- to get employee salary 
+	FUNCTION get_salary(n_emp_id NUMBER)
+		RETURN NUMBER;
+ 
+ END person_info;
+-------------------------------------------------------------------
+ SQL>@file1 -> package specifiucation got created 
+ 
+SQL>edit file2
+----------------------------------------------------------
+ CREATE OR REPLACE PACKAGE BODY person_info AS 
+	
+	-- to get employee name and job
+	FUNCTION get_name_job(emp_id NUMBER) RETURN VARCHAR2 IS
+		name_job VARCHAR2(50);
+		
+	BEGIN
+		SELECT ename || ' is working as ' || job
+		INTO name_job
+		FROM employee
+		WHERE empno = emp_id;
+		RETURN name_job;
+	END;
+	
+	-- to get salary
+	FUNCTION get_salary(emp_id NUMBER) RETURN NUMBER IS
+		n_salary NUMBER(8,2);
+	BEGIN
+		SELECT sal
+		INTO n_salary
+		FROM employee
+		WHERE empno = emp_id;
+		
+		RETURN n_salary;
+	
+	END;
+ END person_info;
+-------------------------------------------------------------------
+ SQL>@file2 ->package specification body gets created 
+
+
+SQL> file3
+----------------------------------------------------
+ SET SERVEROUTPUT ON;
+ DECLARE 
+	salary NUMBER(8,2);
+	name_job VARCHAR2(46);
+	emp_id NUMBER := &emp_id;
+ 
+ BEGIN
+	name_job := person_info.get_name_job(emp_id);
+	salary := person_info.get_salary(emp_id);
+	
+	IF name_job IS NOT NULL AND salary IS NOT NULL THEN 
+		dbms_output.put_line('Epmloyee: '|| name_job);
+		dbms_output.put_line('Salary: '|| salary);
+	END IF; 
+ END;
+---------------------------------------------------------------
+	
+

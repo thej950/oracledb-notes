@@ -1,0 +1,205 @@
+Subprograms in PLSQL
+----------------------
+ - PlSQL subprograms are named plsql blocks That can be invoked with a set of Parameters 
+ - PLSQL Provides Two kind of subprograms
+	
+	1. Procedures Subprograms
+	  - Procedures Subprograms are not return value directly they intend to perform certain actions
+	  
+	2. Function Subprograms
+	  - Function Subprograms are a value directly  
+	
+	PLSQL Subprograms Advantages
+	  - Subprograms are help to extend PLSQL language 
+	  - Here Procedures act like new statements 
+	  - Function are act like new expression or operators
+	  - Subprograms break a program into manageable and well defined modules
+	  - Subprograms promote Re-Useability 
+	  - Subprograms Promote Maintainability 
+	  
+	
+	PARTS Of PLSQL subprograms
+	  Parts and Description:
+	  ----------------------
+	   1. Declarative Part
+	    - It is an optional part however the declarative part for subprograms does not start with DECLARE keyword
+		- it containes declarations of types, cursors, constants, variable, exceptions and nested subprograms these items are local to subprograms and case to exists when subprograms complete excution
+	   
+	   2. Executable Part
+	    - This is a mandatory part containe statements those will perform designated actions 
+	   
+	   3. Exception Handling
+	    - This is also an optional part it contains code to handle runtime errors 
+		
+		
+	PARAMETER MODES in PLSQL Subprograms
+	  parameter and Description:
+	  --------------------------
+		1. IN 
+		   - An IN parameter let you pass a value to the subprogram it is a read only parameter
+		   - Inside subprogram an IN parameter act like constant it cannot assigned a value 
+		   - you can pass constant literal initialised variable or expression as on IN parameter
+		   - you can also initialise it to a default value however in that case it is omitted from the subprogram call 
+		   - it is the default mode of parameter passing parameters are passed by reference 
+		
+		2. OUT 
+		   - An OUT parameter return a value to calling program inside the subprogram An OUT parameter act like variable 
+		   - You can change it value after assigning it The actual parametr must be variable and it is passed by value 
+		   
+		3. IN OUT 
+		   - An IN OUT parameter passes a initial value to a subprogram and return a updated value to the caller 
+		   - it can be assigned a value and value can be read 
+		   - The actual parameter corresponding to an IN OUT formal parameter must be a variable not a constant or an expression formal parameters must be assigned a value actual parameter is passed by value 
+
+
+	PLSQL Stored Procedures
+	------------------------
+	  - The plsql stored procedures are simply a procedures is a blocks which perform one or more specific tasks
+	  
+	CREATE Procedures
+	----------------
+		Syntax:
+			CREATE [OR REPLACE] PROCEDURE procedure_name [(parameter[,parameter])]
+			IS 
+			  [declaration_section]
+			BEGIN
+			  [Excution_section]
+			EXCEPTION
+			  [Exception_section]
+			END [procedure_name];
+			
+			
+	
+
+	Executing a standalone procedure 
+		- a standalone procedure can be called in two ways 
+		 1. using EXECUTE keyword
+		 2. Calling the name of the procedure from PLSQL block 
+	Deleting a standalone procedure 
+		- DROP PROCEDURES procedure_name;
+
+
+
+Practice 
+---------
+	SQL> file1
+	------------------------------
+	 CREATE PROCEDURE sample_name
+	 IS
+	 BEGIN
+	 dbms_output.put_line('Hello PLSQL');
+	 END;
+	 /
+	----------------------------------
+		SQL>@file1
+			- above command to Run above file so procedure got created 
+		 
+		SQL> EXEC sample_name 
+			- above command used to run procedure 	
+	
+	Note: Here we can call procedure in command prompt and in file sql file also 
+	
+	SQL> edit file2
+	----------------------------------
+	 begin 
+	 sample_name;
+	 sample_name;
+	 sample_name;
+	 end;
+	----------------------------------
+	 SQL> @file2 -> this command used to run sql file 
+	 - from above file we can use procedure name multiple times also 
+	
+	- Lets create a procedure for deleting employee information based on employee number we type accordingly delete employee information 
+	SQL> edit file3
+	------------------------------------
+	 create procedure delemp(eno in number)
+	 is 
+	 begin
+	 DELETE FROM EMPLOYEE WHERE empno=eno;
+	 dbms_output.put_line('The Employee Got Deleted');
+	 end;
+	 /
+	-----------------------------------------
+	 SQL>@file3 -> by running this command procedure got created 
+	 SQL>exec delemp(7934) 
+		- from above command we performing to run delemp procedure with our employee number need to remove from table 
+	
+	
+	Example of Parameters Usage in procedures in PLSQL
+	-------------------------------------------------------
+	  SQL>edit file4 
+	  -------------------------------
+	   create procedure sqr(x in number, y out number)
+	   is 
+	   begin 
+	   y:=x*x*
+	  ----------------------------------
+	   SQL>@filr4 -> Now sqr procedure got created 
+	   
+	To call sqr 
+	-----------------------
+	 declare 
+	 a number:=2;
+	 b number;
+	 begin
+	 sqr(a,b);
+	 dbms_output.put_line('The squared value is '||to_char(b));
+	 end;
+	------------------------------------
+	- another example 
+	--------------------------------------
+	 create or replace procedure sqr(x in out number)
+	 is 
+	 begin 
+	 x:=x*x;
+	 end;
+	 /
+	-------------------------------------
+	------------------------------------
+	 declare 
+	 a number;
+	 begin
+	 sqr(a);
+	 dbms_output.put_line('The squared value is '||to_char(b));
+	 end;
+	 --------------------------------------
+	 
+	 
+	 
+	 
+PLSQL Function Subprograms
+----------------------------
+ - The plsql function is very similar to plsql procedure
+ - The difference between procedure and function is Function must return a value but procedure may not other than everything is same 
+ 
+ Syntax:
+ --------
+	CREATE [OR REPLACE] function function_name [parameter]
+	[(parameter_name [ IN | OUT | IN OUT ] type [,...])]
+	RETURN return_datatype
+	{IS | AS }
+	BEGIN
+		< function_body>
+	END [function_name];
+	
+	
+ PLSQL Recursive Function
+ -------------------------
+  - A program or subprogram may call to again a subprogram is called Recursive function 
+  
+  SQL> file1
+  -----------------------------
+   create or replace sum_sal
+   return number
+   is 
+   tot number;
+   begin
+   SELECT sum(sal) INTO tot FROM employee;
+   return tot;
+   end;
+  ----------------------------------------
+   SQL>@file1 -> this function got created and run in the database 
+   
+	
+

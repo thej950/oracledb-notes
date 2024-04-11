@@ -1,0 +1,92 @@
+Labels-GOTO and CASE
+---------------------
+
+GOTO statement
+--------------
+ - In PLSQL GOTO staement makes you able to get an unconditional jump from the GOTO to a specific executed statements in the subprogram of the PLSQL block 
+ - label_name is encapsulated within the << >> symbol
+ 	syntax:
+ 		GOTO label_name;
+ 			<<label_nanme>>
+ 				statements;
+
+
+ SQL> edit file1
+ ------------------------------
+ decclare 
+ x number(3);
+ begin
+ x:=1;
+
+ <<again>>
+ dbms_output.put_line(x);
+ x:=x+1;
+ if x<=10 then 
+ goto again;
+ end if;
+ end;
+ -----------------------------
+
+ SQL> edit file2
+ -----------------------------
+ declare
+ x number(3);
+ begin
+ x:=&x;
+ if x>10 then 
+ goto stop;
+ end if
+ dbms_output.put_line(x);
+
+ <<stop>>
+ dbms_output.put_line('the end');
+ end;
+ -------------------------------
+ 
+
+
+
+ CASE statements
+ ----------------
+  - THe PLSQL provides facility to excute a sequence of statements based on a seector. A selector may be variable, function or an expression.
+  	syntax:
+  		CASE [expression]
+  		WHEN condition1 THEN result1
+  		WHEN condition2 THEN result2
+  		.....................
+  		WHEN condition_n THEN result_n
+  		ELSE result
+  		END CASE
+
+  		SQL> edit file3
+  		-----------------------------------------------
+  		declare 
+  		x number(3);
+  		begin
+  		x:=&x;
+  		case x
+  		when 1 then 
+  		dbms_output.put_line('Sunday');
+
+  		when 2 then 
+  		dbms_output.put_line('Monday');
+
+  		when 3 then 
+  		dbms_output.put_line('Tuesday');
+
+  		when 4 then 
+  		dbms_output.put_line('Wednesday');
+
+  		when 5 then 
+  		dbms_output.put_line('Thursday');
+
+  		when 6 then 
+  		dbms_output.put_line('Friday');
+
+  		when 7 then 
+  		dbms_output.put_line('Saturday');
+
+  		end case;
+
+  		end;
+  		------------------------------------------------
