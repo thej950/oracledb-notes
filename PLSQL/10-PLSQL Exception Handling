@@ -1,0 +1,206 @@
+PLSQL Exception Handling
+-------------------------
+ - Exception Handling are to handle errors in programm effectively 
+ 
+ syntax:
+  DECLARE
+   <declaration section>
+  BEGIN
+   <excutable commands>
+  EXCEPTION
+   <exception handling goes here>
+   WHEN excption1 THEN
+    <exception1 handling statements>
+   WHEN exeption2 THEN
+    <exception2 handling statements>
+   ...........
+   ...........
+   WHEN others THEN
+    <Default exception hadling code for all expression>
+   END;
+
+Advantage of exception handling 
+--------------------------------
+ - if our code does not have exception handling then we have to verify errors each time to run program
+ - if we not use exceptional handling it may miss actual errors it will show other errors 
+ - the exceptional handling allows skipping multiple verificatios in the code it provides better readability of code to isolate errors 
+
+ Types of exceptions 
+ ----------------------
+  1. pre-defined exceptions 
+  2. user defined exceptions 
+
+  1. pre-defined exceptions
+  --------------------------
+   - Oracle has some pre-defined exceptions with unique name and numbers By Oracle defined in the Oracle Package  in code we can directly use them to avoid errors 
+
+	1. ACCESS_INTO_NULL (06530 / -6530) - Raised when a NULL object is automatically assigned a value.
+	2. CASE_NOT_FOUND (06592 / -6592) - Raised when none of the choices in the "WHEN" clauses of a CASE statement is selected, and there is no else clause.
+	3. COLLECTION_IS_NULL (06531 / -6531) - Raised when a program attempts to apply collection methods other than exists to an uninitialized nested table or varray, or the program attempts to assign values to the elements of an uninitialized nested table or varray.
+	4. DUP_VAL_ON_INDEX (00001 / -1) - Raised when duplicate values are attempted to be stored in a column with a unique index.
+	5. INVALID CURSOR (01001 / -1001) - Raised when attempts are made to make a cursor operation that is not allowed, such as closing an unopened cursor.
+	6. INVALID_NUMBER (01722 / -1722) - Raised when the conversion of a character string into a number fails because the string does not represent a valid number.
+	7. LOGIN DENIED (01017 / -1017) - Raised when a program attempts to log on to the database with an invalid username or password.
+	8. NO_DATA_FOUND (01403 / +100) - Raised when a SELECT INTO statement returns no rows.
+	9. NOT_LOGGED_ON (01012 / -1012) - Raised when a database call is issued without being connected to the database.
+	10. PROGRAM ERROR (06501 / -6501) - Raised when PL/SQL has an internal problem.
+	11. ROWTYPE MISMATCH (06504 / -6504) - Raised when a cursor fetches a value in a variable having an incompatible data type.
+	12. SELF IS NULL (30625 / -30625) - Raised when a member method is invoked, but the instance of the object type was not initialized.
+	13. STORAGE ERROR (06500 / -6500) - Raised when PL/SQL ran out of memory or memory was corrupted.
+	14. TOO_MANY_ROWS (01422 / -1422) - Raised when a SELECT INTO statement returns more than one row.
+	15. VALUE ERROR (06502 / -6502) - Raised when an arithmetic, conversion, truncation, or size-constraint error occurs.
+	16. ZERO_DIVIDE (01476 / 1476) - Raised when an attempt is made to divide a number by zero.
+ 
+
+practicles
+---------------
+ SQL> edit file1
+ -----------------------------------
+  DECLARE 
+   x number(3);
+   y number(3);
+   z number(3);
+
+  BEGIN
+   x:=&x;
+   y:=&y;
+   z:=x/y;
+
+   dbms_output.put_line('The divison is '||z);
+  END;
+ --------------------------------------
+
+ SQL> edit file2
+ ---------------------------------------
+  DECLARE 
+   x number(3);
+   y number(3);
+   z number(3);
+
+  BEGIN
+   x:=&x;
+   y:=&y;
+   z:=x/y;
+
+   dbms_output.put_line('The division is '||z);
+
+   EXCEPTION
+
+   WHEN ZERO_DIVIDE THEN
+   dbms_output.put_line('The division is not possible with zero');
+  END;
+ --------------------------------------------------
+
+ SQL> edit file3
+ -----------------------------------------------
+  DECLARE 
+   eno employee.empno%type;
+   sl employee.sal%type;
+
+  BEGIN
+   eno:=&eno;
+
+   select sal into sl from employee where empno=eno;
+   dbms_output.put_line('The salary is '||sl);
+
+   EXCEPTION
+    WHEN too_many_rows THEN
+    dbms_output.put_line('The salaries are more than one ');
+
+    WHEN no_data_found THEN
+    dbms_output.put_line('There is no employee with the number');
+
+   END;
+  ---------------------------------------------------
+
+ SQL> edit file4
+ --------------------------------------------------
+  DECLARE 
+   temp number;
+
+  BEGIN
+   SELECT s_name into temp from student where s_name='Suraj';
+   dbms_output.put_line('The s_name is '||temp);
+
+  EXCEPTION
+   WHEN value_error THEN
+   dbms_output.put_line('Error');
+   dbms_output.put_line('change data type of temp to varchar(20)');
+
+   WHEN no_data_found THEN
+   dbms_output.put_line('Required data not found');
+
+   WHEN too_many_rows THEN 
+   dbms_output.put_line('more than one row found');
+
+   WHEN others THEN 
+   dbms_output.put_line('unknown error found');
+  END;
+ ---------------------------------------------------------------
+
+2.USER Defined Exception 
+-----------------------
+ - PLSQL faciliates their user to define theire own eexceptions according to need of the prpgram 
+ - A user defined exception can be raised explicitly using either a RAISE STATEMENT or the procedure 
+ 	DBMS_STANDARD.RAISE_APPLICATION_ERROR
+
+ - RAISING Exceptions
+  - In the case of any internal database error, exceptions are raised by the database server automatically
+  - But it can be also need to raised explicitly by programmer by using command raise 
+
+  syntax for raising an exception
+  --------------------------------
+   DECLARE 
+    exception_name EXCEPTION;
+   BEGIN
+    IF condition THEN
+    RAISE Exception_name;
+   END IF;
+
+   EXCEPTION
+    WHEN exception_name THEN
+    statement;
+   END;
+  ------------------------------------
+
+Important Points need to be Note For Exception 
+-----------------------------------------------
+ - In funtion an eception should always either return value or raise exception further else Oracle will throw function returned without a value error at runtime
+ - Transaction controll statemnets can be given at exception handling block 
+ - SQLERRM and SQLCODE are the built in funtions that will give the exception message and code 
+ - if exception is not handled by default all active transactios will be rolled back 
+ - RAISE_APPLICATION_ERROR (-<error_code>,<error_message>) can be used instead of RAISE to raise the error  the user code and message 
+ - error code should be greater than 20000 and prefixed with '-'
+
+ Raise Application error procedure 
+ -----------------------------------
+  - The pricedure raise_application_error allow you to issue and user defined error from a code block or stored program 
+  - By using this procedure, you can report errors to the callers instead of returning unhandled exceptions 
+  - the raise_application_error has the following syntax
+  	RAISE_APPLICATION_ERROR(error_number,message[,{TRUE|FALSE}]);
+
+  	Following above syntax
+  	 - The error_number is a negitive iteger with the range from -20999 to -20000
+  	 - the message is a chara=ecter string that represent the error message it is length is upto 2048 bytes 
+  	 - if the third parameter is false, the error replaces all previouse errors if it is TRUE, the error is added to the stock previous errors 
+
+  Example of raise a application error
+  -----------------------------------
+   DECLARE 
+    myex EXCEPTION;
+    n number := &n;
+   BEGIN
+    FOR i IN 1..n LOOP 
+    dbms_output.put_line(i);
+    IF i=n THEN
+     RAISE myex;
+    END IF;
+   END LOOP;
+  EXCEPTION
+   WHEN myex THEN 
+    RAISE_APPLICATION_ERROR(-20015, 'loop finish');
+  END;
+  /
+ -------------------------------------------------------
+
+ 
