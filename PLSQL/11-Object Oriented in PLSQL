@@ -1,0 +1,225 @@
+Object Oriented in PLSQL
+------------------------
+ - Object oriented programming is especially used for building reuseable components and complex applications 
+ - They are organized around the "objects" rather than "actions" 
+ - The programs are desined to work and interact with entire object rather than single action 
+ - This concept allow the programmer to populate and manipulate the details at object entities level 
+ - PLSQL allows defining an object type which help in designing object oriented database in Oracle 
+ - An object type allow you to create composite types 
+ - Using objects allow you to implement real world objects with specific strucher of data and methods for operating it 
+ - Objects have attributes and methods 
+ - A attribute are properties of an objects state; and the methods are used for modeling its behaviour 
+
+ Create object in Oracle 
+ --------------------------
+  - An object type cannont be created at subprogram level, they can be created at only at schema level 
+  - once the object type is defined in the schema then the same can be used in the subprogram 
+  - The object type can be created using 'CREATE TYPE' the type body can be created only after creating its object type 
+
+  syntax:
+  --------
+  -----------------------------------------
+   CREATE TYPE <object_type_name> AS OBJECT 
+   (
+    <attributes_1> <datatype>,
+    ..
+    ..
+   );
+   /
+  -----------------------------------------------
+
+ ---------------------------------------------------
+  CREATE TYPE BODY <object_type_name> AS OBJECT
+  (
+   MEMBER [PROCEDURE | FUNCTION] <member_name>
+  IS
+   <declarative section>
+  BEGIN
+   <execution part>
+  END;
+  );
+  /
+ --------------------------------------------------------
+
+ Declaration and Initialization of object type
+ ---------------------------------------------
+  - Like other components in plsql object type are also needed to be declare before using them in the program 
+  - once the object type can be created it can be used in subprogram declaration section to declare a variable of that object type 
+  - whenever any variable declared in subprogram as object type at run time a new instance of the object type will be created and this newly created intstance can be reffered to the variable name By this way a single object type can store multiple values under differet instances 
+
+   syntax:
+   --------
+    DECLARE 
+     <variable_name> <object_type_name>;
+    BEGIN
+     ..
+     ..
+    END;
+    /
+
+  - Once the variable is declared as an object type in a subprogram it will be automatically null i.e the entire object itself null 
+  - it needs to be initialized with values to use them in the program 
+  - they can be initialized using constructors, constuctors are the implicit method of an object that can be reffered with the same name as that of the object type the below syntax shows the initialization of the object type 
+  
+  Syntax:
+  ----------
+   DECLARE 
+    <variable_name> <object_type_name>;
+   BEGIN
+    <variable_name> := <object_type_name>();
+   END;
+   /
+
+
+
+
+
+Object oriented PL/SQL Examples
+--------------------------------------
+
+For example you use address which comprises of streetno, locality, city, pin, country, in many tables. You define these columns in each table separately like
+-----------------------------------------------------------------------------------------------------
+	CREATE TABLE emp (
+	    empno NUMBER(5),
+	    Name VARCHAR2(20),
+	    Sal NUMBER(10,2),
+	    Streetno VARCHAR2(20),
+	    Locality VARCHAR2(20),
+	    City VARCHAR2(20),
+	    Pin VARCHAR2(7),
+	    Country VARCHAR2(20)
+	);
+
+	CREATE TABLE customers (
+	    custcode NUMBER(5),
+	    Name VARCHAR2(20),
+	    Bal NUMBER(10,2),
+	    Streetno VARCHAR2(20),
+	    Locality VARCHAR2(20),
+	    City VARCHAR2(20),
+	    Pin VARCHAR2(7),
+	    Country VARCHAR2(20)
+	);
+
+
+Instead of defining address columns again and again in each table, you can define an address datatype and then use this user defined datatype in all tables.
+-----------------------------------------------------
+Defining an Object Type
+
+The following example create an object type
+
+	CREATE TYPE address AS OBJECT (
+	    Streetno VARCHAR2(20),
+	    Locality VARCHAR2(20),
+	    City VARCHAR2(20),
+	    Pin VARCHAR2(7),
+	    Country VARCHAR2(20)
+	);
+
+
+Now you can use this datatype while defining tables emp and customer like this
+--------------------------------------------------------------------------------
+	CREATE TABLE emp (
+	    empno NUMBER(5),
+	    Name VARCHAR2(20),
+	    Sal NUMBER(10,2),
+	    Emp_addr address
+	);
+
+	CREATE TABLE customers (
+	    custcode NUMBER(5),
+	    Name VARCHAR2(20),
+	    Bal NUMBER(10,2),
+	    Cust_addr address
+	);
+
+
+=================================================
+Inserting Records in tables with object datatypes.
+To insert record into emp table you have to give the following statement.
+-----------------------------------------------
+	
+	INSERT INTO emp VALUES (101, 'Sami', 2000, address ('A.C.Gaurds Road', 'A.C.Gaurds', 'Hyd', '500004', 'India'));
+
+
+To update city of employee number 101 you have to give the following update statement
+------------------------------------------------
+	
+	UPDATE emp e SET e.Emp_addr.City = 'Bombay' WHERE e.empno = 101;
+
+To select rows from emp table give the following statement.
+------------------------------------------------
+	
+	select * from emp;
+
+To select only empno, name and city give the following statement.
+-----------------------------------------------------
+	
+	select e.empno, e.name, e.emp_addr.city from emp e;
+
+
+
+Objects with Member functions
+-----------------------------
+
+You can also create objects with member functions define within the object.
+
+For example the following statement creates an object with member functions
+
+	CREATE TYPE stud AS OBJECT (
+	    maths NUMBER(3),
+	    phy NUMBER(3),
+	    chem NUMBER(3),
+	    MEMBER FUNCTION tot RETURN NUMBER,
+	    MEMBER FUNCTION result RETURN VARCHAR2
+	);
+
+
+You have to define the MEMBER FUNCTION in OBJECT BODY. The following statement creates object body of STUD object
+-------------------------------------------------------------------------------------------
+
+	CREATE TYPE BODY stud AS 
+	  MEMBER FUNCTION tot RETURN NUMBER IS
+	    BEGIN
+	      RETURN(maths + phy + chem);
+	    END;
+	  
+	  MEMBER FUNCTION result RETURN VARCHAR2 IS
+	    t NUMBER(3);
+	    BEGIN
+	      t := maths + phy + chem;
+	      IF maths < 35 OR phy < 35 OR chem < 35 THEN
+	        RETURN('Fail');
+	      ELSIF t < 150 THEN 
+	        RETURN('Third');
+	      ELSIF t >= 150 AND t <= 180 THEN
+	        RETURN('Second');
+	      ELSE
+	        RETURN ('First');
+	      END IF;
+	    END;
+	END;
+
+
+
+
+Now you can use this object in defining students table
+------------------------------------------------------
+	CREATE TABLE students (
+	    rollno NUMBER(5),
+	    Name VARCHAR2(20),
+	    Marks stud
+	);
+
+To insert rows into students table give the following statement
+----------------------------------------------------------------
+	INSERT INTO students VALUES (101, 'Sami', stud(99, 88, 98));
+	INSERT INTO students VALUES (102, 'ravi', stud(50, 50, 50));
+	INSERT INTO students VALUES (103, 'anu', stud(34, 65, 98));
+
+
+To select the rows from students table, give the following statement.
+------------------------------------------------------------------------
+
+	SELECT s.rollno, s.name, s.marks.maths, s.marks.phy, s.marks.chem, s.marks.tot(), s.marks.result()
+	FROM students s;
