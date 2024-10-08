@@ -1,0 +1,15 @@
+ROLLUP
+--------
+ 1. The Rollup function is a SQL extension used to perform hierarchical aggregation 
+ 2. its typically used with Group By clause to compute subtotal and grand total across multiple levels of a hierarchy 
+
+ Q. write a query to calculate total salary of clerks from emp table by using Rollup function 
+
+ 	SELECT sal, SUM(sal) AS total_sal
+	FROM emp
+	WHERE job = 'CLERK'
+	GROUP BY ROLLUP(sal);
+
+
+	- GROUP BY ROLLUP(sal) groups the results by sal and computes a subtotal (sum) of sal for each group. The ROLLUP function will also provide a grand total of all the salaries at the end.
+	- SUM(sal) AS total_sal calculates the sum of salaries for each group and the grand total.

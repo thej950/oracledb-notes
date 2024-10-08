@@ -1,0 +1,173 @@
+Group Functions Or Aggregate Function
+---------------------------------------
+	- Oracle Having Following Group Functions 
+	 1. max()
+	 2. min()
+	 3. avg()
+	 4. sum()
+	 5. count(*)
+	 6. count(columnname)
+
+	- Generally group functions are used to work or operate with number values in table and retun single value 
+
+ 1. max():
+ 	- it return maximum number of values from a table column 
+
+ 	Q: write a query to display maximum salary from emp table 
+
+ 		select max(sal) from emp;
+
+ 			=============================
+			SQL> select max(sal) from emp;
+
+			  MAX(SAL)
+			----------
+			      5000
+
+			SQL>
+			================================
+
+	Q: write a query to display maximum date from hiredate from emp table 
+
+		select max(hiredate) from emp;
+
+			===================================
+			SQL> select max(hiredate) from emp;
+
+			MAX(HIRED
+			---------
+			12-JAN-83
+
+			SQL>
+			================================
+
+	Q: Display maximum ename value in emp table 
+
+		select max(ename) from emp;
+
+			===================================
+			SQL> select max(ename) from emp;
+
+			MAX(ENAME)
+			----------
+			WARD
+			=================================
+				- Why only ward names comes because 
+				- The MAX function, when used on a string column like ENAME, returns the lexicographically greatest value (i.e., the string that would appear last in alphabetical order).
+				- In the alphabet, W is one of the last letters, so WARD is considered the "greatest" or "maximum" string value among all the ENAME values.
+
+		- If we want to full row of ward employee from emp table 
+
+			SELECT * FROM EMP WHERE ENAME = (SELECT MAX(ENAME) FROM EMP);
+
+				==================================================================					
+				SQL> SELECT * FROM EMP WHERE ENAME = (SELECT MAX(ENAME) FROM EMP);
+
+				     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+				---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+				      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30
+
+				SQL>
+				===========================================================================
+
+
+
+ 2. min():
+ 	- it returns a minimum value from a table or column 
+
+ 		select min(sal) from emp;
+ 			
+ 			output=>800
+
+ 		select min(hiredate) from emp;
+ 			
+ 			output=>17-DEC-80
+
+ Note1.: In relational Databases we are not allowed to use group functions in where clause 
+
+
+		===============================================
+		SQL> select * from emp where sal=min(sal);
+		select * from emp where sal=min(sal)
+		                            *
+		ERROR at line 1:
+		ORA-00934: group function is not allowed here
+		===================================================
+
+ 3. avg(): 
+ 	- it returns avg from number datatype  column only 
+		=================================
+		SQL> select avg(comm) from emp;
+
+		 AVG(COMM)
+		----------
+		       550
+
+		SQL>
+		=====================================
+
+ Note2: In Oracle By default all group functions ingnores Null vallues except Count(*), If we want count null values in  group functions the we must use nvl() function
+
+		======================================= 	
+		SQL> select avg(nvl(comm,0)) from emp;
+
+		AVG(NVL(COMM,0))
+		----------------
+		      157.142857
+
+		SQL> 	
+		=======================================
+
+ 4. sum()
+ 	- it returns total number of dataype column 
+
+    Q: write a query to display total salary from emp table 
+
+		=============================    	
+		SQL> select sum(sal) from emp ;
+
+		  SUM(SAL)
+		----------
+		     29025
+		=================================
+
+ 5. count(*)
+ 	- it counts number of rows from a table
+
+		==================================	 	
+		SQL> select count(*) from emp;
+
+		  COUNT(*)
+		----------
+		        14
+
+		SQL>
+		======================================
+
+ 6. count(columnname)
+ 	-it counts number of rows for perticular column and it will avoid null value fom rows 
+
+		================================== 	
+		SQL> select count(comm) from emp;
+
+		COUNT(COMM)
+		-----------
+		          4
+
+		SQL>
+		==================================
+
+ Note3: If we want to count distint from table column then we can use distinct clause within count() function 
+
+
+ 		===========================================
+		SQL> select count(distinct(deptno)) from emp;
+
+		COUNT(DISTINCT(DEPTNO))
+		-----------------------
+		                      3
+
+		SQL> 
+		============================================
+
+		

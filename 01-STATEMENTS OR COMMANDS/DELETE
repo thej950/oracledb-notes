@@ -2,12 +2,12 @@ DELETE
 --------
  - Delete statement used to delete records from the table based on specified where condition 
 
- Basic syntax:
+ Basic syntax:	
 
  	DELETE FROM table_name
 	WHERE condition;
 
-		- DELETE FROM table_name specify which table nedd to be take and perform activity
+		- DELETE FROM table_name specify which table need to be take and perform activity
 		- WHERE condition specify where in the table which field need to be performed 
 		- Specifies the condition that determines which records to delete. If you omit the WHERE clause, all records in the table will be deleted.
 

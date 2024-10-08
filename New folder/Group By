@@ -1,0 +1,165 @@
+Group By
+----------
+	- Group By clause is used to divide similar data items into set of logical groups 
+	- group by clause automatically reduces number of rows in ach group 
+	- This group by clause is in select statement 
+
+	syntax:
+		select columnname,.....
+		from tablename
+		group by columnname;
+
+Q: write a query to display number of employees in each departments by using group by clause 
+	
+		================================	
+		SQL> select deptno,count(*)
+		  2  from emp
+		  3  group by deptno;
+
+		    DEPTNO   COUNT(*)
+		---------- ----------
+		        30          6
+		        10          3
+		        20          5
+
+		SQL>
+		======================================
+
+Q: write a query to display number of employees in each job in emp table by using group by clause 
+	
+		=========================			
+		SQL> select job,count(*)
+		  2  from emp
+		  3  group by job;
+
+		JOB         COUNT(*)
+		--------- ----------
+		CLERK              4
+		SALESMAN           4
+		ANALYST            2
+		MANAGER            3
+		PRESIDENT          1
+
+		SQL>
+		===========================
+
+Q: write a query to display minimum and maximum salary from each departments from emp table by using group by clause 
+		
+		======================================
+		SQL> select deptno,min(sal),max(sal)
+		  2  from emp
+		  3  group by deptno;
+
+		    DEPTNO   MIN(SAL)   MAX(SAL)
+		---------- ---------- ----------
+		        30        950       2850
+		        10       1300       5000
+		        20        800       3000
+		SQL>
+		===================================
+
+Note1:In all Relational databases we can also use group by clause without using group Functios also
+
+	Example:
+		======================		
+		SQL> select deptno
+		  2  from emp
+		  3  group by deptno;
+
+		    DEPTNO
+		----------
+		        30
+		        10
+		        20
+
+		SQL>
+		==========================
+
+
+Rule: Here in group by concept after select statement we specify normal column and group functions columns and Those Normal columns must be specify after group by clause also, If not specifying normal columns after group by clause then oracle DB will return an error
+
+
+SQL> SELECT DEPTNO,SAL
+  2  FROM EMP
+  3  GROUP BY DEPTNO;
+SELECT DEPTNO,SAL
+              *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression
+
+	-> from above error because we specify two normal columns after select command then after we only specify single column only thats why its shows error   
+	-> How many normal columns we specify after select command those many normal columns should be after group by clause  
+
+
+	Example-1:
+		===========================
+		SQL> SELECT DEPTNO,SAL
+		  2  FROM EMP
+		  3  GROUP BY DEPTNO,SAL;
+
+		    DEPTNO        SAL
+		---------- ----------
+		        30       1250
+		        20       2975
+		        30       2850
+		        20       3000
+		        10       1300
+		        10       5000
+		        30        950
+		        20        800
+		        30       1500
+		        20       1100
+		        30       1600
+		        10       2450
+
+		12 rows selected.
+
+		SQL>
+		====================================
+
+	Example-2:
+		===================================	
+		SQL> SELECT DEPTNO,JOB,SUM(SAL)
+		  2  FROM EMP
+		  3  GROUP BY DEPTNO,JOB;
+
+		    DEPTNO JOB         SUM(SAL)
+		---------- --------- ----------
+		        20 MANAGER         2975
+		        20 ANALYST         6000
+		        10 PRESIDENT       5000
+		        10 CLERK           1300
+		        30 SALESMAN        5600
+		        10 MANAGER         2450
+		        20 CLERK           1900
+		        30 MANAGER         2850
+		        30 CLERK            950
+
+		9 rows selected.
+
+		SQL>
+		=========================================================
+
+	-> observe above columns those columns must be in left to right specified in group by clause 
+
+
+
+Group by Clause Excution:
+--------------------------
+	- Whenever we are using or submitting group by clause into Oracle server first it will process select specified columns from group by clause and then only it returns 
+	- similarly data items into set of groups from that column and also automatically reduces number of rows in each group and this result is internally stord in result table. then only oracle server retrive select list specified columns from this result set table 
+
+	Example:
+		===============================================		
+		SQL> SELECT DEPTNO FROM EMP GROUP BY DEPTNO;
+
+		    DEPTNO
+		----------
+		        30
+		        10
+		        20
+
+		SQL>
+		==================================================
+
+		
